@@ -7,6 +7,8 @@ import { loginOrganizer } from '../../../api/OrganizerApi';
 import {loginSchema} from "../../../yup"
 import jwt_decode from "jwt-decode";
 import {useFormik} from "formik"
+import {useDispatch} from 'react-redux'
+import {setOrganizerDetails} from "../../../redux/organizerSlice"
 
 
 const initialValues={
@@ -16,6 +18,7 @@ const initialValues={
 
 function OrganizerLogin() {
   const navigate=useNavigate()
+  const dispatch= useDispatch()
 
 
   const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
@@ -27,7 +30,20 @@ function OrganizerLogin() {
       console.log("onsubmit");
        const response = await loginOrganizer(values)
        if (response.data.login) {
-        console.log(response.data.token);
+        console.log("hello");
+        console.log(response.data);
+        dispatch(
+          setOrganizerDetails({
+            id:response.data.organizer._id,
+            firstName:response.data.organizer.firstName,
+            lastName:response.data.organizer.lastName,
+            mobile:response.data.organizer.mobile,
+            image:response.data.organizer?.image,
+            email:response.data.organizer.email
+          })
+  
+        )
+        console.log("after dispatch");
         localStorage.setItem("organizertoken", response.data.token)
         toast.success(response.data.message);
         navigate("/organizer/home");
@@ -54,7 +70,21 @@ const responseMessage = async (response) => {
   });
   console.log(googleReg.data.login);
   if (googleReg.data.login) {
+    console.log(googleReg.data);
     toast.success(googleReg.data.message);
+      console.log("before");
+    dispatch(
+      setOrganizerDetails({
+        id:googleReg.data.organizer._id,
+        firstName:googleReg.data.organizer.firstName,
+        lastName:googleReg.data.organizerlastName,
+        mobile:googleReg.data.organizer.mobile,
+        image:googleReg.data.organizer?.image,
+        email:googleReg.data.organizer.email
+      })
+
+    )
+    console.log("after");
     localStorage.setItem("organizertoken", response.token)
    
     setTimeout(() => {

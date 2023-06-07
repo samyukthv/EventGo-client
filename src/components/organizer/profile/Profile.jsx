@@ -3,7 +3,7 @@ import dp from "../../../assets/images/avathar2.png";
 
 function Profile() {
   return (
-<div className="mt-18 bg-blue-100">
+<div className="mt-18 bg-blue-100 m-10">
   <div className="flex flex-col sm:flex-row w-full h-[80vh]">
     <div className="w-full sm:w-1/2 h-full mt-36 flex flex-col items-center">
       <div className="flex pl-6 md:pl-8 mt-[-20px]">
@@ -13,7 +13,9 @@ function Profile() {
         <h2 className="text-xl ml-4 sm:ml-10 font-bold ">Username</h2>
       </div>
       <div className="mt-4 text-center">
-        <h2 className="text-xl ml-4 sm:ml-10 ">About In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</h2>
+        <h2 className="text-xl ml-4 sm:ml-10 ">
+          About In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.
+        </h2>
       </div>
     </div>
     <div className="w-full sm:w-1/2 mt-20">
@@ -21,10 +23,6 @@ function Profile() {
         <div className="text-center">
           <h1 className="font-bold">200k</h1>
           <p>Followers</p>
-        </div>
-        <div className="text-center">
-          <h1 className="font-bold">5</h1>
-          <p>Posts</p>
         </div>
         <div className="text-center">
           <h1 className="font-bold">50000</h1>

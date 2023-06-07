@@ -29,3 +29,16 @@ export async function loginOrganizer(credentials){
         console.log("login error in api");
     }
 }
+
+
+
+export async function addEvent(fromData,config){
+    try {
+        console.log("this is add event organizer api");
+        const data= await organizerApi.post('/add-event',fromData,config)
+        return data
+    } catch (error) {
+        console.log("add event error is api");
+    }
+}
+

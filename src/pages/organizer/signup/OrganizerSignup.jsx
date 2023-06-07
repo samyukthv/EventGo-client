@@ -9,6 +9,8 @@ import {useFormik} from "formik"
 import {signUpSchema} from "../../../yup"
 import {auth} from "../../../firebase/Config"
 import {RecaptchaVerifier,signInWithPhoneNumber} from "firebase/auth" 
+import {useDispatch} from "react-redux"
+import { setOrganizerDetails } from '../../../redux/organizerSlice'
 
 const initialValues ={
     firstName: "",
@@ -22,6 +24,7 @@ const initialValues ={
 
 
 function OrganizerSignup() {
+
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
@@ -29,6 +32,8 @@ function OrganizerSignup() {
   const [verify,setVerify] =useState(null)
 
  const navigate=useNavigate()
+ const dispatch= useDispatch()
+
 
 const {values,errors,touched,handleBlur,handleChange,handleSubmit}=
   useFormik({
@@ -102,8 +107,21 @@ const {values,errors,touched,handleBlur,handleChange,handleSubmit}=
       console.log(response);
       if (response.data.status) {
         console.log(response);
-        localStorage.setItem("organizertoken", response.data.token);
 
+        dispatch(
+          setOrganizerDetails({
+            id:response.data.organizerData._id,
+            firstName:response.data.organizerData.firstName,
+            lastName:response.data.organizerData.lastName,
+            mobile:response.data.organizerData.mobile,
+            image:response.data.organizerData?.image,
+            email:response.data.organizerData.email
+          })
+
+        )
+
+        localStorage.setItem("organizertoken", response.data.token);
+         
         navigate("/organizer/home");
       } else {
         toast.error("Invalid OTP");
@@ -141,7 +159,17 @@ const {values,errors,touched,handleBlur,handleChange,handleSubmit}=
       
       toast.error(googleReg.data.message);
     } else if(googleReg.data.google) {
-      
+      dispatch(
+        setOrganizerDetails({
+          id:googleReg.data.organizerData._id,
+          firstName:googleReg.data.organizerData.firstName,
+          lastName:googleReg.data.organizerData.lastName,
+          mobile:googleReg.data.organizerData.mobile,
+          image:googleReg.data.organizerData?.image,
+          email:googleReg.data.organizerData.email
+        })
+
+      )
       localStorage.setItem("organizertoken", googleReg.data.token)
       toast.success("organizer created successfully");
       setTimeout(() => {
@@ -315,7 +343,7 @@ const {values,errors,touched,handleBlur,handleChange,handleSubmit}=
                     onBlur={handleBlur}
                     name="password"
                     value={values.password}
-                    className="w-full text-black py-1 my-1 border-b bg-transparent  rounded-sm border-collapse outline-none focus:outline-none"
+                    className="w-full text-black py-1 my-1 mb-3 border-b bg-transparent rounded-sm border-collapse border-black outline-none focus:outline-none"
                   />
                   {errors.password && touched.password ? (
                     <small className="form-error text-red-500">

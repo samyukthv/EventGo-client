@@ -7,6 +7,13 @@ export const userApi=axios.create({
 })
 
 
+export const organizerApi=axios.create({
+    baseURL:`http://localhost:3000/organizer`
+})
+
+
+
+
 
 userApi.interceptors.request.use((req) => {
     if (localStorage.getItem("token")) {
@@ -18,7 +25,3 @@ userApi.interceptors.request.use((req) => {
 });
 
 
-
-export const organizerApi=axios.create({
-    baseURL:`http://localhost:3000/organizer`
-})
