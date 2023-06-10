@@ -1,8 +1,8 @@
 import {configureStore} from "@reduxjs/toolkit"
-import organizerReducer from './organizerSlice'
 import {persistStore,persistReducer} from "redux-persist"
 import storage from "redux-persist/lib/storage"
-
+import organizerReducer from './organizerSlice'
+import userReducer from "./userSlice"
 
 const persistConfig={
     key:"root",
@@ -10,9 +10,14 @@ const persistConfig={
 
 }
 
+
+const persistedUserReducer=persistReducer(persistConfig,userReducer)
 const persistedReducer=persistReducer(persistConfig,organizerReducer)
+
+
 const store = configureStore({
 reducer:{
+    user:persistedUserReducer,
     organizer:persistedReducer,
 },
 

@@ -10,11 +10,11 @@ const initialState={
     image:"",
 }
 
-const organizerSlice = createSlice({
-    name:"organizer",
+const userSlice = createSlice({
+    name:"user",
     initialState,
     reducers:{
-        setOrganizerDetails:(state,action)=>{
+        setUserDetails:(state,action)=>{
             state.id=action.payload.id
             state.firstName=action.payload.firstName
             state.lastName=action.payload.lastName
@@ -24,7 +24,7 @@ const organizerSlice = createSlice({
 
             
         },
-        organizerLogout:(state,action)=>{
+        userLogout:(state,action)=>{
             state.id=""
             state.firstName=""
             state.lastName=""
@@ -36,5 +36,5 @@ const organizerSlice = createSlice({
 })
 
 
-export const { setOrganizerDetails,organizerLogout } = organizerSlice.actions;
-export default organizerSlice.reducer;
+export const { setUserDetails,userLogout } = userSlice.actions;
+export default userSlice.reducer;

@@ -12,6 +12,9 @@ export default {
       'md': '768px',
       'lg': '1400px',
       
+    },
+    backgroundImage1:{
+      "my-image":"url('./src/assets/images/bartek-garbowicz-xJeCLqsBUqc-unsplash.jpg')"
     }
   },
   plugins: [ require("tw-elements/dist/plugin.cjs")],

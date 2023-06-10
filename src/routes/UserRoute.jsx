@@ -6,6 +6,11 @@ import ChooseAccount from '../pages/chooseAccount/ChooseAccount'
 import MobileOtp from '../pages/mobileotp/MobileOtp'
 
 import UserPublicRoutes from './UserPublicRoutes'
+import HappeningCity from '../pages/happeningCity/HappeningCity'
+import UserProfile from '../pages/userProfile/UserProfile'
+import UserProtectedRoutes from "./UserProtectedRoutes"
+import Email from '../pages/frogotPassword/Email'
+import ForgotPassword from '../pages/frogotPassword/ForgotPassword'
 
 function UserRoute() {
   return (
@@ -14,7 +19,12 @@ function UserRoute() {
         <Route exact path='/login' element={<UserPublicRoutes><UserLogin/></UserPublicRoutes>}  />
         <Route exact path='/signup' element={<UserPublicRoutes><UserSignup/></UserPublicRoutes>}/>
         <Route exact path='/choose_account' element={<UserPublicRoutes><ChooseAccount/></UserPublicRoutes>}/>
+        <Route excat path ="/confirm-email" element={<Email/>}/>
+        <Route excat path ="/reset-password/:id" element={<ForgotPassword/>}/>
         <Route exact path='/verify_otp' element={<MobileOtp/>}/>
+        <Route exact path='/happening-city' element={<HappeningCity/>}/>
+        <Route exact path='/profile' element={<UserProtectedRoutes><UserProfile/></UserProtectedRoutes>}/>
+
         <Route exact path='/' element={<Home/>}/>
     </Routes>
     

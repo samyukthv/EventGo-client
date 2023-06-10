@@ -19,3 +19,16 @@ export const signUpSchema = Yup.object({
     password: Yup.string().min(4).required("Please enter password"),
 
   })
+
+
+  export const emailConfirm=Yup.object({
+    email: Yup.string().email().required("Please enter your email"),
+  })
+
+
+  export const changePassword=Yup.object({
+    password: Yup.string().min(4).required("Please enter password"),
+    confirmPassword: Yup.string()
+      .required("Please confirm password")
+      .oneOf([Yup.ref('password'), null], "Password doesn't match"),
+  })

@@ -1,5 +1,6 @@
 import {userApi} from '../utils/Apis'
 
+
 export async function registerUser(credentials){
     try {
         console.log("this is reg");
@@ -26,3 +27,53 @@ export async function loginUser(credentials){
         console.log("login error in api");
     }
 }
+
+
+export async function getEventDetails(){
+    try {
+        const data=await userApi.get('/events')
+       
+        return data
+    } catch (error) {
+        console.log("event details error api");
+    }
+}
+
+
+export async function userProfile(){
+    try {
+        const data= await userApi.get('/userProfile')
+        console.log(data,12334455677889);
+        return data
+    } catch (error) {
+        console.log("userProfile  error api");
+    }
+}
+
+
+export async function sendMail(values){
+try {
+    const data = await userApi.post('/sendMail',values)
+    return data
+} catch (error) {
+    
+}
+}
+
+export async function setNewPassword(id,values){
+    try {
+        const data = await userApi.post(`/setNewPassword/${id}`,values)
+        return data
+    } catch (error) {
+        
+    }
+    }
+
+    export async function getOrganizerDetails(){
+        try {
+            const data =await userApi.get("/getOrganizerDetails")
+            return data
+        } catch (error) {
+            
+        }
+    }

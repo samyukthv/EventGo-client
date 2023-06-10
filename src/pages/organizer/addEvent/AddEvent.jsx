@@ -45,31 +45,6 @@ function AddEvent() {
   const uploadEvent = async (e) => {
     e.preventDefault();
     try {
-      console.log(event);
-      console.log(eventName);
-console.log(city);
-console.log(street);
-console.log(district);
-console.log(state);
-console.log(startDate);
-console.log(endDate);
-console.log(startTime);
-console.log(endTime);
-console.log(image);
-console.log(coverImage);
-console.log(ticketPrice);
-console.log(ticketQuantity);
-console.log(about);
-
-      // Check if any state value is false
-     
-     
-        console.log("function");
-        console.log(event.image);
-        console.log(event.coverImage);
-  
-        console.log("error");
-  
         const formData = new FormData();
         formData.append("coverImage", event.coverImage);
         formData.append("image", event.image);
@@ -82,7 +57,13 @@ console.log(about);
           },
           withCredentials: true,
         });
-     
+        if(response.data.success){
+ 
+
+          toast.success("event added successfully")
+          e.target.reset()
+        }
+         
     } catch (error) {
       // Handle the error
     }

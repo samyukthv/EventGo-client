@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
-import signupimg from "../../assets/images/juliette-contin-aETBbsCWBpo-unsplash.jpg";
+import signupimg from "../../assets/images/Keep bang'n  on We Heart It.jpg";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { registerUser } from "../../api/UserApi";
@@ -10,6 +10,8 @@ import {  useFormik } from "formik";
 import { signUpSchema } from "../../yup";
 import { auth } from "../../firebase/Config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import {setUserDetails} from '../../redux/userSlice'
+import {useDispatch} from "react-redux"
 
 const initialValues = {
   firstName: "",
@@ -29,6 +31,7 @@ function UserSignup() {
   const [verify,setVerify] =useState(null)
 
   const navigate = useNavigate();
+  const dispatch=useDispatch()
 
   //USE FORMIK AND FROM VALIDATION
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -105,6 +108,17 @@ function UserSignup() {
       if (response.data.status) {
         console.log(response);
         localStorage.setItem("token", response.data.token);
+        dispatch(
+          setUserDetails({
+            id:response.data.userData._id,
+            firstName:response.data.userData.firstName,
+            lastName:response.data.userData.lastName,
+            mobile:response.data.userData.mobile,
+            image:response.data.userData?.image,
+            email:response.data.userData.email
+          })
+
+        )
 
         navigate("/");
       } else {
@@ -139,6 +153,20 @@ function UserSignup() {
       
       toast.error(googleReg.data.message);
     } else if(googleReg.data.google) {
+       console.log("myr")
+       console.log(googleReg);
+      dispatch(
+        setUserDetails({
+          id:googleReg.data.userdata._id,
+          firstName:googleReg.data.userdata.firstName,
+          lastName:googleReg.data.userdata.lastName,
+          mobile:googleReg.data.userdata?.mobile,
+          image:googleReg.data.userdata?.image,
+          email:googleReg.data.userdata.email
+        })
+
+      )
+       
       console.log(googleReg);
       localStorage.setItem("token", googleReg.data.token)
       toast.success("google account verified")
@@ -213,7 +241,7 @@ function UserSignup() {
       ) : (
         <section className="p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-20 justify-between">
           <div className="w-full  h-full flex items-center justify-center">
-            <div className="hidden md:block relative w-1/2 h-full flex-col">
+            <div className="hidden md:block relative w-full md:w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
                 <h1 className="text-4xl text-black font-bold my-3 text-center">
                   Unlock unforgettable experiences.
@@ -238,7 +266,7 @@ function UserSignup() {
              />
             </div>
 
-            <div className="w-1/2 h-full flex flex-col pt-5 px-20 justify-between" style={{backgroundColor:'rgb(232,240,254)'}}>
+            <div className="w-1/2 h-full flex flex-col pt-5 px-20 justify-between bg-white bg-opacity-20">
               <div className="w-full flex flex-col">
                 <div className="w-full flex flex-col mb-2 max-w-[450px]">
                   <h3 className="text-3xl font-bold mb-2">Sign up</h3>

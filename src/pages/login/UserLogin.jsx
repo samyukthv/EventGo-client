@@ -1,12 +1,14 @@
 import React from 'react'
 import {Link,useNavigate} from'react-router-dom'
-import signupimg from "../../assets/images/sustainable_event_management_positive_impact_575x843.jpg";
+import signupimg from "../../assets/images/Keep bang'n  on We Heart It.jpg";
 import { GoogleLogin } from "@react-oauth/google";
 import { loginUser } from '../../api/UserApi';
 import jwt_decode from "jwt-decode";
 import { toast, Toaster } from "react-hot-toast";
 import {  useFormik } from "formik";
 import { loginSchema } from "../../yup";
+import {useDispatch} from 'react-redux'
+import {setUserDetails} from "../../redux/userSlice"
 
 const initialValues={
   email:"",
@@ -15,6 +17,7 @@ const initialValues={
 
 function UserLogin() {
 const navigate=useNavigate()
+const dispatch=useDispatch()
 
 //USE FORMIK AND ITS VALIDATION
 
@@ -30,6 +33,16 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
           console.log(response.data.token);
           localStorage.setItem("token", response.data.token)
           toast.success(response.data.message);
+          dispatch(
+            setUserDetails({
+              id:response.data.user._id,
+              firstName:response.data.user.firstName,
+              lastName:response.data.user.lastName,
+              mobile:response.data.user.mobile,
+              image:response.data.user?.image,
+              email:response.data.user.email
+            })
+          )
           navigate("/");
     
         } else {
@@ -43,19 +56,29 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
 
    // GOOGLE SIGNUP RESPONSE FUNCTION
    const responseMessage = async (response) => {
-    console.log(response);
     let cred = jwt_decode(response.credential);
-    console.log("🚀 ~ file: UserSignup.jsx:49 ~ responseMessage ~ cred:", cred);
 
     const googleReg = await loginUser({
       email: cred.email,
       password: cred.sub,
     });
-    console.log(googleReg.data.login);
     if (googleReg.data.login) {
       toast.success(googleReg.data.message);
-      localStorage.setItem("token", response.token)
+      console.log("////////////////////////////////////////////////////////////");
+    
+      localStorage.setItem("token", googleReg.data.token)
      
+      dispatch(
+        setUserDetails({
+          id:googleReg.data.user._id,
+          firstName:googleReg.data.user.firstName,
+          lastName:googleReg.data.user.lastName,
+          mobile:googleReg.data.user?.mobile,
+          image:googleReg.data.user?.image,
+          email:googleReg.data.user.email
+        })
+  
+      )
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -92,7 +115,7 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
         <img src={signupimg} alt="Login" className="w-full h-full object-cover" />
       </div>
   
-      <div className="w-full md:w-1/2 h-full flex flex-col p-4 md:p-20 justify-between" style={{ backgroundColor: 'rgb(232, 240, 254)' }}>
+      <div className="w-full md:w-1/2 h-full flex flex-col p-4 md:p-20 justify-between  bg-white bg-opacity-20" >
         <div className="w-full flex flex-col">
           <div className="w-full flex flex-col mb-2 max-w-[450px]">
             <h3 className="text-2xl md:text-3xl font-bold mb-2">Log in</h3>
@@ -119,9 +142,9 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
               <button type='submit' className="text-white w-full bg-violet-500 hover:bg-violet-700 rounded-md p-4 text-center flex items-center justify-center">Log in</button>
             </div>
           </form>
-          <p className="text-sm md:text-base ml-auto mt-5 md:mt-4 font-light cursor-pointer underline underline-offset-2">Forgot Password?</p>
-        </div>
-  
+       </div>
+       <Link to="/confirm-email">          <p className="text-sm md:text-base ml-auto mt-5 md:mt-4 font-light cursor-pointer underline underline-offset-2">Forgot Password?</p>
+</Link> 
         <div className="w-full sm:w-1 md:w-full mb-2 p-3 mt-2 text-center flex items-center justify-center">
           <GoogleLogin
             onSuccess={responseMessage}

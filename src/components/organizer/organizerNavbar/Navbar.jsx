@@ -11,16 +11,15 @@ const organizer=useSelector((state)=>state.organizer)
 
 const logout=async(req,res)=>{
   try {
-    console.log("logout");
+   
     localStorage.removeItem('organizertoken')
-    console.log("token removed");
     dispatch(organizerLogout());
-    console.log("dispatch called");
-   navigate('/organizer/')
+    navigate('/organizer/')
   } catch (error) {
     
   }
 }
+
 
 
 
@@ -38,7 +37,7 @@ const logout=async(req,res)=>{
         Welcome {organizer.firstName}
       </h1>
       <ul className="hidden sm:flex px-4">
-        <li className="p-3">
+       <li className="p-3">
           <Link to="/organizer/home">Profile</Link>
         </li>
         <li className="p-3">
