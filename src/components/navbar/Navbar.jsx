@@ -25,9 +25,11 @@ function Navbar() {
     } catch (error) {}
   };
 
+
+
   return (
-    <div className="shadow-md w-full top-0 left-0">
-      <div className="md:flex bg-white py-5 md:px-10 px-7">
+    <div className="shadow-md w-full top-0 left-0  ">
+      <div className="md:flex bg-white py-5 md:px-10 px-7 backdrop-filter backdrop-blur-3xl bg-opacity-5  ">
         <div className="font-bold text-2xl cursor-pointer flex items-center">
           <span className="text-3xl text-indigo-600 mr-1 pt-2">
             <ion-icon name="finger-print-outline"></ion-icon>
@@ -36,24 +38,25 @@ function Navbar() {
         </div>
         <div className="flex">
           <ul
+          
             className={`sm:flex ${showList ? "block" : "hidden"} px-4`}
             onClick={() => setShowList(false)}
           >
-            <li className="p-3">
+            <li className="p-3 font-serif ">
               <Link to="/">Home</Link>
             </li>
-            <li className="p-3">
+            <li className="p-3 font-serif">
               <Link to="/happening-city">Happening city</Link>
             </li>
             {user && (
-              <li className="p-3">
+              <li className="p-3 font-serif">
                 <Link to="/profile">Profile</Link>
               </li>
             )}
-            <li className="p-3">
+            <li className="p-3 font-serif">
               <a href="#jhghj">Add event</a>
             </li>
-            <li className="p-3">
+            <li className="p-3 font-serif">
               <a href="#jj">About</a>
             </li>
           </ul>
@@ -67,8 +70,15 @@ function Navbar() {
           </div>
         </div>
         <div className="flex ml-auto">
+        {user && (
+           <img
+           alt="..."
+           src={userdata.image}
+           className="shadow-2xl rounded-full h-10   border-none  mt-1 max-w-150-px"
+         />
+          )}
           {user && (
-            <h1 className="mt-3 md:ml-8 text-center mr-7 md:text-left font-bold">
+            <h1 className="mt-3 md:ml-8 text-center mr-7 font-serif md:text-left font-bold">
               Welcome {userdata.firstName}...!
             </h1>
           )}

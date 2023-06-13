@@ -143,16 +143,19 @@ function OrganizerSignup() {
     if (googleReg.data.message) {
       toast.error(googleReg.data.message);
     } else if (googleReg.data.google) {
+      console.log("in the org ");
+      console.log(googleReg.data);
       dispatch(
         setOrganizerDetails({
           id: googleReg.data.organizerData._id,
           firstName: googleReg.data.organizerData.firstName,
           lastName: googleReg.data.organizerData.lastName,
-          mobile: googleReg.data.organizerData.mobile,
+          mobile: googleReg.data.organizerData?.mobile,
           image: googleReg.data.organizerData?.image,
           email: googleReg.data.organizerData.email,
         })
       );
+      console.log("2 of the org");
       localStorage.setItem("organizertoken", googleReg.data.token);
       toast.success("organizer created successfully");
       setTimeout(() => {

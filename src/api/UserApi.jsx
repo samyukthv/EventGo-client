@@ -40,6 +40,17 @@ export async function getEventDetails(){
 }
 
 
+
+export async function getOrganizerDetails(){
+    try {
+        const data =await userApi.get("/getOrganizerDetails")
+        return data
+    } catch (error) {
+        console.log("organizer details error api");
+    }
+}
+
+
 export async function userProfile(){
     try {
         const data= await userApi.get('/userProfile')
@@ -69,9 +80,18 @@ export async function setNewPassword(id,values){
     }
     }
 
-    export async function getOrganizerDetails(){
+    export async function profileUpdate(value){
         try {
-            const data =await userApi.get("/getOrganizerDetails")
+            const data= await userApi.post(`/updateProfile`,value)
+            return data
+        } catch (error) {
+            
+        }
+    }
+
+    export async function eventDetails(id){
+        try {
+            const data= await userApi.get(`/eventDetails/${id}`)
             return data
         } catch (error) {
             

@@ -17,6 +17,7 @@ export default {
       "my-image":"url('./src/assets/images/bartek-garbowicz-xJeCLqsBUqc-unsplash.jpg')"
     }
   },
-  plugins: [ require("tw-elements/dist/plugin.cjs")],
+  plugins: [ require("tw-elements/dist/plugin.cjs"),
+  require('@tailwindcss/forms')],
 }
 

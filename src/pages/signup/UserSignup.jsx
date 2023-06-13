@@ -153,7 +153,7 @@ function UserSignup() {
       
       toast.error(googleReg.data.message);
     } else if(googleReg.data.google) {
-       console.log("myr")
+      
        console.log(googleReg);
       dispatch(
         setUserDetails({

@@ -12,8 +12,14 @@ function AddEvent() {
   const [street, setStreet] = useState(false);
   const [district, setDistrict] = useState(false);
   const [state, setState] = useState(false);
+
+
+
   const [startDate, setStartDate] = useState(false);
   const [endDate, setEndDate] = useState(false);
+
+
+
   const [startTime, setStartTime] = useState(false);
   const [endTime, setEndTime] = useState(false);
   const [image, setImage] = useState(false);
@@ -21,9 +27,12 @@ function AddEvent() {
   const [ticketPrice, setTicketPrice] = useState(false);
   const [ticketQuantity, setTicketQuantity] = useState(false);
   const [about, setAbout] = useState(false);
+  const [description,setDescription]=useState(false)
+
 
   const organizer = useSelector((state) => state.organizer);
-
+  console.log(organizer,89);
+console.log(organizer.id,56565656);
   const [event, setEvent] = useState({
     eventName: "",
     eventOrganizer: organizer.id,
@@ -40,6 +49,7 @@ function AddEvent() {
     ticketPrice: "",
     image: "",
     coverImage: "",
+    description:""
   });
 
   const uploadEvent = async (e) => {
@@ -69,9 +79,10 @@ function AddEvent() {
     }
   };
   
+console.log(event,1939);
+
 
   const verifyEventName = (eventName) => {
-    console.log(eventName);
     if (eventName.length == 0) {
       console.log("if");
       setEventName(true);
@@ -80,6 +91,8 @@ function AddEvent() {
       setEventName(false);
     }
   };
+
+
 
   const verifyCity = (city) => {
     if (city.length == 0) {
@@ -90,6 +103,21 @@ function AddEvent() {
       setCity(false);
     }
   };
+
+
+
+  
+  const verifyDescription= (description) => {
+    console.log(description);
+    if (description.length == 0) {
+      console.log("if");
+      setDescription(true);
+    } else {
+      console.log("else");
+      setDescription(false);
+    }
+  };
+
 
   const verifyStreet = (street) => {
     if (street.length == 0) {
@@ -240,6 +268,39 @@ function AddEvent() {
               className="ml-5 sm:ml-20 mt p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="Event Name"
             />
+
+
+
+       
+<h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
+            Description
+            </h1>
+            <p className="ml-5 sm:ml-20">
+            A short description about the event
+            </p>
+
+            {description && (
+              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
+            )}
+            <input
+              type="text"
+              onBlur={() => {
+                verifyDescription(event.description);
+              }}
+              onChange={(e) =>
+                setEvent({ ...event, [e.target.name]: e.target.value })
+              }
+              name="description"
+              className="ml-5 sm:ml-20 mt p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              placeholder="Event description"
+            />
+
+
+
+
+
+
+
 
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">Location</h1>
             <p className="ml-5 sm:ml-20">
@@ -524,12 +585,13 @@ function AddEvent() {
             />
           </div>
         </div>
-        <button
+             <button
           type="submit"
           className="inline-block rounded-full mb-5 text-center justify-center ml-20 bg-primary px-6 pb-2 mt-4 sm:mt-10 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
         >
           Add Event
         </button>
+       
       </form>
       <Toaster />
     </div>

@@ -32,3 +32,15 @@ export const signUpSchema = Yup.object({
       .required("Please confirm password")
       .oneOf([Yup.ref('password'), null], "Password doesn't match"),
   })
+
+
+
+  export const profileUpdate=Yup.object({
+    firstName:Yup.string().required("please enter first name"),
+    lastName:Yup.string().required("please enter first name"),
+    email: Yup.string().email().required("Please enter your email"),
+    mobile: Yup.string()
+    .required("Please enter your mobile number")
+    .matches(/^\d{10}$/, "Mobile number must have 10 digits"),
+
+  })
