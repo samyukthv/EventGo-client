@@ -44,3 +44,11 @@ export const signUpSchema = Yup.object({
     .matches(/^\d{10}$/, "Mobile number must have 10 digits"),
 
   })
+
+
+  export const booking=Yup.object({
+    firstName:Yup.string().required("please enter first name"),
+    lastName:Yup.string().required("please enter last name"),
+    email:Yup.string().email().required("please enter your email"),
+    mobile:Yup.string().required("please enter your mobile number").matches(/^\d{10}$/,"mobile number must have 10 digits")
+  })

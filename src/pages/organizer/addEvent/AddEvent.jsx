@@ -12,6 +12,8 @@ function AddEvent() {
   const [street, setStreet] = useState(false);
   const [district, setDistrict] = useState(false);
   const [state, setState] = useState(false);
+ const [latitude,setLatitude]=useState(false)
+ const[longitude,setLongitude]=useState(false)
 
 
 
@@ -40,6 +42,8 @@ console.log(organizer.id,56565656);
     city: "",
     district: "",
     state: "",
+    latitude:"",
+    longitude:"",
     about: "",
     startDate: "",
     endDate: "",
@@ -139,6 +143,30 @@ console.log(event,1939);
     }
   };
 
+  const verifyLatitude = (latitude) => {
+    if (latitude.length == 0) {
+      console.log("if");
+      setLatitude(true);
+    } else {
+      console.log("else");
+      setLatitude(false);
+    }
+  };
+
+
+  
+  const verifyLongitude = (longitude) => {
+    if (longitude.length == 0) {
+      console.log("if");
+      setLongitude(true);
+    } else {
+      console.log("else");
+      setLongitude(false);
+    }
+  };
+
+
+  
   const verifyState = (state) => {
     if (state.length == 0) {
       console.log("if");
@@ -148,6 +176,8 @@ console.log(event,1939);
       setState(false);
     }
   };
+
+
 
   const verifyAbout = (about) => {
     if (about.length == 0) {
@@ -272,7 +302,7 @@ console.log(event,1939);
 
 
        
-<h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
+            <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
             Description
             </h1>
             <p className="ml-5 sm:ml-20">
@@ -356,6 +386,10 @@ console.log(event,1939);
               placeholder="District"
             />
 
+
+
+
+
             {state && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
@@ -371,6 +405,58 @@ console.log(event,1939);
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="State"
             />
+
+
+
+
+
+<p className="ml-5 sm:ml-20 mt-5">please enter the latitude and longitude of the city to help us intergrate map </p>
+
+
+
+
+{latitude && (
+              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
+            )}
+            <input
+              type="text"
+              onBlur={() => {
+                verifyLatitude(event.latitude);
+              }}
+              name="latitude"
+              onChange={(e) =>
+                setEvent({ ...event, [e.target.name]: e.target.value })
+              }
+              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              placeholder="latitude"
+            />
+
+
+
+
+
+
+
+{longitude && (
+              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
+            )}
+            <input
+              type="text"
+              onBlur={() => {
+                verifyLongitude(event.longitude);
+              }}
+              name="longitude"
+              onChange={(e) =>
+                setEvent({ ...event, [e.target.name]: e.target.value })
+              }
+              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              placeholder="longitude"
+            />
+
+
+
+
+
 
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
               About Event
