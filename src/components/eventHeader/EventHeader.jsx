@@ -5,7 +5,7 @@ import backgroundImage from "../../../../server/public/coverImage/coverImage-168
 import { Link, useParams } from "react-router-dom";
 import { eventDetails } from "../../api/UserApi";
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
-const GOOGLE_MAP_API_KEY= import.meta.env.GOOGLE_MAP_API_KEY
+const GOOGLE_MAP_API_KEY= import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
 
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
@@ -161,7 +161,7 @@ function EventHeader() {
 
       <h1 className="font-bold mt-20 ml-20 text-3xl mb-5">Location</h1>
       <div className="h-96 w-1/2 bg-black ml-20  mb-20">
-      <LoadScript googleMapsApiKey="AIzaSyAjU61kAEWo8ddl2HV5_QUW9FO43sk6DFw">
+      <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY}>
   <GoogleMap
     mapContainerStyle={{ height: "400px", width: "100%" }}
     center={{ lat: parseFloat(latitude), lng: parseFloat(longitude) }}
