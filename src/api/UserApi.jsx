@@ -97,3 +97,13 @@ export async function setNewPassword(id,values){
             
         }
     }
+
+
+    export async function organizerDetails(id){
+        try {
+            const data= await userApi.get(`/organizerDetails/${id}`)
+            return data
+        } catch (error) {
+            
+        }
+    }

@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Navbar from '../../../components/organizer/organizerNavbar/Navbar'
 import Profile from '../../../components/organizer/profile/Profile'
 import OrganizerPosts from '../../../components/organizer/posts/OrganizerPosts'
 
 function OrganizerHome() {
+
+  
   return (
     <div>
      <Navbar/>

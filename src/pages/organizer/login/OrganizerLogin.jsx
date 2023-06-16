@@ -39,11 +39,18 @@ function OrganizerLogin() {
             lastName:response.data.organizer.lastName,
             mobile:response.data.organizer.mobile,
             image:response.data.organizer?.image,
-            email:response.data.organizer.email
+            email:response.data.organizer.email,
+            about:response.data.organizer?.about,
+            instagram: response.data.organizer?.instagram,
+          linkedin: response.data.organizer?.linkedin,
+          facebook: response.data.organizer?.facebook,
           })
   
         )
+
+
         console.log("after dispatch");
+        console.log(response.data.organizer.lastName);
         localStorage.setItem("organizertoken", response.data.token)
         toast.success(response.data.message);
         navigate("/organizer/home");
@@ -77,10 +84,14 @@ const responseMessage = async (response) => {
       setOrganizerDetails({
         id:googleReg.data.organizer._id,
         firstName:googleReg.data.organizer.firstName,
-        lastName:googleReg.data.organizerlastName,
+        lastName:googleReg.data.organizer.lastName,
         mobile:googleReg.data.organizer.mobile,
         image:googleReg.data.organizer?.image,
-        email:googleReg.data.organizer.email
+        email:googleReg.data.organizer.email,
+        about:googleReg.data.organizer?.about,
+        instagram: googleReg.data.organizer?.instagram,
+          linkedin: googleReg.data.organizer?.linkedin,
+          facebook: googleReg.data.organizer?.facebook,
       })
 
     )

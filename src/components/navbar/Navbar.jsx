@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../redux/userSlice";
+import img from "../../assets/images/avathar2.png"
+
 
 function Navbar() {
   const navigate = useNavigate();
@@ -73,7 +75,7 @@ function Navbar() {
         {user && (
            <img
            alt="..."
-           src={userdata.image}
+           src={userdata.image.slice(0,33)=="https://lh3.googleusercontent.com"? userdata.image : userdata.image?`${PROFILE_URL}${userdata.image}`:img}
            className="shadow-2xl rounded-full h-10   border-none  mt-1 max-w-150-px"
          />
           )}

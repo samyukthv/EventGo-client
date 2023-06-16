@@ -63,11 +63,11 @@ function EventHeader() {
   return (
     <div>
       <div className="relative isolate overflow-hidden m-5 bg-gradient-to-r from-white to-blue-200 bg-gray-900 px-6 pt-16 shadow-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0 ">
-        <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-          <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+        <div className="mx-auto max-w-md text-center  lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+          <h1 className="text-5xl font-bold uppercase  text-black ">
             {event ? event.eventName : null}
-          </h2>
-          <p className="mt-6 text-xl  leading-8 text-black">
+          </h1>
+          <p className="mt-6 text-2xl font-serif leading-8 text-black">
             {event ? event.description : null}
           </p>
           <small className="mt-6  leading-8 text-red-600">
@@ -78,16 +78,16 @@ function EventHeader() {
               : null}
           </small>
           <p className="  leading-8 text-black">
-            {event ? event.location[0].street : null},
-            {event ? event.location[0].city : null},
-            {event ? event.location[0].district : null},
-            {event ? event.location[0].state : null}
+            {event ? event.location[0].street : null}
+            , {event ? event.location[0].city : null}
+            , {event ? event.location[0].district : null}
+           , {event ? event.location[0].state : null}
           </p>
-          <div className="mt-10 flex flex-col items-start gap-x-6 lg:justify-start">
+          <div className="mt-10 flex flex-col items-start gap-x-6 lg:justify-start ">
             <Link to={`/booking/${event ? event._id : null}`}>
               <button
                 type="button"
-                class="inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                class="inline-block rounded bg-success px-6 pb-2 w-44 h-10 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
               >
                 Book Now
               </button>
@@ -126,12 +126,14 @@ function EventHeader() {
       </div>
       <div className="flex flex-col items-center sm:flex-row sm:items-center md:flex-row">
         <div className="mb-4 sm:mb-0">
-          <button
+         <Link to={`/organizer-profile/${event?event.eventOrganizer._id:null}`}>
+         <button
             type="button"
             className="block rounded bg-primary-700 px-6 pb-2 pt-2.5 mr-5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
           >
             View profile
           </button>
+         </Link>
         </div>
         <div>
           <button

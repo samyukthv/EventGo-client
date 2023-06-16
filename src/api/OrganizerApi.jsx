@@ -43,4 +43,23 @@ export async function addEvent(fromData,config){
 }
 
 
+export async function profileUpdate(value){
+    try {
+        const data= await organizerApi.post(`/updateProfile`,value)
+        return data
+    } catch (error) {
+        
+    }
+}
 
+
+export async function organizerEvents(organizerId) {
+    try {
+      const data = await organizerApi.get('/organizerEvents', {
+        params: { organizerId: organizerId }
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }

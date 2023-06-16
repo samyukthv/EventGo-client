@@ -6,8 +6,10 @@ import './index.css'
 import {Provider} from "react-redux"
 import {store,persistor} from "./redux/store"
 import {PersistGate} from "redux-persist/integration/react"
+import { ThemeProvider } from '@material-tailwind/react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <ThemeProvider>
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
   <GoogleOAuthProvider  clientId="308444847826-14iq1plqjaqe570ekmrfmguv6geueed7.apps.googleusercontent.com">
@@ -17,5 +19,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </GoogleOAuthProvider>
   </PersistGate>
   </Provider>
+  </ThemeProvider>
   ,
 )
