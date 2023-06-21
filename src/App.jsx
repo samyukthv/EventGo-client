@@ -5,7 +5,6 @@ import OrganizerRoutes from "./routes/OrganizerRoutes"
 
 
 function App() {
-const user = true
 
   return (
    <>

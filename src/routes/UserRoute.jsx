@@ -14,6 +14,7 @@ import ForgotPassword from '../pages/frogotPassword/ForgotPassword'
 import EventDetails from '../pages/eventDetails/EventDetails'
 import Booking from '../pages/bookingPage/Booking'
 import OrganizerProfile from '../pages/organizerProfile/OrganizerProfile'
+import ConfirmBooking from '../pages/confirmBooking/ConfirmBooking'
 
 function UserRoute() {
   return (
@@ -27,9 +28,10 @@ function UserRoute() {
         <Route exact path='/verify_otp' element={<MobileOtp/>}/>
         <Route exact path='/happening-city' element={<HappeningCity/>}/>
         <Route exact path='/profile' element={<UserProtectedRoutes><UserProfile/></UserProtectedRoutes>}/>
-         <Route exact path='/event-details/:id' element ={<EventDetails/>}/>
-         <Route exact path='/booking/:id' element={<Booking/>}/>
-         <Route exact path ='/organizer-profile/:id' element={<OrganizerProfile/>}/>
+        <Route exact path='/event-details/:id' element ={<EventDetails/>}/>
+        <Route exact path='/booking/:id' element={<UserProtectedRoutes><Booking/></UserProtectedRoutes>}/>
+        <Route exact path ='/organizer-profile/:id' element={<OrganizerProfile/>}/>
+        <Route exact path='/booking-confirmed'element={<UserProtectedRoutes><ConfirmBooking/></UserProtectedRoutes>}/>
 
         <Route exact path='/' element={<Home/>}/>
     </Routes>

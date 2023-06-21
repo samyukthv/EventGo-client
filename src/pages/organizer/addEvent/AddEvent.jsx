@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Navbar from "../../../components/organizer/organizerNavbar/Navbar";
 import { addEvent } from "../../../api/OrganizerApi";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { AddressAutofill } from "@mapbox/search-js-react";
+import { date } from "yup";
 
 function AddEvent() {
   const [eventType, setEventType] = useState("");
-
   const [eventName, setEventName] = useState(false);
-  const [city, setCity] = useState(false);
-  const [street, setStreet] = useState(false);
-  const [district, setDistrict] = useState(false);
-  const [state, setState] = useState(false);
- const [latitude,setLatitude]=useState(false)
- const[longitude,setLongitude]=useState(false)
-
-
-
   const [startDate, setStartDate] = useState(false);
   const [endDate, setEndDate] = useState(false);
-
-
 
   const [startTime, setStartTime] = useState(false);
   const [endTime, setEndTime] = useState(false);
@@ -29,21 +19,13 @@ function AddEvent() {
   const [ticketPrice, setTicketPrice] = useState(false);
   const [ticketQuantity, setTicketQuantity] = useState(false);
   const [about, setAbout] = useState(false);
-  const [description,setDescription]=useState(false)
-
+  const [description, setDescription] = useState(false);
 
   const organizer = useSelector((state) => state.organizer);
-  console.log(organizer,89);
-console.log(organizer.id,56565656);
+
   const [event, setEvent] = useState({
     eventName: "",
     eventOrganizer: organizer.id,
-    street: "",
-    city: "",
-    district: "",
-    state: "",
-    latitude:"",
-    longitude:"",
     about: "",
     startDate: "",
     endDate: "",
@@ -53,222 +35,132 @@ console.log(organizer.id,56565656);
     ticketPrice: "",
     image: "",
     coverImage: "",
-    description:""
+    description: "",
+    city: "",
+    state: "",
+    country: "",
+    street:"",
+    address:""
   });
+
+ 
 
   const uploadEvent = async (e) => {
     e.preventDefault();
     try {
-        const formData = new FormData();
-        formData.append("coverImage", event.coverImage);
-        formData.append("image", event.image);
-        formData.append("event", JSON.stringify(event));
-        console.log(...formData);
-  
-        const response = await addEvent(formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        });
-        if(response.data.success){
- 
+      console.log("upload function");
+      const formData = new FormData();
+      formData.append("coverImage", event.coverImage);
+      formData.append("image", event.image);
+      formData.append("event", JSON.stringify(event));
 
-          toast.success("event added successfully")
-          e.target.reset()
-        }
-         
+      const response = await addEvent(formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      if (response.data.success) {
+        toast.success("event added successfully");
+        e.target.reset();
+      }
     } catch (error) {
       // Handle the error
     }
   };
-  
-console.log(event,1939);
 
 
   const verifyEventName = (eventName) => {
     if (eventName.length == 0) {
-      console.log("if");
       setEventName(true);
     } else {
-      console.log("else");
       setEventName(false);
     }
   };
 
-
-
-  const verifyCity = (city) => {
-    if (city.length == 0) {
-      console.log("if");
-      setCity(true);
-    } else {
-      console.log("else");
-      setCity(false);
-    }
-  };
-
-
-
-  
-  const verifyDescription= (description) => {
-    console.log(description);
+  const verifyDescription = (description) => {
     if (description.length == 0) {
-      console.log("if");
       setDescription(true);
     } else {
-      console.log("else");
       setDescription(false);
     }
   };
 
-
-  const verifyStreet = (street) => {
-    if (street.length == 0) {
-      console.log("if");
-      setStreet(true);
-    } else {
-      console.log("else");
-      setStreet(false);
-    }
-  };
-
-  const verifyDistrict = (district) => {
-    if (district.length == 0) {
-      console.log("if");
-      setDistrict(true);
-    } else {
-      console.log("else");
-      setDistrict(false);
-    }
-  };
-
-  const verifyLatitude = (latitude) => {
-    if (latitude.length == 0) {
-      console.log("if");
-      setLatitude(true);
-    } else {
-      console.log("else");
-      setLatitude(false);
-    }
-  };
-
-
-  
-  const verifyLongitude = (longitude) => {
-    if (longitude.length == 0) {
-      console.log("if");
-      setLongitude(true);
-    } else {
-      console.log("else");
-      setLongitude(false);
-    }
-  };
-
-
-  
-  const verifyState = (state) => {
-    if (state.length == 0) {
-      console.log("if");
-      setState(true);
-    } else {
-      console.log("else");
-      setState(false);
-    }
-  };
-
-
-
   const verifyAbout = (about) => {
     if (about.length == 0) {
-      console.log("if");
       setAbout(true);
     } else {
-      console.log("else");
       setAbout(false);
     }
   };
 
   const verifyCoverImage = (coverImage) => {
     if (coverImage.length == 0) {
-      console.log("if");
       setCoverImage(true);
     } else {
-      console.log("else");
       setCoverImage(false);
     }
   };
 
   const verifyImage = (image) => {
     if (image.length == 0) {
-      console.log("if");
       setImage(true);
     } else {
-      console.log("else");
       setImage(false);
     }
   };
 
   const verifyStartDate = (startDate) => {
     if (startDate.length == 0) {
-      console.log("if");
       setStartDate(true);
     } else {
-      console.log("else");
       setStartDate(false);
     }
   };
 
   const verifyEndDate = (endDate) => {
     if (endDate.length == 0) {
-      console.log("if");
       setEndDate(true);
     } else {
-      console.log("else");
       setEndDate(false);
     }
   };
 
   const verifyStartTime = (startTime) => {
     if (startTime.length == 0) {
-      console.log("if");
       setStartTime(true);
     } else {
-      console.log("else");
       setStartTime(false);
     }
   };
 
   const verifyEndTime = (endTime) => {
     if (endTime.length == 0) {
-      console.log("if");
       setEndTime(true);
     } else {
-      console.log("else");
       setEndTime(false);
     }
   };
 
   const verifyTicketPrice = (ticketPrice) => {
     if (ticketPrice.length == 0) {
-      console.log("if");
       setTicketPrice(true);
     } else {
-      console.log("else");
       setTicketPrice(false);
     }
   };
+  
 
   const verifyTicketQuantity = (ticketQuantity) => {
     if (ticketQuantity.length == 0) {
-      console.log("if");
       setTicketQuantity(true);
     } else {
-      console.log("else");
       setTicketQuantity(false);
     }
   };
 
+  event.street = event['address address-search'];
+  const today = new Date().toISOString().split('T')[0];
   return (
     <div>
       <Navbar />
@@ -299,20 +191,15 @@ console.log(event,1939);
               placeholder="Event Name"
             />
 
-
-
-       
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
-            Description
+              Description
             </h1>
-            <p className="ml-5 sm:ml-20">
-            A short description about the event
-            </p>
+            <p className="ml-5 sm:ml-20">A short description about the event</p>
 
             {description && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
-            <input
+            <textarea
               type="text"
               onBlur={() => {
                 verifyDescription(event.description);
@@ -325,20 +212,62 @@ console.log(event,1939);
               placeholder="Event description"
             />
 
-
-
-
-
-
-
-
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">Location</h1>
             <p className="ml-5 sm:ml-20">
               Help people in the area discover your event and let attendees know
               where to show up.
             </p>
 
-            {street && (
+            <AddressAutofill accessToken="pk.eyJ1Ijoic2FteXVrdGgiLCJhIjoiY2xqM3VnamRrMDgzazNxbWpvcTJ4MndjZyJ9.vUafBLe566uHJi2j5257ZA">
+              <input
+                type="text"
+              
+                onChange={(e) => {
+                  setEvent({ ...event, [e.target.name]: e.target.value });
+                }}
+                autoComplete="address-line1"
+                name="address"
+                className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+                placeholder="street"
+              />
+            </AddressAutofill>
+
+            <input
+              name="city"
+              placeholder="City"
+              type="text"
+              autoComplete="address-level2"
+              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              onChange={(e) => {
+              
+                setEvent({ ...event, [e.target.name]: e.target.value });
+              }}
+            />
+
+            <input
+              name="state"
+              placeholder="State"
+              type="text"
+              autoComplete="address-level1"
+              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              onChange={(e) => {
+                setEvent({ ...event, [e.target.name]: e.target.value });
+              }}
+            />
+
+            <input
+              name="country"
+              placeholder="Country"
+              type="text"
+              autoComplete="country"
+              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              onChange={(e) => {
+                setEvent({ ...event, [e.target.name]: e.target.value });
+              }}
+            />
+
+            {/*  
+          {street && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
             <input
@@ -346,13 +275,14 @@ console.log(event,1939);
               onBlur={() => {
                 verifyStreet(event.street);
               }}
-              name="street"
+              name="city"
               onChange={(e) =>
                 setEvent({ ...event, [e.target.name]: e.target.value })
               }
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="Street"
             />
+          
 
             {city && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
@@ -386,10 +316,6 @@ console.log(event,1939);
               placeholder="District"
             />
 
-
-
-
-
             {state && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
@@ -404,18 +330,14 @@ console.log(event,1939);
               }
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="State"
-            />
+            /> */}
 
+            {/* <p className="ml-5 sm:ml-20 mt-5">
+              please enter the latitude and longitude of the city to help us
+              intergrate map
+            </p>
 
-
-
-
-<p className="ml-5 sm:ml-20 mt-5">please enter the latitude and longitude of the city to help us intergrate map </p>
-
-
-
-
-{latitude && (
+            {latitude && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
             <input
@@ -431,13 +353,7 @@ console.log(event,1939);
               placeholder="latitude"
             />
 
-
-
-
-
-
-
-{longitude && (
+            {longitude && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
             <input
@@ -451,12 +367,7 @@ console.log(event,1939);
               }
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="longitude"
-            />
-
-
-
-
-
+            /> */}
 
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
               About Event
@@ -466,7 +377,7 @@ console.log(event,1939);
             {about && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
-            <input
+            <textarea
               type="text"
               onBlur={() => {
                 verifyAbout(event.about);
@@ -538,6 +449,7 @@ console.log(event,1939);
                   Start Date
                 </label>
                 <input
+                 min={today}
                   type="date"
                   onBlur={() => {
                     verifyStartDate(event.startDate);
@@ -566,6 +478,7 @@ console.log(event,1939);
                   End Date
                 </label>
                 <input
+                 min={today}
                   type="date"
                   onBlur={() => {
                     verifyEndDate(event.endDate);
@@ -583,8 +496,14 @@ console.log(event,1939);
             {startTime && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
+            <label
+                  htmlFor="startDate"
+                  className="block mt-4  ml-6 sm:ml-20"
+                >
+                  Start Time
+                </label>
             <input
-              type="text"
+              type="time"
               onBlur={() => {
                 verifyStartTime(event.startTime);
               }}
@@ -592,14 +511,20 @@ console.log(event,1939);
               onChange={(e) =>
                 setEvent({ ...event, [e.target.name]: e.target.value })
               }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              className="ml-5 sm:ml-20  p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="Start time"
             />
             {endTime && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
+            <label
+                  htmlFor="startDate"
+                  className="block mt-4  ml-6 sm:ml-20"
+                >
+                  End Time
+                </label>
             <input
-              type="text"
+              type="time"
               onBlur={() => {
                 verifyEndTime(event.endTime);
               }}
@@ -607,7 +532,7 @@ console.log(event,1939);
               onChange={(e) =>
                 setEvent({ ...event, [e.target.name]: e.target.value })
               }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              className="ml-5 sm:ml-20  p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="End time"
             />
 
@@ -671,13 +596,12 @@ console.log(event,1939);
             />
           </div>
         </div>
-             <button
+        <button
           type="submit"
           className="inline-block rounded-full mb-5 text-center justify-center ml-20 bg-primary px-6 pb-2 mt-4 sm:mt-10 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
         >
           Add Event
         </button>
-       
       </form>
       <Toaster />
     </div>

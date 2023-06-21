@@ -1,6 +1,7 @@
 import {userApi} from '../utils/Apis'
 
 
+
 export async function registerUser(credentials){
     try {
         console.log("this is reg");
@@ -54,10 +55,9 @@ export async function getOrganizerDetails(){
 export async function userProfile(){
     try {
         const data= await userApi.get('/userProfile')
-        console.log(data,12334455677889);
         return data
     } catch (error) {
-        console.log("userProfile  error api");
+        console.log("userProfile error api");
     }
 }
 
@@ -92,9 +92,11 @@ export async function setNewPassword(id,values){
     export async function eventDetails(id){
         try {
             const data= await userApi.get(`/eventDetails/${id}`)
+            console.log("hy 1");
             return data
         } catch (error) {
-            
+            return error
+           
         }
     }
 
@@ -104,6 +106,26 @@ export async function setNewPassword(id,values){
             const data= await userApi.get(`/organizerDetails/${id}`)
             return data
         } catch (error) {
-            
+            return {error:"organizer details error"}
         }
     }
+
+
+export const confirmBooking = async(value)=>{
+    try {
+        const data =await userApi.post('/confirmBooking',value)
+        return data
+    } catch (error) {
+        
+        return error
+    }
+}
+
+export const getBillingDetails= async()=>{
+    try {
+        const data= await userApi.get('/getBillingDetails')
+        return data
+    } catch (error) {
+        return {error:"billing details error"}
+    }
+}

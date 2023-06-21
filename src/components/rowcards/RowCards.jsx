@@ -17,7 +17,7 @@ function RowCards({ props }) {
             </h5>
 
             <p className="font-normal text-blue-700 px-2 text-center dark:text-gray-400">
-              {data.about}
+              {data.description}
             </p>
            
 

@@ -10,6 +10,7 @@ import {
   CardFooter,
   Typography,
   Tooltip,
+  Button
 } from "@material-tailwind/react";
  
 
@@ -70,7 +71,7 @@ useEffect(()=>{
               : avatar
           }
           alt="profile-picture"
-          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          style={{ objectFit: "cover", width: "100%", height: "100%"}}
         />
       </CardHeader>
       

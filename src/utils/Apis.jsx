@@ -17,10 +17,9 @@ export const organizerApi=axios.create({
 
 userApi.interceptors.request.use((req) => {
     if (localStorage.getItem("token")) {
-        console.log("intersrptor");
+        console.log(" interseptor keeps the token in the header");
         req.headers.Authorization = "Bearer " + localStorage.getItem("token");
     }
-    console.log("not the if of interseptor");
     return req; 
 });
 

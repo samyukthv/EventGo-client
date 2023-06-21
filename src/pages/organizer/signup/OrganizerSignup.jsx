@@ -170,8 +170,8 @@ function OrganizerSignup() {
   return (
     <>
       {showOtp ? (
-        <section className="p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-20 justify-between">
-          <div className="w-full  h-full flex items-center justify-center">
+        <section className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
+          <div className="w-full  h-full flex items-center justify-center shadow-2xl">
             <div className="hidden md:block relative w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
                 <h1 className="text-4xl text-black font-bold my-3 text-center">
@@ -189,7 +189,7 @@ function OrganizerSignup() {
               />
             </div>
 
-            <div className="w-1/2 h-full bg-gradient-to-r from-fuchsia-200 to-violet-200 flex flex-col  p-20 justify-between">
+            <div className="w-1/2 h-full bg-gradient-to-t from-white to-blue-200 flex flex-col  p-20 justify-between">
               <div className="w-full flex flex-col">
                 <div className="w-full flex flex-col mb-2 max-w-[450px]">
                   <h3 className="text-3xl font-bold mb-2">Verify otp</h3>
@@ -212,7 +212,7 @@ function OrganizerSignup() {
                 <div className="w-full flex flex-col pt-10">
                   <button
                     onClick={onOTPVerify}
-                    className="text-white w-full bg-violet-500 hover:bg-violet-700 rounded-md p-4 mt-5 text-center flex items-center justify-center"
+                    className="text-white w-full bg-gradient-to-t from-white to-blue-200 rounded-md p-4 mt-5 text-center flex items-center justify-center"
                   >
                     {loading && (
                       <CgSpinner size={20} className="mt-1 animate-spin" />
@@ -226,8 +226,8 @@ function OrganizerSignup() {
           </div>
         </section>
       ) : (
-        <section className="p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-20 justify-between">
-          <div className="w-full  h-full flex items-center justify-center">
+        <section className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
+          <div className="w-full  h-full flex items-center justify-center shadow-2xl">
             <div className="hidden md:block relative w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
                 <h1 className="text-4xl text-black font-bold my-3 text-center">
@@ -241,7 +241,7 @@ function OrganizerSignup() {
                   Already have an account? Please log in
                 </p>
 
-                <button className="text-black w-1/2 bg-violet-500 hover:bg-violet-700 rounded-md p-3 mt-2 text-center flex items-center justify-center">
+                <button className="text-black w-1/2 bg-gradient-to-t from-white to-blue-200 rounded-md p-3 mt-2 text-center flex items-center justify-center">
                   <Link to="/organizer/login"> Log in</Link>
                 </button>
                 <div className="sm:w-1 md:w-full  mb-2 p-3 mt-2 text-center flex items-center justify-center">

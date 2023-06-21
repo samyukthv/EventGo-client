@@ -9,6 +9,8 @@ import {  useFormik } from "formik";
 import { loginSchema } from "../../yup";
 import {useDispatch} from 'react-redux'
 import {setUserDetails} from "../../redux/userSlice"
+import { Input } from "@material-tailwind/react";
+
 
 const initialValues={
   email:"",
@@ -95,8 +97,8 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
 
 
   return (
-    <section className="p-4 md:p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-4 md:px-20 justify-between">
-    <div className="w-full h-full flex items-center justify-center">
+    <section className="p-4 md:p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-4 md:px-20 justify-between">
+    <div className="w-full h-full flex items-center justify-center shadow-2xl">
       <div className="hidden md:block relative w-full md:w-1/2 h-full flex-col">
         <div className="absolute top-[15%] flex flex-col items-center">
           <h1 className="text-3xl md:text-4xl text-black font-bold mt-12 md:mt-28 my-3 text-center">
@@ -108,7 +110,7 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
           <p className="text-base text-white text-center mt-12">
             Already have an account? Please log in.
           </p>
-          <button className="text-black w-1/2 bg-violet-500 hover:bg-violet-700 rounded-md p-3 mt-2 text-center flex items-center justify-center">
+          <button className="text-black w-1/2 bg-gradient-to-t from-white to-blue-200 rounded-md p-3 mt-2 text-center flex items-center justify-center">
             <Link to='/signup'>Register</Link>
           </button>
         </div>
@@ -123,14 +125,30 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
           </div>
           <form onSubmit={handleSubmit}>
             <div className="w-full flex flex-col pt-4 md:pt-10">
-              <input type="email" onChange={handleChange} onBlur={handleBlur} value={values.email} placeholder="Email" name='email' className="w-full text-black py-1 my-2 border-b bg-transparent border-black outline-none focus:outline-none" />
+            <input
+  type="email"
+  onChange={handleChange}
+  onBlur={handleBlur}
+  value={values.email}
+  placeholder="Email"
+  name="email"
+  className="w-full py-2 my-2 border-b border-black outline-none bg-transparent text-black placeholder-gray-400 focus:placeholder-opacity-50"
+/>
               {errors.email && touched.email ? (
                 <small className="form-error text-red-500">
                   {errors.email}
                 </small>
               ) : null}
   
-              <input type="password" onChange={handleChange} onBlur={handleBlur} value={values.password} placeholder="Password" name='password' className="w-full text-black py-1 my-2 border-b bg-transparent border-black outline-none focus:outline-none" />
+  <input
+  type="password"
+  onChange={handleChange}
+  onBlur={handleBlur}
+  value={values.password}
+  placeholder="Password"
+  name="password"
+  className="w-full py-2 my-2 border-b border-black outline-none bg-transparent text-black placeholder-gray-400 focus:placeholder-opacity-50"
+/>
               {errors.password && touched.password ? (
                 <small className="form-error text-red-500">
                   {errors.password}

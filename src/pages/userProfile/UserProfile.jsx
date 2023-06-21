@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { profileUpdate } from "../../api/UserApi";
 import img from "../../assets/images/avathar2.png";
 import { setUserDetails } from "../../redux/userSlice";
-import { Button } from "@material-tailwind/react";
+import cover from "../../assets/images/cover.jpg"
 
 const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
@@ -89,8 +89,9 @@ console.log(uservalues.firstName,90909);
           <div
             className="absolute top-0 w-full h-500-px bg-center bg-cover"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80')",
+              backgroundImage: `url(${cover})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           ></div>
           <div
@@ -104,7 +105,7 @@ console.log(uservalues.firstName,90909);
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                    <div className="relative ml-8 rounded-full">
+                    <div className="relative  ml-8 rounded-full">
                       <img
                         alt="..."
                         src={

@@ -12,8 +12,11 @@ function UserProtectedRoutes(props) {
   if (localStorage.getItem('token')) {
       return props.children;
     }
-    toast.error('You have no account, Please Login');
-    return <Navigate to="/" />;
+    setTimeout(()=>{
+
+      toast.error('You have no account, Please Login');
+    },500)
+    return <Navigate to="/login" />;
 }
 
 export default UserProtectedRoutes

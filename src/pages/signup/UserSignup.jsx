@@ -183,7 +183,7 @@ function UserSignup() {
   return (
     <>
       {showOtp ? (
-        <section className="p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-20 justify-between">
+        <section className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
           <div className="w-full  h-full flex items-center justify-center">
             <div className="hidden md:block relative w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
@@ -239,8 +239,8 @@ function UserSignup() {
           </div>
         </section>
       ) : (
-        <section className="p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-20 justify-between">
-          <div className="w-full  h-full flex items-center justify-center">
+        <section className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
+          <div className="w-full  h-full flex items-center justify-center shadow-2xl">
             <div className="hidden md:block relative w-full md:w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
                 <h1 className="text-4xl text-black font-bold my-3 text-center">
@@ -254,7 +254,7 @@ function UserSignup() {
                   Already have an account? Please log in
                 </p>
 
-                <button className="text-black w-1/2 bg-violet-500 hover:bg-violet-700 rounded-md p-3 mt-2 text-center flex items-center justify-center">
+                <button className="text-black w-1/2 bg-gradient-to-t from-white to-blue-200 rounded-md p-3 mt-2 text-center flex items-center justify-center">
                   <Link to="/login"> Log in</Link>
                 </button>
               </div>

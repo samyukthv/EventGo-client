@@ -30,13 +30,13 @@ function Navbar() {
 
 
   return (
-    <div className="shadow-md w-full top-0 left-0  ">
+    <div className="shadow-md w-full top-0 left-0   ">
       <div className="md:flex bg-white py-5 md:px-10 px-7 backdrop-filter backdrop-blur-3xl bg-opacity-5  ">
-        <div className="font-bold text-2xl cursor-pointer flex items-center">
-          <span className="text-3xl text-indigo-600 mr-1 pt-2">
-            <ion-icon name="finger-print-outline"></ion-icon>
-          </span>
+        <div className="font-monoton  text-2xl cursor-pointer flex items-center bg-white">
+          <span className="text-3xl  mr-1 pt-2  text-purple-500 "> <ion-icon name="finger-print-outline"></ion-icon></span>
+          <span className="bg-gradient-to-r from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
           EventGo
+          </span>
         </div>
         <div className="flex">
           <ul
@@ -56,7 +56,7 @@ function Navbar() {
               </li>
             )}
             <li className="p-3 font-serif">
-              <a href="#jhghj">Add event</a>
+            <Link to="/organizer/">Add event</Link>
             </li>
             <li className="p-3 font-serif">
               <a href="#jj">About</a>

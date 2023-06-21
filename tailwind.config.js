@@ -18,7 +18,13 @@ export default {
     },
     backgroundImage1:{
       "my-image":"url('./src/assets/images/bartek-garbowicz-xJeCLqsBUqc-unsplash.jpg')"
-    }
+    },
+    fontFamily: {
+      chonburi: ['Chonburi', 'cursive'],
+       'roboto-slab': ['Roboto Slab', 'serif'],
+       kablammo: ['Kablammo', 'cursive'],
+       monoton: ['Monoton', 'cursive'],
+    },
   },
   plugins: [ require("tw-elements/dist/plugin.cjs"),
   require('@tailwindcss/forms')],
