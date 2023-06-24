@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import cover from "../../assets/images/cover.jpg";
+import cover from "../../assets/images/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg";
 import { useSelector } from "react-redux";
 import { confirmBooking } from "../../api/UserApi";
 
@@ -79,13 +79,13 @@ export default function CheckoutForm() {
   <img className="w-72" src={cover} alt="Cover" />
 
   <div className="absolute inset-0 flex flex-col items-center justify-center">
-    <div className="font-bold text-2xl cursor-pointer flex items-center">
-      <span className="text-3xl text-indigo-600 mr-1 pt-2">
-        <ion-icon name="finger-print-outline"></ion-icon>
-      </span>
-      EventGo
-    </div>
-    <h2 className="text-white font-serif px-3">
+  <div className="font-monoton  text-2xl cursor-pointer flex items-center text-clip bg-transparent">
+          <span className="text-3xl  mr-1 pt-2  text-purple-500 "> <ion-icon name="finger-print-outline"></ion-icon></span>
+          <span className="text-purple-500">
+          EventGo
+          </span>
+        </div>
+    <h2 className="text-black font-roboto-slab px-3 mb-5">
      Total Bill: &#8377;&nbsp;{eventDetails.totalBill}.00
     </h2>
   </div>

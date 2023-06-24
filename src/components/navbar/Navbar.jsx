@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../redux/userSlice";
 import img from "../../assets/images/avathar2.png"
+const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
 
 function Navbar() {
@@ -34,7 +35,7 @@ function Navbar() {
       <div className="md:flex bg-white py-5 md:px-10 px-7 backdrop-filter backdrop-blur-3xl bg-opacity-5  ">
         <div className="font-monoton  text-2xl cursor-pointer flex items-center bg-white">
           <span className="text-3xl  mr-1 pt-2  text-purple-500 "> <ion-icon name="finger-print-outline"></ion-icon></span>
-          <span className="bg-gradient-to-r from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
+          <span className="bg-gradient-to-r  from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
           EventGo
           </span>
         </div>
@@ -72,40 +73,42 @@ function Navbar() {
           </div>
         </div>
         <div className="flex ml-auto">
-        {user && (
-           <img
-           alt="..."
-           src={userdata.image.slice(0,33)=="https://lh3.googleusercontent.com"? userdata.image : userdata.image?`${PROFILE_URL}${userdata.image}`:img}
-           className="shadow-2xl rounded-full h-10   border-none  mt-1 max-w-150-px"
-         />
-          )}
-          {user && (
-            <h1 className="mt-3 md:ml-8 text-center mr-7 font-serif md:text-left font-bold">
-              Welcome {userdata.firstName}...!
-            </h1>
-          )}
-          <span className="text-2xl mr-6 pt-3">
-            <ion-icon name="notifications-outline"></ion-icon>
-          </span>
-          {user ? (
-            <button
-              type="button"
-              onClick={logout}
-              className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-              data-te-ripple-init
-            >
-              Logout
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-              data-te-ripple-init
-            >
-              <Link to="/choose_account"> Log in</Link>
-            </button>
-          )}
-        </div>
+  {user && (
+    <img
+      alt="..."
+      src={userdata.image.slice(0, 33) === "https://lh3.googleusercontent.com" ? userdata.image : userdata.image ? `${PROFILE_URL}${userdata.image}` : img}
+      className="shadow-2xl rounded-full h-10 w-10 border-none mt-1 max-w-150-px"
+      style={{ borderRadius: "50%" }}
+    />
+  )}
+  {user && (
+    <h1 className="mt-3 md:ml-8 text-center mr-7 font-serif md:text-left font-bold">
+      Welcome {userdata.firstName}...!
+    </h1>
+  )}
+  <span className="text-2xl mr-6 pt-3">
+    <ion-icon name="notifications-outline"></ion-icon>
+  </span>
+  {user ? (
+    <button
+      type="button"
+      onClick={logout}
+      className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+      data-te-ripple-init
+    >
+      Logout
+    </button>
+  ) : (
+    <button
+      type="button"
+      className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+      data-te-ripple-init
+    >
+      <Link to="/choose_account"> Log in</Link>
+    </button>
+  )}
+</div>
+
       </div>
     </div>
   );

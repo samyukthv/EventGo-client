@@ -1,15 +1,20 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import BannerTwo from '../../components/banner/BannerTwo'
+import {motion} from 'framer-motion'
 
 function HappeningCity() {
   return (
-    <div>
+    <motion.div
+    initial={{width:0}}
+    animate={{width:'100%'}}
+    exit={{x:window.innerWidth,transition:{duration:0.1}}}
+    >
       <Navbar/>
       <BannerTwo/>
       
 
-    </div>
+    </motion.div>
   )
 }
 

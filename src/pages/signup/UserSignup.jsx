@@ -12,6 +12,7 @@ import { auth } from "../../firebase/Config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import {setUserDetails} from '../../redux/userSlice'
 import {useDispatch} from "react-redux"
+import {motion} from "framer-motion"
 
 const initialValues = {
   firstName: "",
@@ -239,7 +240,11 @@ function UserSignup() {
           </div>
         </section>
       ) : (
-        <section className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
+        <motion.section
+        initial={{opacity:0}}
+    animate={{opacity:1}}
+    exit={{opacity:0}}
+ className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
           <div className="w-full  h-full flex items-center justify-center shadow-2xl">
             <div className="hidden md:block relative w-full md:w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
@@ -387,7 +392,7 @@ function UserSignup() {
             </div>
             <Toaster />
           </div>
-        </section>
+        </motion.section>
       )}
     </>
   );

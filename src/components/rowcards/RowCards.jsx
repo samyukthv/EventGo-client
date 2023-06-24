@@ -6,9 +6,9 @@ function RowCards({ props }) {
   console.log(props, 56789);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 px-16 lg:grid-cols-4 gap-20 lg:px-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 px-16 lg:grid-cols-4 gap-20 lg:px-10 ">
       {props.map((data) => (
-        <div key={data._id} className="bg-white border border-gray-200  shadow dark:bg-gray-800 dark:border-gray-700">
+        <div key={data._id} className="bg-slate-700 border border-gray-200 backdrop-filter backdrop-blur-3xl bg-opacity-10   dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
           <div className="flex flex-col items-center justify-center h-full p-4">
             <img className=" mb-4" src={IMAGE_URL + data.image} alt="" />
 

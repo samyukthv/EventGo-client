@@ -4,8 +4,8 @@ import image from "../../assets/images/anthony-delanoix-hzgs56Ze49s-unsplash.jpg
 function Banner() {
   
   return (
-    <div className="w-full h-[90vh]">
-            <img src={image} alt="" className='w-full h-[90vh] object-cover' />
+    <div className="w-full h-[70vh]">
+            <img src={image} alt="" className='w-full h-[70vh] object-cover' />
             <div className='max-w-[1140px] m-auto'>
                 <div className="absolute top-[40%] w-full md:-[50%] max-w-[600px] h-full flex flex-col text-white p-4">
                     <h1 className='font-bold text-4xl'>"Come checkout the best and popular cities to have fun."</h1>

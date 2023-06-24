@@ -61,9 +61,9 @@ function EventInfo() {
   };
 
   return (
-    <div className="pb-5 pt-5 bg-gradient-to-b from-blue-100 to-white-100 ">
+    <div className="pb-5 pt-5 bg-gradient-to-r from-fuchsia-100 to-cyan-100 ">
       <div
-        className="relative isolate overflow-hidden mb-5 mx-5 bg-gradient-to-t from-white to-blue-100 bg-gray-900 px-6 pt-16 shadow-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
+        className="relative isolate overflow-hidden mb-5 mx-5 bg-gradient-to-t from-white to-blue-100 bg-gray-900 px-6 pt-16 shadow-xl rounded-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
         style={{
           backgroundImage: event
             ? `url(${COVER_IMAGE_URL + event.coverImage})`
@@ -129,8 +129,8 @@ function EventInfo() {
         </div>
       </div>
 
-      <div className="m-5 sm:m-20 w-full sm:w-1/2 bg-white backdrop-filter backdrop-blur-md bg-opacity-50 rounded-md shadow-xl">
-        <ul role="list" className="divide-y bg-white">
+      <div className="m-5 sm:m-20 w-full sm:w-1/2 bg-white  shadow-xl backdrop-filter  bg-opacity-5">
+        <ul role="list" className="divide-y bg-white ">
           <li className="flex flex-col sm:flex-row justify-between gap-x-6 py-5">
             <div className="flex flex-col sm:flex-row gap-x-4">
               {organizer && event && (

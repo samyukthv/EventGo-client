@@ -9,8 +9,7 @@ import {  useFormik } from "formik";
 import { loginSchema } from "../../yup";
 import {useDispatch} from 'react-redux'
 import {setUserDetails} from "../../redux/userSlice"
-import { Input } from "@material-tailwind/react";
-
+import {motion} from 'framer-motion'
 
 const initialValues={
   email:"",
@@ -97,7 +96,12 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
 
 
   return (
-    <section className="p-4 md:p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-4 md:px-20 justify-between">
+    <motion.section 
+    initial={{width:0}}
+    animate={{width:'100%'}}
+    exit={{x:window.innerWidth,transition:{duration:0.2}}}
+
+    className="p-4 md:p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-4 md:px-20 justify-between">
     <div className="w-full h-full flex items-center justify-center shadow-2xl">
       <div className="hidden md:block relative w-full md:w-1/2 h-full flex-col">
         <div className="absolute top-[15%] flex flex-col items-center">
@@ -172,7 +176,7 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
       </div>
     </div>
     <Toaster />
-  </section>
+  </motion.section>
   
   
   )

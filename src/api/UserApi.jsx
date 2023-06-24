@@ -82,7 +82,17 @@ export async function setNewPassword(id,values){
 
     export async function profileUpdate(value){
         try {
-            const data= await userApi.post(`/updateProfile`,value)
+            const data= await userApi.patch(`/updateProfile`,value)
+            return data
+        } catch (error) {
+            
+        }
+    }
+
+
+    export async function userImageUpdate(profileImage,config){
+        try {
+            const data= await userApi.patch('/userImageUpdate',profileImage,config)
             return data
         } catch (error) {
             
