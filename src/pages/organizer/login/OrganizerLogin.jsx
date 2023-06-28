@@ -83,14 +83,15 @@ function OrganizerLogin() {
           instagram: googleReg.data.organizer?.instagram,
           linkedin: googleReg.data.organizer?.linkedin,
           facebook: googleReg.data.organizer?.facebook,
+          coverImage: googleReg.data.organizer?.coverImage,
         })
       );
       console.log("after");
       localStorage.setItem("organizertoken", googleReg.data.token);
 
-      setTimeout(() => {
+      
         navigate("/organizer/home");
-      }, 1000);
+      
     } else {
       toast.error(googleReg.data.message);
     }

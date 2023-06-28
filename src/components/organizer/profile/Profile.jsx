@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import img from "../../../assets/images/avathar2.png";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
-import { setOrganizerDetails } from "../../../redux/organizerSlice";
-import { Button } from "@material-tailwind/react";
-import { profileUpdate } from "../../../api/OrganizerApi";
+import { setOrganizerDetails, } from "../../../redux/organizerSlice";
+import {
+  profileUpdate,
+  organizerCoverImageUpload,
+  organizerImageUpdate
+} from "../../../api/OrganizerApi";
 
-const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
+import defaultCoverImage  from "../../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg"
+
+const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
+const ORGANIZER_COVER_IMAGE_URL = import.meta.env.VITE_ORGANIZER_COVER_IMAGE_URL;
 
 function Profile() {
   const dispatch = useDispatch();
   const organizerData = useSelector((state) => state.organizer);
-
+console.log(organizerData,98);
   const [organizeValues, setOrganizerValues] = useState({
     firstName: organizerData?.firstName,
     lastName: organizerData?.lastName,
@@ -22,7 +28,50 @@ function Profile() {
     instagram: organizerData?.instagram,
     linkedin: organizerData?.linkedin,
     facebook: organizerData?.facebook,
+    coverImage: organizerData?.coverImage,
   });
+
+  const [pimage, setImage] = useState(null);
+
+  const uploadImage = async () => {
+    try {
+      console.log("hyhyh");
+      const formData = new FormData();
+      formData.append("organizerProfileImage", pimage);
+      formData.append("id", JSON.stringify(organizerData.id));
+
+      const response = await organizerImageUpdate(formData, {
+        headers: {
+          "content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      console.log(response, 23);
+      if (response.data.organizer.image) {
+        console.log("hello");
+       
+        dispatch(
+          setOrganizerDetails({
+            id: response.data.organizer?._id,
+            firstName: response.data.organizer?.firstName,
+            lastName: response.data.organizer?.lastName,
+            mobile: response.data.organizer?.mobile,
+            image: response.data.organizer?.image,
+            email: response.data.organizer?.email,
+          })
+        );
+        toast.success("image updated successfully");
+        setImage(null);
+        setOrganizerValues((prevValues) => ({
+          ...prevValues,
+          image: response.data.organizer?.image,
+        }));
+        console.log("dispatched");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const [organizerUpdated, setOrganizerUpdated] = useState(false);
   const updateButton = () => {
@@ -66,34 +115,101 @@ function Profile() {
     if (response.data.updated) {
       dispatch(
         setOrganizerDetails({
-          id: response.data.organizer._id,
-          firstName: response.data.organizer.firstName,
-          lastName: response.data.organizer.lastName,
-          mobile: response.data.organizer.mobile,
+          id: response.data.organizer?._id,
+          firstName: response.data.organizer?.firstName,
+          lastName: response.data.organizer?.lastName,
+          mobile: response.data.organizer?.mobile,
           image: response.data.organizer?.image,
-          email: response.data.organizer.email,
+          email: response.data.organizer?.email,
           about: response.data.organizer?.about,
           instagram: response.data.organizer?.instagram,
           linkedin: response.data.organizer?.linkedin,
           facebook: response.data.organizer?.facebook,
+          coverImage: response.data.organizer?.coverImage,
         })
       );
       toast.success("profile updated successfully");
       setOrganizerUpdated(false);
     }
   };
+  const [cImage, setCImage] = useState(null);
+
+  const uploadCoverImage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("organizerCoverImage", cImage);
+      formData.append("id", JSON.stringify(organizerData.id));
+      console.log(...formData);
+      const response = await organizerCoverImageUpload(formData, {
+        headers: {
+          "content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      if (response.data.success) {
+        toast.success("cover image updated successfully");
+        dispatch(
+          setOrganizerDetails({
+            id: response.data.organizer?._id,
+            firstName: response.data.organizer?.firstName,
+            lastName: response.data.organizer?.lastName,
+            mobile: response.data.organizer?.mobile,
+            image: response.data.organizer?.image,
+            email: response.data.organizer.email,
+            about: response.data.organizer?.about,
+            instagram: response.data.organizer?.instagram,
+            linkedin: response.data.organizer?.linkedin,
+            facebook: response.data.organizer?.facebook,
+            coverImage: response.data.organizer?.coverImage,
+          })
+        );
+        setCImage(null);
+        setOrganizerValues((prevValues) => ({
+          ...prevValues,
+          coverImage: response.data.organizer?.coverImage,
+        }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  
+console.log(organizeValues.coverImage,12);
   console.log(organizeValues.about);
+
+  const coverImageUrl = organizeValues.coverImage
+  ? `${ORGANIZER_COVER_IMAGE_URL}${organizeValues.coverImage}`
+  : defaultCoverImage;
   return (
     <main className="profile-page ">
       <section className="relative block h-500-px">
-        <div
-          className="absolute top-0 w-full h-full bg-center bg-cover"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80')",
-          }}
-        >
-         
+      <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{ backgroundImage: `url(${coverImageUrl})` }}>
+
+          {cImage ? (
+            <label
+              onClick={uploadCoverImage}
+              type="button"
+              class="absolute top-5 right-5  items-end inline-block rounded-full bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+            >
+              confirm update
+            </label>
+          ) : (
+            <label
+              htmlFor="uploadCoverImage"
+              type="button"
+              className="absolute top-5 right-5 inline-block items-end rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+            >
+              update cover image
+            </label>
+          )}
+          <input
+            type="file"
+            hidden
+            name="coverImage"
+            id="uploadCoverImage"
+            onChange={(e) => setCImage(e.target.files[0])}
+          />
         </div>
         <div
           className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
@@ -102,23 +218,60 @@ function Profile() {
       </section>
       <section className="relative py-16 bg-blueGray-200 ">
         <div className="container mx-auto px-4 ">
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
-            <div className="px-6  bg-gradient-to-t from-white to-blue-200">
+          <div className="relative  flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+            <div className="px-6">
               <div className="flex flex-wrap justify-center ">
-                <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center ">
-                  <div className="relative">
-                    <img
-                      alt="..."
-                      src={
-                        organizeValues.image.slice(0, 33) ===
-                        "https://lh3.googleusercontent.com"
-                          ? organizeValues.image
-                          : organizeValues.image
-                          ? `${PROFILE_URL}${organizeValues.image}`
-                          : img
-                      }
-                      className="shadow-xl rounded-full h-28 align-middle border-none absolute -m-16 -ml-20 lg:-ml-8 max-w-150-px"
-                    />
+                <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                  <div className="relative ">
+                  <div className="ml-12">
+  <img
+    alt="..."
+    src={
+      organizeValues.image.slice(0, 33) === "https://lh3.googleusercontent.com"
+        ? organizeValues.image
+        : organizeValues.image
+        ? `${ORGANIZER_PROFILE_URL}${organizeValues.image}`
+        : img
+    }
+    className="shadow-xl w-full  h-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-8 max-w-150-px rounded-full"
+  />
+</div>
+
+                    <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"></div>
+                    <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                      <div className="flex justify-center py-4 lg:pt-4 pt-8"></div>
+                    </div>
+                    <div className="flex justify-center items-center mt-8">
+                      <div className="text-center  ">
+                        {pimage ? (
+                          <label
+                            onClick={uploadImage}
+                            class="inline-block mt-10 rounded-full bg-success   px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          >
+                            confirm upload
+                          </label>
+                        ) : (
+                          <label
+                            htmlFor="uploadImage"
+                            class="inline-block mt-10 rounded-full bg-primary px-6  pb-2 pt-2.5 ml-3  text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                          >
+                            update image
+                          </label>
+                        )}
+
+                        <input
+                          type="file"
+                          onChange={(e) => setImage(e.target.files[0])}
+                          hidden
+                          name="profilePic"
+                          id="uploadImage"
+                        />
+
+                        <p className="text-sm text-gray-600 mt-5">
+                          {organizeValues.email}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -248,74 +401,74 @@ function Profile() {
                     ></textarea>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-10 py-10 border-t border-blueGray-200 text-center flex flex-wrap justify-center">
+                <div className="w-full lg:w-1/3 px-4">
+                  <p className="text-xl font-semibold text-center mb-2">
+                    instagram
+                  </p>
+                  <i className="fab fa-instagram" />
+
+                  <input
+                    type="text"
+                    name="instagram"
+                    className="p-2 rounded border w-full font-bold text-center border-gray-300 focus:border-primary focus:ring-0"
+                    placeholder="instagram link"
+                    value={organizeValues.instagram}
+                    onChange={(e) => {
+                      setOrganizerValues({
+                        ...organizeValues,
+                        [e.target.name]: e.target.value,
+                      });
+                      updateButton();
+                    }}
+                  />
                 </div>
 
+                <div className="w-full lg:w-1/3 px-4">
+                  <p className="text-xl font-semibold text-center mb-2">
+                    facebook
+                  </p>
+                  <i className="fab fa-facebook" />
 
+                  <input
+                    type="text"
+                    name="facebook"
+                    className="p-2 rounded border w-full font-bold text-center border-gray-300 focus:border-primary focus:ring-0"
+                    placeholder="facebook link"
+                    value={organizeValues.facebook}
+                    onChange={(e) => {
+                      setOrganizerValues({
+                        ...organizeValues,
+                        [e.target.name]: e.target.value,
+                      });
+                      updateButton();
+                    }}
+                  />
+                </div>
 
+                <div className="w-full lg:w-1/3 px-4">
+                  <p className="text-xl font-semibold text-center mb-2">
+                    LinkedIn
+                  </p>
+                  <i className="fab fa-linkedin" />
 
-                <div className="mt-10 py-10 border-t border-blueGray-200 text-center flex flex-wrap justify-center">
-  <div className="w-full lg:w-1/3 px-4">
-    <p className="text-xl font-semibold text-center mb-2">instagram</p>
-    <i className="fab fa-instagram" />
-
-    <input
-      type="text"
-      name="instagram"
-      className="p-2 rounded border w-full font-bold text-center border-gray-300 focus:border-primary focus:ring-0"
-      placeholder="instagram link"
-      value={organizeValues.instagram}
-      onChange={(e) => {
-        setOrganizerValues({
-          ...organizeValues,
-          [e.target.name]: e.target.value,
-        });
-        updateButton();
-      }}
-     
-    />
-  </div>
-
-  <div className="w-full lg:w-1/3 px-4">
-    <p className="text-xl font-semibold text-center mb-2">facebook</p>
-    <i className="fab fa-facebook" />
-
-    <input
-      type="text"
-      name="facebook"
-      className="p-2 rounded border w-full font-bold text-center border-gray-300 focus:border-primary focus:ring-0"
-      placeholder="facebook link"
-      value={organizeValues.facebook}
-      onChange={(e) => {
-        setOrganizerValues({
-          ...organizeValues,
-          [e.target.name]: e.target.value,
-        });
-        updateButton();
-      }}
-   
-    />
-  </div>
-
-  <div className="w-full lg:w-1/3 px-4">
-    <p className="text-xl font-semibold text-center mb-2">LinkedIn</p>
-    <i className="fab fa-linkedin" />
-
-    <input
-      type="text"
-      name="linkedin"
-      className="p-2 rounded border w-full font-bold text-center border-gray-300 focus:border-primary focus:ring-0"
-      placeholder="linkedin link"
-      value={organizeValues.linkedin}
-      onChange={(e) => {
-        setOrganizerValues({
-          ...organizeValues,
-          [e.target.name]: e.target.value,
-        });
-        updateButton();
-      }}
-   
-    />
-  </div>
+                  <input
+                    type="text"
+                    name="linkedin"
+                    className="p-2 rounded border w-full font-bold text-center border-gray-300 focus:border-primary focus:ring-0"
+                    placeholder="linkedin link"
+                    value={organizeValues.linkedin}
+                    onChange={(e) => {
+                      setOrganizerValues({
+                        ...organizeValues,
+                        [e.target.name]: e.target.value,
+                      });
+                      updateButton();
+                    }}
+                  />
+                </div>
                 {organizerUpdated &&
                   validLastName &&
                   validFirstName &&
@@ -328,9 +481,7 @@ function Profile() {
                       Update Profile
                     </button>
                   )}
-              
-</div>
-
+              </div>
             </div>
           </div>
         </div>

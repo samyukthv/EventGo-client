@@ -41,7 +41,8 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
               lastName:response.data.user.lastName,
               mobile:response.data.user.mobile,
               image:response.data.user?.image,
-              email:response.data.user.email
+              email:response.data.user.email,
+              
             })
           )
           navigate("/");
@@ -80,9 +81,9 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
         })
   
       )
-      setTimeout(() => {
+      
         navigate("/");
-      }, 1000);
+      
 
     } else {
       toast.error(googleReg.data.message)

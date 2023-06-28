@@ -7,6 +7,8 @@ const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 const COVER_IMAGE_URL = import.meta.env.VITE_COVER_IMAGE_URL;
 const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 import "mapbox-gl/dist/mapbox-gl.css";
+import wall from '../../assets/images/be99d5c0194658e86dda7fcb1e4e5795.jpg'
+
 
 function EventInfo() {
   const Mapref = useRef();
@@ -61,7 +63,8 @@ function EventInfo() {
   };
 
   return (
-    <div className="pb-5 pt-5 bg-gradient-to-r from-fuchsia-100 to-cyan-100 ">
+<div className="pb-5 pt-5 bg-gradient-to-r from-fuchsia-100 to-cyan-100" >
+   
       <div
         className="relative isolate overflow-hidden mb-5 mx-5 bg-gradient-to-t from-white to-blue-100 bg-gray-900 px-6 pt-16 shadow-xl rounded-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
         style={{
@@ -85,7 +88,7 @@ function EventInfo() {
             bottom: 0,
             background:
               "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 1) 100%)",
-            mixBlendMode: "multiply",
+            mixBlendMode: "soft-light",
             zIndex: -1,
           }}
         ></div>
@@ -96,14 +99,17 @@ function EventInfo() {
           <p className="mt-6 text-2xl font-roboto-slab leading-8 text-white">
             {event ? event.description : null}
           </p>
-          <small className="mt-6  leading-8 text-red-600">
+          <small className="mt-6  leading-8 text-red-600"> 
+         <span className="">  <ion-icon name="time-outline"></ion-icon> </span>
+            
             {event
               ? `${formatDate(event.startDate)}, ${event.startTime} to ${
                   event.endTime
                 }`
               : null}
           </small>
-          <p className="  leading-8 text-white">{location ? location : null}</p>
+          
+          <p className="  leading-8 text-white"> <span ><ion-icon className="mb-5" name="location-outline"></ion-icon> </span> {location ? location : null}</p>
           <div className="mt-10 flex flex-col items-start gap-x-6 lg:justify-start ">
             <Link to={`/booking/${event ? event._id : null}`}>
               <button

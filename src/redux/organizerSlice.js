@@ -12,6 +12,7 @@ const initialState={
     instagram:"",
     facebook:"",
     linkedin:"",
+    coverImage:""
 
 }
 
@@ -30,6 +31,7 @@ const organizerSlice = createSlice({
             state.instagram=action.payload.instagram
             state.facebook=action.payload.facebook
             state.linkedin=action.payload.linkedin
+            state.coverImage=action.payload.coverImage
             
         },
         organizerLogout:(state,action)=>{
@@ -43,6 +45,7 @@ const organizerSlice = createSlice({
             state.instagram=""
             state.facebook=""
             state.linkedin=""
+            state.coverImage=""
         }
     }
 })

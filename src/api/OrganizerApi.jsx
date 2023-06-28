@@ -52,6 +52,25 @@ export async function profileUpdate(value){
     }
 }
 
+export async function organizerCoverImageUpload(coverImage,config){
+    try {
+        const data= await organizerApi.patch('/organizerCoverImageUpdate',coverImage,config)
+        return data
+    } catch (error) {
+        
+    }
+}
+
+
+export async function organizerImageUpdate(profileImage,config){
+    try {
+        const data= await organizerApi.patch('/organizerImageUpdate',profileImage,config)
+        return data
+    } catch (error) {
+        
+    }
+}
+
 
 export async function organizerEvents(organizerId) {
     try {

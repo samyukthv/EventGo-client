@@ -13,6 +13,8 @@ import {
   Button
 } from "@material-tailwind/react";
  
+const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
+
 
 function OrganizerCard(props) {
   const[ organizer,setOrganizer]=useState([])
@@ -67,7 +69,7 @@ useEffect(()=>{
             data.image.slice(0, 33) === "https://lh3.googleusercontent.com"
               ? data.image
               : data.image
-              ? `${PROFILE_URL}${data.image}`
+              ? `${ORGANIZER_PROFILE_URL}${data.image}`
               : avatar
           }
           alt="profile-picture"

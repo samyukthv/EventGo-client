@@ -1,6 +1,8 @@
 import {BrowserRouter} from "react-router-dom"
 
 import AnimatedRoutes from "./animatedRoutes/AnimatedRoutes"
+import { toast, Toaster } from "react-hot-toast";
+
 
 
 function App() {
@@ -10,6 +12,7 @@ function App() {
    <>
    <BrowserRouter>
   <AnimatedRoutes/>
+  <Toaster/>
    </BrowserRouter>
    </>
   )

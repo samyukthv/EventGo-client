@@ -6,13 +6,13 @@ import signupimg from "../../assets/images/Keep bang'n  on We Heart It.jpg";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { registerUser } from "../../api/UserApi";
-import {  useFormik } from "formik";
+import { useFormik } from "formik";
 import { signUpSchema } from "../../yup";
 import { auth } from "../../firebase/Config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import {setUserDetails} from '../../redux/userSlice'
-import {useDispatch} from "react-redux"
-import {motion} from "framer-motion"
+import { setUserDetails } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 
 const initialValues = {
   firstName: "",
@@ -21,7 +21,7 @@ const initialValues = {
   mobile: "",
   password: "",
   confirmPassword: "",
-  otp:''
+  otp: "",
 };
 
 function UserSignup() {
@@ -29,10 +29,10 @@ function UserSignup() {
   const [loading, setLoading] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
   const [user, setUser] = useState(null);
-  const [verify,setVerify] =useState(null)
+  const [verify, setVerify] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   //USE FORMIK AND FROM VALIDATION
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -44,15 +44,13 @@ function UserSignup() {
         const response = await registerUser(values);
         console.log("onsubmit response");
         console.log(response.data.message);
-        if(response.data.ready){
+        if (response.data.ready) {
           console.log("hyyyyy");
-          onSignup()
-        }else if(response.data.message){
+          onSignup();
+        } else if (response.data.message) {
           console.log("response errordfghjk ");
-          toast.error(response.data.message)
-         
+          toast.error(response.data.message);
         }
-        
       },
     });
 
@@ -82,17 +80,20 @@ function UserSignup() {
     setLoading(true);
     onCaptchVerify();
     const appVerifier = window.recaptchaVerifier;
-    
+
     const formatPhone = "+91" + values.mobile;
-   const confirmation=await signInWithPhoneNumber(auth, formatPhone, appVerifier)
-      setUser(confirmation)
-        // ...
-        setLoading(false);
-        setShowOtp(true);
-        toast.success("OTP send successfully!");
-   
-        setLoading(false);
-    
+    const confirmation = await signInWithPhoneNumber(
+      auth,
+      formatPhone,
+      appVerifier
+    );
+    setUser(confirmation);
+    // ...
+    setLoading(false);
+    setShowOtp(true);
+    toast.success("OTP send successfully!");
+
+    setLoading(false);
   }
 
   async function onOTPVerify() {
@@ -102,7 +103,7 @@ function UserSignup() {
       console.log(values.otp);
       await user.confirm(values.otp);
       console.log("verified");
-  
+
       const response = await registerUser(values);
       console.log("response of verified");
       console.log(response);
@@ -111,15 +112,14 @@ function UserSignup() {
         localStorage.setItem("token", response.data.token);
         dispatch(
           setUserDetails({
-            id:response.data.userData._id,
-            firstName:response.data.userData.firstName,
-            lastName:response.data.userData.lastName,
-            mobile:response.data.userData.mobile,
-            image:response.data.userData?.image,
-            email:response.data.userData.email
+            id: response.data.userData._id,
+            firstName: response.data.userData.firstName,
+            lastName: response.data.userData.lastName,
+            mobile: response.data.userData.mobile,
+            image: response.data.userData?.image,
+            email: response.data.userData.email,
           })
-
-        )
+        );
 
         navigate("/");
       } else {
@@ -134,7 +134,6 @@ function UserSignup() {
       setLoading(false);
     }
   }
-  
 
   // GOOGLE SIGNUP RESPONSE FUNCTION
   const responseMessage = async (response) => {
@@ -148,29 +147,25 @@ function UserSignup() {
       lastName: cred.family_name,
       image: cred.picture,
       password: cred.sub,
-      
     });
     if (googleReg.data.message) {
-      
       toast.error(googleReg.data.message);
-    } else if(googleReg.data.google) {
-      
-       console.log(googleReg);
+    } else if (googleReg.data.google) {
+      console.log(googleReg);
       dispatch(
         setUserDetails({
-          id:googleReg.data.userdata._id,
-          firstName:googleReg.data.userdata.firstName,
-          lastName:googleReg.data.userdata.lastName,
-          mobile:googleReg.data.userdata?.mobile,
-          image:googleReg.data.userdata?.image,
-          email:googleReg.data.userdata.email
+          id: googleReg.data.userdata._id,
+          firstName: googleReg.data.userdata.firstName,
+          lastName: googleReg.data.userdata.lastName,
+          mobile: googleReg.data.userdata?.mobile,
+          image: googleReg.data.userdata?.image,
+          email: googleReg.data.userdata.email,
         })
+      );
 
-      )
-       
       console.log(googleReg);
-      localStorage.setItem("token", googleReg.data.token)
-      toast.success("google account verified")
+      localStorage.setItem("token", googleReg.data.token);
+      toast.success("google account verified");
 
       setTimeout(() => {
         navigate("/");
@@ -241,10 +236,11 @@ function UserSignup() {
         </section>
       ) : (
         <motion.section
-        initial={{opacity:0}}
-    animate={{opacity:1}}
-    exit={{opacity:0}}
- className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between"
+        >
           <div className="w-full  h-full flex items-center justify-center shadow-2xl">
             <div className="hidden md:block relative w-full md:w-1/2 h-full flex-col">
               <div className="absolute top-[15%] flex flex-col items-center">
@@ -268,7 +264,7 @@ function UserSignup() {
                 src={signupimg}
                 alt="Signup"
                 className="w-full h-full object-cover"
-             />
+              />
             </div>
 
             <div className="w-1/2 h-full flex flex-col pt-5 px-20 justify-between bg-white bg-opacity-20">
