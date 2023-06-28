@@ -61,7 +61,7 @@ function AddEvent() {
         withCredentials: true,
       });
       if (response.data.success) {
-        toast.success("event added successfully");
+        toast.success("event  successfully added ");
         e.target.reset();
       }
     } catch (error) {
@@ -266,108 +266,7 @@ function AddEvent() {
               }}
             />
 
-            {/*  
-          {street && (
-              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
-            )}
-            <input
-              type="text"
-              onBlur={() => {
-                verifyStreet(event.street);
-              }}
-              name="city"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.value })
-              }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-              placeholder="Street"
-            />
           
-
-            {city && (
-              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
-            )}
-            <input
-              type="text"
-              onBlur={() => {
-                verifyCity(event.city);
-              }}
-              name="city"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.value })
-              }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-              placeholder="City"
-            />
-
-            {district && (
-              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
-            )}
-            <input
-              type="text"
-              onBlur={() => {
-                verifyDistrict(event.district);
-              }}
-              name="district"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.value })
-              }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-              placeholder="District"
-            />
-
-            {state && (
-              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
-            )}
-            <input
-              type="text"
-              onBlur={() => {
-                verifyState(event.state);
-              }}
-              name="state"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.value })
-              }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-              placeholder="State"
-            /> */}
-
-            {/* <p className="ml-5 sm:ml-20 mt-5">
-              please enter the latitude and longitude of the city to help us
-              intergrate map
-            </p>
-
-            {latitude && (
-              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
-            )}
-            <input
-              type="text"
-              onBlur={() => {
-                verifyLatitude(event.latitude);
-              }}
-              name="latitude"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.value })
-              }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-              placeholder="latitude"
-            />
-
-            {longitude && (
-              <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
-            )}
-            <input
-              type="text"
-              onBlur={() => {
-                verifyLongitude(event.longitude);
-              }}
-              name="longitude"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.value })
-              }
-              className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-              placeholder="longitude"
-            /> */}
 
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
               About Event

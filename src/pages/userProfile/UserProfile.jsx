@@ -8,7 +8,7 @@ import { setUserDetails } from "../../redux/userSlice";
 import cover from "../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
 import { motion } from "framer-motion";
 import { userImageUpdate } from "../../api/UserApi";
-import wall from "../../assets/images/ac1292f08ffd7e980f64de43c614db76.jpg"
+import wall from "../../assets/images/be99d5c0194658e86dda7fcb1e4e5795.jpg"
 
 const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
@@ -150,7 +150,7 @@ function UserProfile() {
         </section>
         <section className="relative   bg-blueGray-200 ">
           <div className="container mx-auto px-4 flex justify-center">
-            <div className="relative flex flex-col min-w-0 break-words   w-3/5 mb-6 shadow-xl rounded-lg -mt-96"  style={{ backgroundImage: `url(${wall})` }}>
+            <div className="relative flex flex-col min-w-0 break-words   w-3/5 mb-6 shadow-xl rounded-lg -mt-96"  style={{ backgroundImage: `url(${wall})`,backgroundSize:cover, backgroundPosition: "center", }}>
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">

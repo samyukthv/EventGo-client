@@ -5,6 +5,9 @@ import { toast, Toaster } from "react-hot-toast";
 import {  useFormik } from "formik";
 import { emailConfirm } from "../../yup";
 import {sendMail} from '../../api/UserApi'
+import bgimg  from '../../assets/images/1f9bcc8e0cd6f1525f1c6a40ed6fbd88.jpg'
+import {motion} from 'framer-motion'
+
 
 const initialValues={
     email:""
@@ -31,65 +34,51 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}=useFormik({
 
 
   return (
+    <motion.div
+    initial={{width:0}}
+    animate={{width:'100%'}}
+    exit={{x:window.innerWidth,transition:{duration:0.2}}}
+        >
     <div>
-      <section className="p-20 h-screen bg-gradient-to-r from-fuchsia-200 to-violet-300 flex flex-col pt-10 px-20 justify-between">
-        <div className="w-full  h-full flex items-center justify-center content-center align-middle">
-          <div className="hidden md:block relative w-1/2 h-full flex-col content-center align-middle">
-            <div className="absolute top-[15%] flex flex-col items-center ">
-              <h1 className="text-4xl text-black font-bold my-3 text-center">
-                Unlock unforgettable experiences.
-              </h1>
-              <p className="text-xl text-white font-normal text-center">
-                Sign in and secure your spot at the hottest events with our
-                seamless ticket booking platform.
-              </p>
-            </div>
-
-            <img
-              src={signupimg}
-              alt="Signup"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div
-            className="w-1/2 h-full flex flex-col pt-5 px-20 justify-between"
-            style={{ backgroundColor: "rgb(232,240,254)" }}
-          >
-            <div className="w-full flex flex-col">
-              <div className="w-full flex flex-col mb-2 max-w-[450px] ">
-                <h3 className="text-3xl font-bold mb-2 mt-20 ">Verify Email</h3>
-                <p className="text-base mb-2">
-                  Welcome to EventGo, Please verify your email to create new
-                  password
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit}>
-                <div className="w-full flex flex-col  mt-20 ">
-                <input type="email" onChange={handleChange} onBlur={handleBlur} value={values.email} placeholder="Email" name='email' className="w-full text-black py-1 my-2 border-b bg-transparent border-black outline-none focus:outline-none" />
-              {errors.email && touched.email ? (
+      <div className="relative flex flex-row min-h-screen bg-no-repeat bg-cover justify-end overflow-hidden" style={{ backgroundImage: `url(${bgimg})` }}>
+        <span className="text-3xl   mx-1 pt-2 text-purple-500"> <ion-icon name="finger-print-outline"></ion-icon></span>
+        <span className="bg-gradient-to-r font-monoton text-2xl cursor-pointer mt-2 from bg-purple-500 to-pink-600 text-transparent bg-clip-text">
+          EventGo
+        </span>
+        <div className="w-1/2 p-6 m-auto rounded-md shadow-md lg:max-w-xl border text-center border-purple-100 ">
+          <h1 className="text-3xl font-semibold text-center text-purple-700">Please verify your E-mail</h1>
+          <form onSubmit={handleSubmit} className="mt-6">
+            <div className="mb-2">
+             
+              <input
+            type="email" onChange={handleChange} onBlur={handleBlur} value={values.email} placeholder="Email" name='email'
+                className="w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+                  {errors.email && touched.email ? (
                 <small className="form-error text-red-500">
                   {errors.email}
                 </small>
               ) : null}
-                </div>
-
-                <div className="w-full flex flex-col mt-5">
-                  <button 
-                    type="submit"
-                    className="text-white w-full bg-violet-500 hover:bg-violet- rounded-sm border-collapse  p-2 mt-2 text-center flex items-center justify-center"
-                  >
-                    confirm
-                  </button>
-                </div>
-              </form>
             </div>
-          </div>
-          <Toaster />
+           
+            
+            
+         
+           
+            <div className="mt-6">
+              <button
+              type="submit"
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+               confirm email
+              </button>
+            </div>
+          </form>
         </div>
-      </section>
+      </div>
+      <Toaster />
+
     </div>
+  </motion.div>
   );
 }
 

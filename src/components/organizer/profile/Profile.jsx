@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import img from "../../../assets/images/avathar2.png";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
-import { setOrganizerDetails, } from "../../../redux/organizerSlice";
+import { setOrganizerDetails } from "../../../redux/organizerSlice";
 import {
   profileUpdate,
   organizerCoverImageUpload,
-  organizerImageUpdate
+  organizerImageUpdate,
+  addPosts,
 } from "../../../api/OrganizerApi";
-
-import defaultCoverImage  from "../../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg"
+import { addOrganizerPost } from "../../../yup";
+import { useFormik } from "formik";
+import defaultCoverImage from "../../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
 
 const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
-const ORGANIZER_COVER_IMAGE_URL = import.meta.env.VITE_ORGANIZER_COVER_IMAGE_URL;
+const ORGANIZER_COVER_IMAGE_URL = import.meta.env
+.VITE_ORGANIZER_COVER_IMAGE_URL;
 
 function Profile() {
   const dispatch = useDispatch();
   const organizerData = useSelector((state) => state.organizer);
-console.log(organizerData,98);
   const [organizeValues, setOrganizerValues] = useState({
     firstName: organizerData?.firstName,
     lastName: organizerData?.lastName,
@@ -49,7 +51,7 @@ console.log(organizerData,98);
       console.log(response, 23);
       if (response.data.organizer.image) {
         console.log("hello");
-       
+
         dispatch(
           setOrganizerDetails({
             id: response.data.organizer?._id,
@@ -134,6 +136,7 @@ console.log(organizerData,98);
   };
   const [cImage, setCImage] = useState(null);
 
+  console.log(organizerData.id, 89989988);
   const uploadCoverImage = async () => {
     try {
       const formData = new FormData();
@@ -174,18 +177,50 @@ console.log(organizerData,98);
     }
   };
 
-  
-console.log(organizeValues.coverImage,12);
-  console.log(organizeValues.about);
+  const initialValues = {
+    title: "",
+    description: "",
+  };
+  const [postImage, setPostImage] = useState("");
+
+  const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: addOrganizerPost,
+
+      onSubmit: async (values) => {
+        try {
+          console.log(postImage);
+          const formData = new FormData();
+          formData.append("postImage", postImage);
+          formData.append("id", JSON.stringify(organizerData.id));
+          formData.append("value", JSON.stringify(values));
+          console.log("inininnnininnnnini");
+          const response = await addPosts(formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true,
+          });
+          console.log(response.data, 222);
+          if (response.data.success) {
+            toast.success("post added successfully");
+            resetForm();
+          }
+        } catch (error) {}
+      },
+    });
 
   const coverImageUrl = organizeValues.coverImage
-  ? `${ORGANIZER_COVER_IMAGE_URL}${organizeValues.coverImage}`
-  : defaultCoverImage;
+    ? `${ORGANIZER_COVER_IMAGE_URL}${organizeValues.coverImage}`
+    : defaultCoverImage;
   return (
     <main className="profile-page ">
       <section className="relative block h-500-px">
-      <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{ backgroundImage: `url(${coverImageUrl})` }}>
-
+        <div
+          className="absolute top-0 w-full h-full bg-center bg-cover"
+          style={{ backgroundImage: `url(${coverImageUrl})` }}
+        >
           {cImage ? (
             <label
               onClick={uploadCoverImage}
@@ -223,19 +258,20 @@ console.log(organizeValues.coverImage,12);
               <div className="flex flex-wrap justify-center ">
                 <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                   <div className="relative ">
-                  <div className="ml-12">
-  <img
-    alt="..."
-    src={
-      organizeValues.image.slice(0, 33) === "https://lh3.googleusercontent.com"
-        ? organizeValues.image
-        : organizeValues.image
-        ? `${ORGANIZER_PROFILE_URL}${organizeValues.image}`
-        : img
-    }
-    className="shadow-xl w-full  h-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-8 max-w-150-px rounded-full"
-  />
-</div>
+                    <div className="ml-12">
+                      <img
+                        alt="..."
+                        src={
+                          organizeValues.image.slice(0, 33) ===
+                          "https://lh3.googleusercontent.com"
+                            ? organizeValues.image
+                            : organizeValues.image
+                            ? `${ORGANIZER_PROFILE_URL}${organizeValues.image}`
+                            : img
+                        }
+                        className="shadow-xl w-full  h-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-8 max-w-150-px rounded-full"
+                      />
+                    </div>
 
                     <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"></div>
                     <div className="w-full lg:w-4/12 px-4 lg:order-1">
@@ -278,6 +314,13 @@ console.log(organizeValues.coverImage,12);
                 <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                   <div className="py-6 px-3 mt-32 sm:mt-0">
                     <button
+                      onClick={() => window.my_modal_5.showModal()}
+                      className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                    >
+                      add post
+                    </button>
+                    <button
                       className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
@@ -285,6 +328,88 @@ console.log(organizeValues.coverImage,12);
                     </button>
                   </div>
                 </div>
+
+                {/* modal  */}
+
+                {/* Open the modal using ID.showModal() method */}
+                <dialog
+                  id="my_modal_5"
+                  className="modal modal-bottom sm:modal-middle"
+                >
+                  <form onSubmit={handleSubmit} className="modal-box">
+                    <h3 className="font-bold text-4xl text-center">Add Post</h3>
+                    <h1 className=" font-bold text-lg mt-5">Post Title</h1>
+                    <p className=" text-sm ">A title the event</p>
+
+                    {errors.title && touched.title ? (
+                      <small className="form-error text-red-500">
+                        {errors.title}
+                      </small>
+                    ) : null}
+                    <input
+                      value={values.title}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type="text"
+                      name="title"
+                      className=" p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+                      placeholder="Event description"
+                    />
+
+                    <h1 className=" font-bold text-lg mt-5 ">
+                      Post Description
+                    </h1>
+                    <p className=" text-sm ">
+                      A short description about the event
+                    </p>
+
+                    {errors.description && touched.description ? (
+                      <small className="form-error text-red-500">
+                        {errors.description}
+                      </small>
+                    ) : null}
+                    <input
+                      value={values.description}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type="text"
+                      name="description"
+                      className=" p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+                      placeholder="Event description"
+                    />
+
+                    <h1 className=" font-bold text-lg mt-5">Image</h1>
+                    <p className=" text-sm ">Add the image</p>
+
+                    <input
+                      onChange={(e) => setPostImage(e.target.files[0])}
+                      type="file"
+                      name="postImage"
+                      className=" p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+                      placeholder="Event description"
+                    />
+
+                    <div className="modal-action">
+                      <button
+                        type="submit"
+                        className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                      >
+                        Confirm Post
+                      </button>
+                      {/* if there is a button in form, it will close the modal */}
+                      <button
+                        type="button"
+                        onClick={() => window.my_modal_5.close()}
+                        className="btn"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </dialog>
+
+                {/* modal end */}
+
                 <div className="w-full lg:w-4/12 px-4 lg:order-1">
                   <div className="flex justify-center py-4 lg:pt-4 pt-8">
                     <div className="mr-4 p-3 text-center">
@@ -306,9 +431,6 @@ console.log(organizeValues.coverImage,12);
                 </div>
               </div>
               <div className="text-center mt-12">
-                <p className=" text-xl text-blueGray-700 mb-2">
-                  {organizeValues.email}
-                </p>
                 <div className="text-sm  mt-0 mb-2  font-bold ">
                   <p className="text-center mt-4 font-light ">First Name</p>
 

@@ -6,6 +6,8 @@ import RowCards from "../../components/rowcards/RowCards";
 import { getEventDetails, getOrganizerDetails } from "../../api/UserApi";
 import OrganizerCard from "../../components/rowCardOrganizer/OrganizerCard";
 import {motion} from "framer-motion"
+import Footer from "../../components/footer/Footer";
+import SubBanner from "../../components/banner/SubBanner";
 
 function Home() {
   const [events, setEvents] = useState([]);
@@ -26,6 +28,7 @@ function Home() {
   >
     <Navbar />
     <Banner />
+    <SubBanner/>
     <h1 className="font-serif text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">
       Your personalised events
     </h1>
@@ -44,6 +47,7 @@ function Home() {
       <h1 className="font-serif text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">Organizers You Should Follow</h1>
       <OrganizerCard />
     </div>
+    <Footer/>
   </motion.div>
 
 

@@ -12,9 +12,11 @@ function Navbar() {
   const userdata = useSelector((state) => state.user);
   const [user, setUser] = useState(false);
   const [showList, setShowList] = useState(false);
+  const[details,setDetails]=useState(null)
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
+
       setUser(true);
     }
   }, []);
@@ -73,17 +75,17 @@ function Navbar() {
           </div>
         </div>
         <div className="flex ml-auto">
-  {user && (
+  {user && userdata && (
     <img
       alt="..."
-      src={userdata.image.slice(0, 33) === "https://lh3.googleusercontent.com" ? userdata.image : userdata.image ? `${PROFILE_URL}${userdata.image}` : img}
+      src={userdata?.image?.slice(0, 33) === "https://lh3.googleusercontent.com" ? userdata.image : userdata.image ? `${PROFILE_URL}${userdata.image}` : img}
       className="shadow-2xl rounded-full h-10 w-10 border-none mt-1 max-w-150-px"
       style={{ borderRadius: "50%" }}
     />
   )}
   {user && (
-    <h1 className="mt-3 md:ml-8 text-center mr-7 font-serif md:text-left font-bold">
-      Welcome {userdata.firstName}...!
+    <h1 className="mt-3 md:ml-8 text-center mr-7  md:text-left font-bold">
+      Welcome {userdata?.firstName}
     </h1>
   )}
   <span className="text-2xl mr-6 pt-3">

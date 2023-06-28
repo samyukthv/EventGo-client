@@ -16,12 +16,14 @@ import Booking from '../pages/bookingPage/Booking'
 import OrganizerProfile from '../pages/organizerProfile/OrganizerProfile'
 import ConfirmBooking from '../pages/confirmBooking/ConfirmBooking'
 import ConfirmTicket from '../pages/confirmTicket/ConfirmTicket'
+import LoginTest from '../pages/loginTest/LoginTest'
 
 function UserRoute() {
   return (
     <>
     <Routes>
         <Route exact path='/login' element={<UserPublicRoutes><UserLogin/></UserPublicRoutes>}  />
+        <Route exact path='/logintest' element={<UserPublicRoutes><LoginTest/></UserPublicRoutes>}  />
         <Route exact path='/signup' element={<UserPublicRoutes><UserSignup/></UserPublicRoutes>}/>
         <Route exact path='/choose_account' element={<UserPublicRoutes><ChooseAccount/></UserPublicRoutes>}/>
         <Route excat path ="/confirm-email" element={<Email/>}/>
@@ -33,7 +35,7 @@ function UserRoute() {
         <Route exact path='/booking/:id' element={<UserProtectedRoutes><Booking/></UserProtectedRoutes>}/>
         <Route exact path ='/organizer-profile/:id' element={<OrganizerProfile/>}/>
         <Route exact path='/booking-confirmed'element={<UserProtectedRoutes><ConfirmTicket/></UserProtectedRoutes>}/>
-
+ 
         <Route exact path='/' element={<Home/>}/>
     </Routes>
     

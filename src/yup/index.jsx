@@ -52,3 +52,8 @@ export const signUpSchema = Yup.object({
     email:Yup.string().email().required("please enter your email"),
     mobile:Yup.string().required("please enter your mobile number").matches(/^\d{10}$/,"mobile number must have 10 digits")
   })
+
+  export const addOrganizerPost=Yup.object({
+    title:Yup.string().required("please enter the title"),
+    description:Yup.string().required("please enter the description"),
+  })

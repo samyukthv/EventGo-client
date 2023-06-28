@@ -1,5 +1,4 @@
 import React,{useEffect, useState} from 'react'
-import signupimg from "../../../assets/images/juliette-contin-aETBbsCWBpo-unsplash.jpg"
 import { organizerEvents } from '../../../api/OrganizerApi';
 
 import { useSelector } from 'react-redux'
@@ -10,17 +9,12 @@ function OrganizerPosts() {
   const organizerData = useSelector((state) => state.organizer);
 console.log(organizerData,1212);
 const organizerId=organizerData.id
-
 const[events,setEvents]=useState([])
 
 useEffect(() => {
   console.log(organizerId, 43);
-
-  const response =organizerEvents(organizerId).then((response)=>{
-
-    console.log(response.data.events);
-  
-    // Store the events in a state variable
+  organizerEvents(organizerId).then((response)=>{
+    console.log(response.data);
     setEvents(response.data.events);
   })
 

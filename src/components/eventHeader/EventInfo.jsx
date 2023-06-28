@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { eventDetails } from "../../api/UserApi";
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 const COVER_IMAGE_URL = import.meta.env.VITE_COVER_IMAGE_URL;
-const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
+const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
 import "mapbox-gl/dist/mapbox-gl.css";
 import wall from '../../assets/images/be99d5c0194658e86dda7fcb1e4e5795.jpg'
 
@@ -147,7 +147,7 @@ function EventInfo() {
                     "https://lh3.googleusercontent.com"
                       ? organizer.image
                       : organizer.image
-                      ? `${PROFILE_URL}${organizer.image}`
+                      ? `${ORGANIZER_PROFILE_URL}${organizer.image}`
                       : avatar
                   }
                   alt=""
