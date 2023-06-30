@@ -24,6 +24,8 @@ export default {
        'roboto-slab': ['Roboto Slab', 'serif'],
        kablammo: ['Kablammo', 'cursive'],
        monoton: ['Monoton', 'cursive'],
+       vt323: ['VT323', 'monospace'],
+
     },
   },
   plugins: [ require("tw-elements/dist/plugin.cjs"),

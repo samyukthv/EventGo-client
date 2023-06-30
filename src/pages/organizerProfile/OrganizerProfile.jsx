@@ -1,15 +1,20 @@
 import Navbar from "../../components/navbar/Navbar";
 import React,{useEffect,useState} from 'react'
+import { useParams } from "react-router-dom";
 
 
-import OrganizerPosts from "../../components/organizer/posts/OrganizerPosts";
+
 import OrganizerPro from "./OrganizerPro";
-import OriginalPosts from "../../components/organizer/orginalPost/OriginalPosts";
+import OrganizerPostsUserSide from "../../components/organizerPostUserSide.jsx/OrganizerPostsUserSide";
+import OrganizerEvents from "../../components/organizerEvents/OrganizerEvents";
 
 function OrganizerProfile() {
 
 
   const Tabs = () => {
+    const params = useParams();
+    const organizerId = params.id;
+    console.log(organizerId,"thtiehtiehteitneitnententeintentneinenter");
     const [openTab, setOpenTab] = useState(1);
   
     return (
@@ -49,10 +54,12 @@ function OrganizerProfile() {
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-               <OriginalPosts/>
+                 
+               <OrganizerPostsUserSide/>
                 </div>
                 <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
-                <OrganizerPosts/>
+               <OrganizerEvents/>
+
                 </div>
               </div>
             </div>

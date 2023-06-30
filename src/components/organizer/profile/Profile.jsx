@@ -12,6 +12,7 @@ import {
 import { addOrganizerPost } from "../../../yup";
 import { useFormik } from "formik";
 import defaultCoverImage from "../../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
+import { organizerDetails } from "../../../api/UserApi";
 
 const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
 const ORGANIZER_COVER_IMAGE_URL = import.meta.env
@@ -21,6 +22,7 @@ function Profile() {
   const dispatch = useDispatch();
   const organizerData = useSelector((state) => state.organizer);
   const [organizeValues, setOrganizerValues] = useState({
+  
     firstName: organizerData?.firstName,
     lastName: organizerData?.lastName,
     email: organizerData?.email,
@@ -32,6 +34,19 @@ function Profile() {
     facebook: organizerData?.facebook,
     coverImage: organizerData?.coverImage,
   });
+
+
+
+const[followersCount,setFollowersCount]=useState(null)
+const[postCount,setPostCount]=useState(null)
+useEffect(()=>{
+  organizerDetails(organizerData.id).then(res=>{
+    setFollowersCount(res.data.organizerDetails.followers.length);
+    setPostCount(res.data.organizerDetails.post.length);
+    
+  })
+})
+
 
   const [pimage, setImage] = useState(null);
 
@@ -414,7 +429,7 @@ function Profile() {
                   <div className="flex justify-center py-4 lg:pt-4 pt-8">
                     <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        22
+                        {followersCount}
                       </span>
                       <span className="text-sm text-blueGray-400">
                         Followers
@@ -422,9 +437,9 @@ function Profile() {
                     </div>
                     <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        10
+                        {postCount}
                       </span>
-                      <span className="text-sm text-blueGray-400">Events</span>
+                      <span className="text-sm text-blueGray-400">Posts</span>
                     </div>
                     <div className="lg:mr-4 p-3 text-center"></div>
                   </div>

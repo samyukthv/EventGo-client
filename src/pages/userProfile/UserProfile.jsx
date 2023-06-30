@@ -8,7 +8,7 @@ import { setUserDetails } from "../../redux/userSlice";
 import cover from "../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
 import { motion } from "framer-motion";
 import { userImageUpdate } from "../../api/UserApi";
-import wall from "../../assets/images/be99d5c0194658e86dda7fcb1e4e5795.jpg"
+import wall from "../../assets/images/annie-spratt-0ZPSX_mQ3xI-unsplash.jpg"
 
 const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 

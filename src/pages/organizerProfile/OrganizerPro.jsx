@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar/Navbar";
 import { useParams } from "react-router-dom";
-import { organizerDetails } from "../../api/UserApi";
+import { toast, Toaster } from "react-hot-toast";
 
+import { followOrganizer,unFollowOrganizer ,organizerDetails,isFollowingOrganizer } from "../../api/UserApi";
+import { useSelector } from "react-redux";
 import { Tooltip } from "@material-tailwind/react";
-import OrganizerPosts from "../../components/organizer/posts/OrganizerPosts";
 import defaultCoverImage from "../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg"
 
 const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
 const ORGANIZER_COVER_IMAGE_URL=import.meta.env.VITE_ORGANIZER_COVER_IMAGE_URL
+
 
 function OrganizerPro() {
     const params = useParams();
@@ -21,9 +22,71 @@ function OrganizerPro() {
       });
     }, []);
   
+
+    const followersCount=organizer?.followers?.length
+    const postCount = organizer?.post.length 
+
+
+//state to check if user is following the organizer
+const[following,setFollowing]=useState(null)
+
+//getting user id from redux
+const userdata = useSelector((state) => state.user);
+const userId=userdata.id
+
+//useEffect to check if the user is already following the organizer
+ useEffect(()=>{
+     isFollowingOrganizer(userId,organizerId).then(res=>{
+if(res.data.organizer){
+  console.log(" following");
+  setFollowing(true)
+}else{
+  setFollowing(false)
+  console.log("nooooooooooooooot following");
+}
+     }).catch(err=>{
+      console.log(err);
+     })
+ },[])
+
+
+   // function to follow the organizer
     const follow =async()=>{
-      console.log("followed");
+      try {
+       const response= await followOrganizer(userId,organizerId)
+       if(response.data.followed){
+     toast.success("followed organizer")
+        setFollowing(true)
+      } 
+
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+
+
+    
+   // function to Unfollow the organizer
+   const unFollow =async()=>{
+    try {
+     const response= await unFollowOrganizer(userId,organizerId)
+    if(response.data.unFollowed){
+
+      toast.error("unfollowed organizer")
+
+      setFollowing(false)
+    }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
+
+    // setting the cover image in the page 
     const coverImageUrl = organizer?.coverImage
     ? `${ORGANIZER_COVER_IMAGE_URL}${organizer.coverImage}`
     : defaultCoverImage;
@@ -65,13 +128,26 @@ function OrganizerPro() {
 
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
-                      <button
-                        onClick={follow}
-                        className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                    {following?  <button
+                       onClick={unFollow}
+                        className="bg-blue-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
-                        follow
-                      </button>
+                        unfollow
+                      </button>: 
+                      
+                        <button
+                         onClick={follow}
+
+                        className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                       >
+                       follow
+                       </button>
+                      
+                      
+                      
+                      }
 
                       <button
                         className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
@@ -86,7 +162,7 @@ function OrganizerPro() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
+                          {followersCount}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Followers
@@ -98,6 +174,14 @@ function OrganizerPro() {
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Events
+                        </span>
+                      </div>
+                      <div className="mr-4 p-3 text-center">
+                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                          {postCount}
+                        </span>
+                        <span className="text-sm text-blueGray-400">
+                          Posts
                         </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center"></div>
@@ -197,7 +281,7 @@ function OrganizerPro() {
                 </div>
               </div>
             </div>
-            
+            <Toaster/>
           </div>
         </section>
     </div>

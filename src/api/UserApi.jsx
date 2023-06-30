@@ -52,9 +52,9 @@ export async function getOrganizerDetails(){
 }
 
 
-export async function userProfile(){
+export async function userProfile(userId){
     try {
-        const data= await userApi.get('/userProfile')
+        const data= await userApi.get('/userProfile',userId)
         return data
     } catch (error) {
         console.log("userProfile error api");
@@ -139,3 +139,56 @@ export const getBillingDetails= async()=>{
         return {error:"billing details error"}
     }
 }
+
+export const isFollowingOrganizer= async(userId,organizerId)=>{
+    try {
+        const data = await userApi.get('/isFollowingOrganizer', {
+            params: { organizerId: organizerId,userId:userId }
+          });
+        return data
+    } catch (error) {
+        console.log("follow error");
+    }
+}
+
+export const followOrganizer =async(userId,organizerId)=>{
+    try {
+        const data = await userApi.post('/followOrganizer', 
+             { organizerId: organizerId,userId:userId }
+          );
+        return data
+    } catch (error) {
+        console.log("follow error");
+    }
+}
+export const unFollowOrganizer =async(userId,organizerId)=>{
+    try {
+        const data = await userApi.post('/unFollowOrganizer', 
+             { organizerId: organizerId,userId:userId }
+          );
+        return data
+    } catch (error) {
+        console.log("follow error");
+    }
+}
+
+export const organizerEvent= async(organizerId)=>{
+    try {
+        const data = await userApi.get("/organizerEvent",{
+            params:{organizerId:organizerId}
+        })
+        return data
+    } catch (error) {
+        
+    }
+  }
+export const organizerPosts= async(organizerId)=>{
+    try {
+        const data = await userApi.get("/organizerPosts",{
+            params:{organizerId:organizerId}
+        })
+        return data
+    } catch (error) {
+        
+    }
+  }

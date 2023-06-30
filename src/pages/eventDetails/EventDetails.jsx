@@ -13,9 +13,7 @@ function EventDetails() {
     exit={{x:window.innerWidth,transition:{duration:0.2}}}
     >
       <Navbar/>
-      {/* <EventHeader/> */}
       <EventInfo/>
-      <EventBody/>
     </motion.div>
   )
 }

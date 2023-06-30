@@ -1,4 +1,5 @@
 
+import exp from 'constants';
 import {organizerApi} from '../utils/Apis'
 
 export async function registerOrganizer(credentials){
@@ -104,3 +105,40 @@ export async function organizerEvents(organizerId) {
         
     }
   }
+
+
+  export const eventDetails=async(eventId)=>{
+    try {
+        const data= await organizerApi.get("/eventDetails",{
+            params:{eventId:eventId}
+
+        })
+        return data
+    } catch (error) {
+        
+    }
+  }
+
+
+  export const chartdetails=async(eventId)=>{
+    try {
+        const data= await organizerApi.get('/chartdetails',{
+            params:{eventId:eventId}
+        })
+        return data
+    } catch (error) {
+        
+    }
+  }
+  export const tableDetails=async(eventId)=>{
+    try {
+        const data= await organizerApi.get('/tableDetails',{
+            params:{eventId:eventId}
+        })
+        return data
+    } catch (error) {
+        
+    }
+  }
+
+
