@@ -192,3 +192,24 @@ export const organizerPosts= async(organizerId)=>{
         
     }
   }
+
+  export const personalChoice= async(userId)=>{
+ try {
+    const data= await userApi.get("/personalChoice",{
+        params:{userId:userId}
+    })
+    return data
+ } catch (error) {
+    
+ }
+  }
+
+
+  export const allEvents=async()=>{
+    try {
+        const data = await userApi.get('/allEvents')
+        return data
+    } catch (error) {
+        
+    }
+  }

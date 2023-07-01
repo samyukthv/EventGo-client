@@ -35,12 +35,14 @@ function Navbar() {
   return (
     <div className="shadow-md w-full top-0 left-0   ">
       <div className="md:flex bg-white py-5 md:px-10 px-7 backdrop-filter backdrop-blur-3xl bg-opacity-5  ">
-        <div className="font-monoton  text-2xl cursor-pointer flex items-center bg-white">
+     <Link to='/'>
+     <div className="font-monoton  text-2xl cursor-pointer flex items-center bg-white">
           <span className="text-3xl  mr-1 pt-2  text-purple-500 "> <ion-icon name="finger-print-outline"></ion-icon></span>
           <span className="bg-gradient-to-r  from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
           EventGo
           </span>
         </div>
+     </Link>
         <div className="flex">
           <ul
           
@@ -75,7 +77,8 @@ function Navbar() {
           </div>
         </div>
         <div className="flex ml-auto">
-  {user && userdata && (
+ <Link to='/profile'>
+ {user && userdata && (
     <img
       alt="..."
       src={userdata?.image?.slice(0, 33) === "https://lh3.googleusercontent.com" ? userdata.image : userdata.image ? `${PROFILE_URL}${userdata.image}` : img}
@@ -83,6 +86,7 @@ function Navbar() {
       style={{ borderRadius: "50%" }}
     />
   )}
+ </Link>
   {user && (
     <h1 className="mt-3 md:ml-8 text-center mr-7  md:text-left font-bold">
       Welcome {userdata?.firstName}

@@ -93,9 +93,11 @@ useEffect(()=>{
             href={data.linkedin}
             variant="lead"
             color="blue"
+            target="_blank"
+            rel="noopener noreferrer"
             textGradient
           >
-            <i className="fab fa-linkedin" />
+            <i className="text-black fab fa-linkedin" />
           </Typography>
         </Tooltip>}
         { data.facebook && <Tooltip content="Follow">
@@ -104,9 +106,11 @@ useEffect(()=>{
             href="#twitter"
             variant="lead"
             color="light-blue"
+            target="_blank"
+            rel="noopener noreferrer"
             textGradient
           >
-            <i className="fab fa-facebook" />
+            <i className="text-black fab fa-facebook" />
           </Typography>
         </Tooltip>}
        {data.instagram && <Tooltip content="Follow">
@@ -114,10 +118,12 @@ useEffect(()=>{
             as="a"
             href={data.instagram}
             variant="lead"
+            target="_blank"
+            rel="noopener noreferrer"
             color="purple"
             textGradient
           >
-            <i className="fab fa-instagram" />
+            <i className="text-black fab fa-instagram" />
           </Typography>
         </Tooltip>}
       </CardFooter>

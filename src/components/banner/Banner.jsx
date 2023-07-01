@@ -4,7 +4,7 @@ import image from "../../assets/images/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg"
 function Banner() {
   
   return (
-    <div className="w-full h-[70vh]">
+    <div className="w-full h-[70vh]" >
             <img src={image} alt="" className='w-full h-[70vh] object-cover' />
             <div className='max-w-[1140px] m-auto'>
                 <div className="absolute top-[30%] w-full md:-[50%] max-w-[600px] h-full flex flex-col text-white p-4">

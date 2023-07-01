@@ -1,9 +1,10 @@
 import React from 'react'
 import img from '../../assets/images/tengku-nadia-fz8_SONkBB8-unsplash.jpg'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <div className='pb-5'>
+   
       <footer className="bg-black lg:grid lg:grid-cols-5">
   <div className="relative block h-32 lg:col-span-2 lg:h-full">
     <img
@@ -22,10 +23,10 @@ function Footer() {
           </span>
 
           <a
-            href="#"
+            
             className="block text-2xl font-medium text-white hover:opacity-75 sm:text-3xl"
           >
-            0123456789
+            +91 9746847247
           </a>
         </p>
 
@@ -107,9 +108,9 @@ function Footer() {
 
           <li>
             <a
-              href="/"
-              rel="noreferrer"
+              href="https://github.com/samyukthv"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-white transition hover:opacity-75"
             >
               <span className="sr-only">GitHub</span>
@@ -161,19 +162,26 @@ function Footer() {
 
           <ul className="mt-6 space-y-4 text-sm">
             <li>
-              <a href="#" className="text-white transition hover:opacity-75">
-                1on1 Coaching
+              <Link to='/happening-city'>
+              <a  className="text-white transition hover:opacity-75">
+               Most Happening cities
               </a>
+              
+              </Link>
             </li>
 
             <li>
-              <a href="#" className="text-white transition hover:opacity-75">
-                Company Review
+              <Link to='/'>
+              
+              <a className="text-white transition hover:opacity-75">
+                Home
               </a>
+              </Link>
             </li>
 
             <li>
-              <a href="#" className="text-white transition hover:opacity-75">
+
+              <a className="text-white transition hover:opacity-75">
                 Accounts Review
               </a>
             </li>
@@ -223,31 +231,25 @@ function Footer() {
         <ul className="flex flex-wrap gap-4 text-xs">
           <li>
             <a href="#" className="text-white transition hover:opacity-75">
-              Terms & Conditions
+             EventGo
             </a>
           </li>
 
           <li>
             <a href="#" className="text-white transition hover:opacity-75">
-              Privacy Policy
-            </a>
-          </li>
-
-          <li>
-            <a href="#" className="text-white transition hover:opacity-75">
-              Cookies
+              The best E-Booking 2023 award winne's
             </a>
           </li>
         </ul>
 
         <p className="mt-8 text-xs text-white sm:mt-0">
-          &copy; 2022. Company Name. All rights reserved.
+          &copy; 2023. EventGo. All rights reserved.
         </p>
       </div>
     </div>
   </div>
 </footer>
-    </div>
+  
   )
 }
 

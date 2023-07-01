@@ -22,6 +22,9 @@ function OrganizerPro() {
       });
     }, []);
   
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
     const followersCount=organizer?.followers?.length
     const postCount = organizer?.post.length 

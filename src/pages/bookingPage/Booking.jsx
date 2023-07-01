@@ -6,8 +6,9 @@ import stripe from "../../../src/assets/images/291-2918799_stripe-payment-icon-p
 import { useFormik } from "formik";
 import { booking } from "../../yup/index";
 import { toast, Toaster } from "react-hot-toast";
-import { useDispatch,useSelector } from "react-redux";
-import { setBookingDetails } from "../../redux/EventSlice"; 
+import { useDispatch, useSelector } from "react-redux";
+import { setBookingDetails } from "../../redux/EventSlice";
+import bgimg from "../../assets/images/hi.jpg";
 
 import Modal from "../../components/stripe/Modal";
 
@@ -19,43 +20,37 @@ const initialValues = {
   email: "",
   mobile: "",
   ticketQuantity: 1,
- 
 };
-
-
-
-
 
 function Booking() {
   const userData = useSelector((state) => state.user);
 
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const params = useParams();
   const eventId = params.id;
   const [event, setEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
-  const[bill,setBill]=useState(null);
- 
+  const [bill, setBill] = useState(null);
 
   useEffect(() => {
- 
     const getData = () => {
-      eventDetails(eventId).then(res => {
-        setEvent(res.data.eventDetails)
-        console.log("hy");
-        console.log(res,3223)
-       
-        setBill(res.data.eventDetails.ticketPrice)
-      }).catch((error)=>{
-        console.log("hello");
-        console.log(error,34);
-      })
-    }
-    getData()
+      eventDetails(eventId)
+        .then((res) => {
+          setEvent(res.data.eventDetails);
+          console.log("hy");
+          console.log(res, 3223);
 
+          setBill(res.data.eventDetails.ticketPrice);
+        })
+        .catch((error) => {
+          console.log("hello");
+          console.log(error, 34);
+        });
+    };
+    getData();
   }, []);
-  
+
   const {
     values,
     errors,
@@ -64,31 +59,27 @@ function Booking() {
     handleSubmit,
     handleChange,
     setFieldValue,
-    resetForm
+    resetForm,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: booking,
     onSubmit: async (values) => {
-      
-      
-            
       dispatch(
         setBookingDetails({
-          totalBill:bill,
-          ticketQuantity:values?.ticketQuantity,
-          organizerId:event?.eventOrganizer._id,
-          eventId:event?._id,
-          userId:userData.id,
-          userFirstName:values.firstName,
-          userSecondName:values.lastName,
-          bookingEmail:values.email,
-          bookingMobile:values.mobile
+          totalBill: bill,
+          ticketQuantity: values?.ticketQuantity,
+          organizerId: event?.eventOrganizer._id,
+          eventId: event?._id,
+          userId: userData.id,
+          userFirstName: values.firstName,
+          userSecondName: values.lastName,
+          bookingEmail: values.email,
+          bookingMobile: values.mobile,
         })
-        );
-        
-        setIsFormValid(true);
-    },
+      );
 
+      setIsFormValid(true);
+    },
   });
 
   const updateBill = (quantity) => {
@@ -98,7 +89,7 @@ function Booking() {
       setBill(newBill);
     }
   };
-  
+
   // Function to increase the quantity of tickets selected
   const increaseQuantity = () => {
     if (event.ticketQuantity <= values.ticketQuantity) {
@@ -109,7 +100,7 @@ function Booking() {
       updateBill(newQuantity);
     }
   };
-  
+
   // Function to decrease the quantity of tickets selected
   const decreaseQuantity = () => {
     if (values.ticketQuantity > 1) {
@@ -119,16 +110,34 @@ function Booking() {
     }
   };
 
-
-
   return (
     <div>
       <Navbar />
-      <div className="bg-gradient-to-t from-white to-blue-200">
-        <h1 className="text-center text-4xl font-bold pt-5">Book Now</h1>
+      <div
+        className="bg-gradient-to-t from-white to-blue-200"
+        style={{
+          backgroundImage: `url(${bgimg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backdropFilter: "blur(5px)", // Adjust the value (5px) to increase or decrease the blur effect
+            zIndex: -1,
+          }}
+        ></div>
+        <h1 className="text-center text-4xl font-chonburi pt-5">Book Now</h1>
         <div className="relative isolate overflow-hidden">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col-reverse lg:flex-row">
-            <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none w-full lg:w-1/2">
+            <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none w-full h-auto lg:w-1/2">
               <form className="space-y-12" onSubmit={handleSubmit}>
                 <div className="border-b border-gray-900/10 pb-12">
                   <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -229,26 +238,7 @@ function Booking() {
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-red-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
-                     </div>
-
-                     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    </div>
 
                     <div className="sm:col-span-3">
                       <label
@@ -295,7 +285,6 @@ function Booking() {
                             ? values.ticketQuantity * event.ticketPrice
                             : null}
                         </span>
-                     
                       </div>
                       <small className="text-sm text-gray-600 mt-2">
                         Per Ticket Price: &#8377;
@@ -305,7 +294,7 @@ function Booking() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-x-6">
+                <div className="flex items-center justify-end gap-x-6 ">
                   <img className="w-44" src={stripe} alt="" />
 
                   <button
