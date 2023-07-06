@@ -197,7 +197,7 @@ function EventInfo() {
         </div>
         <div className="text-red-500 text-lg border-2 font-bold font-chonburi text-center mt-10 px-5 h-16 inline-block ml-5 mb-5 sm:ml-0 sm:mb-0">
   <h1 className="text-lg text-white ">The Event Begins in</h1>
-  <Countdown className="font-vt323 text-2xl" date={Date.now() + timeDifference * 1000} />
+  <Countdown className=" text-2xl" date={Date.now() + timeDifference * 1000} />
 </div>
 
 

@@ -13,6 +13,7 @@ import { addOrganizerPost } from "../../../yup";
 import { useFormik } from "formik";
 import defaultCoverImage from "../../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
 import { organizerDetails } from "../../../api/UserApi";
+import { Link } from "react-router-dom";
 
 const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
 const ORGANIZER_COVER_IMAGE_URL = import.meta.env
@@ -335,12 +336,14 @@ useEffect(()=>{
                     >
                       add post
                     </button>
-                    <button
+                   <Link to='/organizer/messages'>
+                   <button
                       className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
                       messages
                     </button>
+                   </Link>
                   </div>
                 </div>
 

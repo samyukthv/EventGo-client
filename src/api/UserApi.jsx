@@ -213,3 +213,35 @@ export const organizerPosts= async(organizerId)=>{
         
     }
   }
+
+  export const senderDetails= async(senderId)=>{
+    try {
+        const data = await userApi.get("/senderDetails",{
+            params:{senderId:senderId}
+        })
+        return data
+    } catch (error) {
+        
+    }}
+
+
+    export const addMessage = async (from, to, msg) => {
+        try {
+          const data = await userApi.post("/addMessage", { from, to, msg });
+          return data;
+        } catch (error) {
+          // Handle the error
+        }
+      };
+
+
+      export const getAllMessages=async(from,to)=>{
+        try {
+            const data = await userApi.get("/getAllMessages",{
+                params:{from,to}
+            })
+            return data;
+        } catch (error) {
+            
+        }
+      }

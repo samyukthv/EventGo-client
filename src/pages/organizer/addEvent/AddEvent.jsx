@@ -4,7 +4,6 @@ import { addEvent } from "../../../api/OrganizerApi";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { AddressAutofill } from "@mapbox/search-js-react";
-import { date } from "yup";
 
 function AddEvent() {
   const [eventType, setEventType] = useState("");

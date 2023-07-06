@@ -17,6 +17,7 @@ import OrganizerProfile from '../pages/organizerProfile/OrganizerProfile'
 import ConfirmBooking from '../pages/confirmBooking/ConfirmBooking'
 import ConfirmTicket from '../pages/confirmTicket/ConfirmTicket'
 import LoginTest from '../pages/loginTest/LoginTest'
+import Chat from '../pages/chat/Chat'
 
 function UserRoute() {
   return (
@@ -35,7 +36,11 @@ function UserRoute() {
         <Route exact path='/booking/:id' element={<UserProtectedRoutes><Booking/></UserProtectedRoutes>}/>
         <Route exact path ='/organizer-profile/:id' element={<OrganizerProfile/>}/>
         <Route exact path='/booking-confirmed'element={<UserProtectedRoutes><ConfirmTicket/></UserProtectedRoutes>}/>
- 
+       
+
+
+       <Route exact path='/chat/:id' element={<UserProtectedRoutes><Chat/></UserProtectedRoutes>}/>
+       
         <Route exact path='/' element={<Home/>}/>
     </Routes>
     

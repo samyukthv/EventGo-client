@@ -7,6 +7,8 @@ import OrganizerProtectedRoutes from "./OrganizerProtectedRoutes";
 import OrganizerPublicRoutes from "./OrganizerPublicRoutes";
 import AddEvent from "../pages/organizer/addEvent/AddEvent";
 import OrganizerEventDetails from "../pages/organizer/event-details/OrganizerEventDetails";
+import Chat from "../pages/organizer/chat/Chat";
+import EditEvent from "../pages/organizer/event-details/EditEvent";
 
 function OrganizerRoutes() {
   return (
@@ -49,6 +51,23 @@ function OrganizerRoutes() {
           </OrganizerPublicRoutes>
         }
       />
+      <Route
+        path="/messages"
+        element={
+          <OrganizerProtectedRoutes>
+            <Chat/>
+          </OrganizerProtectedRoutes>
+        }
+      />
+      <Route
+        path="/edit-event/:id"
+        element={
+          <OrganizerProtectedRoutes>
+            <EditEvent/>
+          </OrganizerProtectedRoutes>
+        }
+      />
+
     </Routes>
   );
 }

@@ -1,5 +1,4 @@
 
-import exp from 'constants';
 import {organizerApi} from '../utils/Apis'
 
 export async function registerOrganizer(credentials){
@@ -142,3 +141,33 @@ export async function organizerEvents(organizerId) {
   }
 
 
+export const getAllContacts = async(organizerId)=>{
+    try {
+       const data =await organizerApi.get("/getAllContacts",{
+        params:{organizerId:organizerId}
+       })
+       return data 
+    } catch (error) {
+        
+    }
+}
+
+export const getAllMessages = async(to,from)=>{
+    try {
+        const data= await organizerApi.get("/getAllMessages",{
+            params:{to,from}
+        })
+        return data
+    } catch (error) {
+        
+    }
+}
+
+export const addMessage = async (from, to, msg) => {
+    try {
+      const data = await organizerApi.post("/addMessage", { from, to, msg });
+      return data;
+    } catch (error) {
+      // Handle the error
+    }
+  };

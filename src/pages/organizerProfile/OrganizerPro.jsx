@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import { useLocation } from 'react-router-dom';
+
 
 import { followOrganizer,unFollowOrganizer ,organizerDetails,isFollowingOrganizer } from "../../api/UserApi";
 import { useSelector } from "react-redux";
@@ -12,6 +14,8 @@ const ORGANIZER_COVER_IMAGE_URL=import.meta.env.VITE_ORGANIZER_COVER_IMAGE_URL
 
 
 function OrganizerPro() {
+  const location = useLocation();
+
     const params = useParams();
     const organizerId = params.id;
     const [organizer, setOrganizer] = useState(null);
@@ -151,13 +155,15 @@ if(res.data.organizer){
                       
                       
                       }
-
+                      <Link to={`/chat/${organizerId}`}>
+                      
                       <button
                         className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
                         messages
                       </button>
+                      </Link>
                       
                     </div>
                   </div>
