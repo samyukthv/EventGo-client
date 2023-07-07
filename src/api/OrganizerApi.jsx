@@ -171,3 +171,23 @@ export const addMessage = async (from, to, msg) => {
       // Handle the error
     }
   };
+
+
+
+  export async function editEvent(fromData,config){
+    try {
+        const data= await organizerApi.post('/editEvent',{fromData,config})
+        return data
+    } catch (error) {
+        console.log("add event error is api");
+    }
+}
+
+//   export async function addEvent(fromData,config){
+//     try {
+//         const data= await organizerApi.post('/add-event',{fromData,config})
+//         return data
+//     } catch (error) {
+//         console.log("add event error is api");
+//     }
+// }

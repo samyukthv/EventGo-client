@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import avatar from "../../assets/images/avathar2.png";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import img from "../../assets/images/1131w-54Tdz9HHh8w.webp";
-import backgroundImage from "../../../../server/public/coverImage/coverImage-1686219448714.jpg";
+// import backgroundImage from "../../../../server/public/coverImage/coverImage-1686219448714.jpg";
 import { Link, useParams } from "react-router-dom";
 import { eventDetails } from "../../api/UserApi";
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;

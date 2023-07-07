@@ -245,3 +245,29 @@ export const organizerPosts= async(organizerId)=>{
             
         }
       }
+
+
+      export const submitReview =async(details,eventId)=>{
+        try {
+            const data= await userApi.post("/setReview",{
+                details,eventId
+            })
+            return data
+        } catch (error) {
+            
+        }
+      }
+
+
+      export const allReview= async(eventId)=>{
+        try {
+            console.log(eventId,"apiiiiiiiiiiiiiiii");
+            const data= await userApi.get("/allReview",{
+                params:{eventId}
+            })
+            
+            return data
+        } catch (error) {
+            
+        }
+      }

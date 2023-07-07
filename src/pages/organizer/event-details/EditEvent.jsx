@@ -4,7 +4,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { AddressAutofill } from "@mapbox/search-js-react";
 import { useParams } from "react-router-dom";
-import { eventDetails } from "../../../api/OrganizerApi";
+import { editEvent,eventDetails } from "../../../api/OrganizerApi";
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 const COVER_IMAGE_URL = import.meta.env.VITE_COVER_IMAGE_URL;
 
@@ -32,9 +32,7 @@ function EditEvent() {
     }));
   };
 
-// useEffect(()=>{
-
-// },[])
+ 
 
   const [newCover, setNewCover] = useState(null);
   const handleCoverImageChange = (event) => {
@@ -48,13 +46,36 @@ function EditEvent() {
     setNewImg(URL.createObjectURL(file));
   };
 
+  console.log(event, 9099);
+   
+const handleSubmit= async(e)=>{
+  e.preventDefault()
+  try {
+    console.log("handle  submit");
+    const formData = new FormData();
+      formData.append("coverImage", event.coverImage);
+      formData.append("image", event.image);
+      formData.append("event", JSON.stringify(event));
+
+      console.log(...formData);
+
+      const response = await editEvent(formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
 
 
-  console.log(newCover,9099);
+  } catch (error) {
+    
+  }
+}
+
   return (
     <div>
       <Navbar />
-      <form>
+      <form onSubmit={(e)=>handleSubmit(e)}>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 ">
           <div className="h-full">
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
@@ -143,6 +164,9 @@ function EditEvent() {
             <p className="ml-5 sm:ml-20">Give a description about the event</p>
 
             <textarea
+             onChange={(e) =>
+              setEvent({ ...event, [e.target.name]: e.target.value })
+            }
               value={event?.about}
               type="text"
               name="about"
@@ -154,22 +178,20 @@ function EditEvent() {
             </h1>
             <p className="ml-5 sm:ml-20">upload a cover image </p>
             {!newCover && event?.coverImage && (
-  <img
-    src={COVER_IMAGE_URL + event?.coverImage}
-    alt="Existing Event Image"
-    className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
-  />
-)}
+              <img
+                src={COVER_IMAGE_URL + event?.coverImage}
+                alt="Existing Event Image"
+                className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
+              />
+            )}
 
-{newCover && (
-  <img
-    src={newCover}
-    alt="Selected Event Image"
-    className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
-  />
-)}
-
-
+            {newCover && (
+              <img
+                src={newCover}
+                alt="Selected Event Image"
+                className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
+              />
+            )}
 
             <input
               type="file"
@@ -195,6 +217,9 @@ function EditEvent() {
                 Start Date
               </label>
               <input
+               onChange={(e) =>
+                setEvent({ ...event, [e.target.name]: e.target.value })
+              }
                 value={event?.startDate ? event.startDate.slice(0, 10) : ""}
                 type="date"
                 name="startDate"
@@ -207,6 +232,9 @@ function EditEvent() {
               Start Time
             </label>
             <input
+             onChange={(e) =>
+              setEvent({ ...event, [e.target.name]: e.target.value })
+            }
               value={event?.startTime}
               type="time"
               name="startTime"
@@ -218,6 +246,9 @@ function EditEvent() {
               End Time
             </label>
             <input
+             onChange={(e) =>
+              setEvent({ ...event, [e.target.name]: e.target.value })
+            }
               value={event?.endTime}
               type="time"
               name="endTime"
@@ -231,6 +262,9 @@ function EditEvent() {
             <p className="ml-5 sm:ml-20">set a quantity for the ticket </p>
 
             <input
+             onChange={(e) =>
+              setEvent({ ...event, [e.target.name]: e.target.value })
+            }
               value={event?.ticketQuantity}
               type="text"
               name="ticketQuantity"
@@ -246,6 +280,9 @@ function EditEvent() {
             </p>
 
             <input
+             onChange={(e) =>
+              setEvent({ ...event, [e.target.name]: e.target.value })
+            }
               value={event?.ticketPrice}
               name="ticketPrice"
               type="text"
@@ -256,25 +293,26 @@ function EditEvent() {
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">Image</h1>
             <p className="ml-5 sm:ml-20">upload a main image </p>
             {!newImg && event?.image && (
-  <img
-    src={IMAGE_URL + event?.image}
-    alt="Existing Event Image"
-    className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
-  />
-)}
+              <img
+                src={IMAGE_URL + event?.image}
+                alt="Existing Event Image"
+                className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
+              />
+            )}
 
-{newImg && (
-  <img
-    src={newImg}
-    alt="Selected Event Image"
-    className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
-  />
-)}
+            {newImg && (
+              <img
+                src={newImg}
+                alt="Selected Event Image"
+                className="ml-5 h-32 sm:ml-20 mt-4 rounded border w-52 border-gray-300"
+              />
+            )}
 
             <input
               file={event?.image}
               type="file"
               name="image"
+              onClick={handleImageChange}
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
             />
           </div>
