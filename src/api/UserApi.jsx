@@ -1,4 +1,5 @@
 import {userApi} from '../utils/Apis'
+import {cloudApi} from "../utils/Apis"
 
 
 
@@ -90,14 +91,24 @@ export async function setNewPassword(id,values){
     }
 
 
-    export async function userImageUpdate(profileImage,config){
+    export async function userImageUpdate(profileImage){
         try {
-            const data= await userApi.patch('/userImageUpdate',profileImage,config)
+            const data= await cloudApi.post('/upload',profileImage)
             return data
         } catch (error) {
             
         }
     }
+
+   export  const saveImage= async(image,userId)=>{
+    try {
+        const data= await userApi.patch('/saveImage',{image,userId})
+        return data
+    } catch (error) {
+        
+    }
+   }
+
 
     export async function eventDetails(id){
         try {

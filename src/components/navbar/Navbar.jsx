@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../redux/userSlice";
 import img from "../../assets/images/avathar2.png"
+import bgimg from "../../assets/images/blur.jpg";
+
 const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
 
@@ -33,90 +35,57 @@ function Navbar() {
 
 
   return (
-    <div className="shadow-md w-full top-0 left-0   ">
-      <div className="md:flex bg-white py-5 md:px-10 px-7 backdrop-filter backdrop-blur-3xl bg-opacity-5  ">
-     <Link to='/'>
-     <div className="font-monoton  text-2xl cursor-pointer flex items-center bg-white">
-          <span className="text-3xl  mr-1 pt-2  text-purple-500 "> <ion-icon name="finger-print-outline"></ion-icon></span>
-          <span className="bg-gradient-to-r  from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
-          EventGo
-          </span>
-        </div>
-     </Link>
-        <div className="flex">
-          <ul
-          
-            className={`sm:flex ${showList ? "block" : "hidden"} px-4`}
-            onClick={() => setShowList(false)}
-          >
-            <li className="p-3 font-serif ">
-              <Link to="/">Home</Link>
-            </li>
-            <li className="p-3 font-serif">
-              <Link to="/happening-city">Happening city</Link>
-            </li>
-            {user && (
-              <li className="p-3 font-serif">
-                <Link to="/profile">Profile</Link>
-              </li>
-            )}
-            <li className="p-3 font-serif">
-            <Link to="/organizer/">Add event</Link>
-            </li>
-            <li className="p-3 font-serif">
-              <a href="#jj">About</a>
-            </li>
-          </ul>
-          <div className="sm:hidden ml-auto">
-            <button
-              className="text-2xl mr-3 pt-3 focus:outline-none"
-              onClick={() => setShowList(!showList)}
-            >
-              <ion-icon name="menu-outline"></ion-icon>
-            </button>
+<div className="navbar bg-purple-300 "style={{
+          backgroundImage: `url(${bgimg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+         
+          zIndex: 1,
+        }}>
+  <div className="flex-1">
+  <Link to='/'>
+<div className="font-monoton  text-2xl cursor-pointer flex items-center ">
+    <span className="text-3xl  mr-1 pt-2  text-purple-500 "> <ion-icon name="finger-print-outline"></ion-icon></span>
+    <span className="bg-gradient-to-r  from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
+    EventGo
+    </span>
+  </div>
+</Link>  </div>
+  <div className="flex-none text-black">
+    <ul className="menu menu-horizontal px-1">
+    <Link to="/happening-city">  <li><a>Happening city</a></li></Link> 
+  
+    </ul>
+    <ul className="menu menu-horizontal px-1">
+    <Link to="/happening-city">  <li><a>About</a></li></Link> 
+  
+    </ul>
+    {user?<div className="dropdown dropdown-end">
+      <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+        {user && userdata && (
+          <img src={userdata?.image?.slice(0, 33) === "https://lh3.googleusercontent.com" ? userdata.image : userdata.image ? `${userdata.image}` : img}/>
+          )}
           </div>
-        </div>
-        <div className="flex ml-auto">
- <Link to='/profile'>
- {user && userdata && (
-    <img
-      alt="..."
-      src={userdata?.image?.slice(0, 33) === "https://lh3.googleusercontent.com" ? userdata.image : userdata.image ? `${PROFILE_URL}${userdata.image}` : img}
-      className="shadow-2xl rounded-full h-10 w-10 border-none mt-1 max-w-150-px"
-      style={{ borderRadius: "50%" }}
-    />
-  )}
- </Link>
-  {user && (
-    <h1 className="mt-3 md:ml-8 text-center mr-7  md:text-left font-bold">
-      Welcome {userdata?.firstName}
-    </h1>
-  )}
-  <span className="text-2xl mr-6 pt-3">
-    <ion-icon name="notifications-outline"></ion-icon>
-  </span>
-  {user ? (
-    <button
-      type="button"
-      onClick={logout}
-      className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-      data-te-ripple-init
-    >
-      Logout
-    </button>
-  ) : (
-    <button
-      type="button"
-      className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-      data-te-ripple-init
-    >
-      <Link to="/choose_account"> Log in</Link>
-    </button>
-  )}
+      </label>
+     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <li>
+      
+         <Link to="/profile">  <a className="justify-between">
+            Profile
+           
+          </a></Link>
+          
+        </li>
+        <li><a onClick={logout}>Logout</a></li>
+      </ul> 
+    </div>:<ul className="menu menu-horizontal px-1">
+    <Link to="/choose_account">  <li><a>Log in</a></li></Link> 
+  
+    </ul>}
+  </div>
 </div>
 
-      </div>
-    </div>
   );
 }
 

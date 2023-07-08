@@ -46,7 +46,7 @@ useEffect(()=>{
                 "https://lh3.googleusercontent.com"
                   ? organizer.image
                   : organizer.image
-                  ? `${ORGANIZER_PROFILE_URL}${organizer.image}`
+                  ? `${organizer.image}`
                   : img
               }
               class="h-full w-full"

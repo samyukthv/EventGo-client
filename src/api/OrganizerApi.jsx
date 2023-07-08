@@ -1,5 +1,7 @@
 
 import {organizerApi} from '../utils/Apis'
+import {cloudApi} from "../utils/Apis"
+
 
 export async function registerOrganizer(credentials){
     try {
@@ -32,10 +34,10 @@ export async function loginOrganizer(credentials){
 
 
 
-export async function addEvent(fromData,config){
+export async function addEvent(eventDetails,image,coverImage){
     try {
         console.log("this is add event organizer api");
-        const data= await organizerApi.post('/add-event',fromData,config)
+        const data= await organizerApi.post('/add-event',{eventDetails,image,coverImage})
         return data
     } catch (error) {
         console.log("add event error is api");
@@ -52,9 +54,9 @@ export async function profileUpdate(value){
     }
 }
 
-export async function organizerCoverImageUpload(coverImage,config){
+export async function organizerCoverImageUpload(coverImage){
     try {
-        const data= await organizerApi.patch('/organizerCoverImageUpdate',coverImage,config)
+        const data= await cloudApi.post('/upload',coverImage)
         return data
     } catch (error) {
         
@@ -62,9 +64,29 @@ export async function organizerCoverImageUpload(coverImage,config){
 }
 
 
-export async function organizerImageUpdate(profileImage,config){
+
+export const saveCoverImage= async(coverImage,organizerId)=>{
     try {
-        const data= await organizerApi.patch('/organizerImageUpdate',profileImage,config)
+        const data= await organizerApi.patch("/saveCoverImage",{coverImage,organizerId})
+        return data
+    } catch (error) {
+        
+    }
+}
+
+export  const saveImage= async(image,organizerId)=>{
+    try {
+        const data= await organizerApi.patch('/saveImage',{image,organizerId})
+        return data
+    } catch (error) {
+        
+    }
+   }
+
+
+export async function organizerImageUpdate(profileImage){
+    try {
+        const data= await cloudApi.post('/upload',profileImage)
         return data
     } catch (error) {
         
@@ -172,11 +194,18 @@ export const addMessage = async (from, to, msg) => {
     }
   };
 
-
-
-  export async function editEvent(fromData,config){
+export const uploadEditedEventImage= async(formData)=>{
     try {
-        const data= await organizerApi.post('/editEvent',{fromData,config})
+        const data= await cloudApi.post("/upload",formData)
+        return data
+    } catch (error) {
+        
+    }
+}
+
+  export async function confirmEventEdit(event,image,coverImage){
+    try {
+        const data= await organizerApi.patch('/editEvent',{event,image,coverImage})
         return data
     } catch (error) {
         console.log("add event error is api");

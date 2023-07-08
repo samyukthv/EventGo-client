@@ -132,7 +132,7 @@ console.log(event,90);
           className="relative isolate overflow-hidden mb-5 mx-5 bg-gradient-to-t from-white to-blue-100 bg-gray-900 px-6 pt-16 shadow-xl rounded-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
           style={{
             backgroundImage: event
-              ? `url(${COVER_IMAGE_URL + event.coverImage})`
+              ? `url(${ event.coverImage})`
               : "none",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
@@ -199,7 +199,7 @@ console.log(event,90);
           <div className="flex items-center justify-center md:justify-end md:flex-grow">
             <div className="flex-shrink-0">
               <img
-                src={event ? IMAGE_URL + event.image : null}
+                src={event ?  event.image : null}
                 alt=""
                 className=" h-96 rounded-md"
               />
@@ -289,7 +289,7 @@ console.log(event,90);
                               "https://lh3.googleusercontent.com"
                                 ? details?.user.image
                                 : details?.user.image
-                                ? `${PROFILE_URL}${details?.user.image}`
+                                ? `${details?.user.image}`
                                 : avathar
                             }
                             alt="Avatar Tailwind CSS Component"

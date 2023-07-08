@@ -69,7 +69,7 @@ useEffect(()=>{
             data.image.slice(0, 33) === "https://lh3.googleusercontent.com"
               ? data.image
               : data.image
-              ? `${ORGANIZER_PROFILE_URL}${data.image}`
+              ? `${data.image}`
               : avatar
           }
           alt="profile-picture"

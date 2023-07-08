@@ -1,6 +1,6 @@
-import React, {useState } from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "../../../components/organizer/organizerNavbar/Navbar";
-import { addEvent } from "../../../api/OrganizerApi";
+import { addEvent, uploadEditedEventImage } from "../../../api/OrganizerApi";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { AddressAutofill } from "@mapbox/search-js-react";
@@ -32,41 +32,88 @@ function AddEvent() {
     endTime: "",
     ticketQuantity: "",
     ticketPrice: "",
-    image: "",
-    coverImage: "",
+
     description: "",
     city: "",
     state: "",
     country: "",
-    street:"",
-    address:""
+    street: "",
+    address: "",
   });
 
- 
+  const [img, setImg] = useState(null);
+  const [cImg, setCImng] = useState(null);
+  const [securalUrlImage, setSecureUrlImage] = useState(null);
+  const [securalUrlCoverImage, setSecureUrlCoverImage] = useState(null);
 
+
+  useEffect(() =>   {
+    if (securalUrlImage && securalUrlCoverImage && event) {
+      addEvent(event, securalUrlImage, securalUrlCoverImage)
+        .then((res) => {
+          if (res.data.success) {
+            toast.success("event successfully added ");
+            e.target.reset(); // Reset form or perform other actions
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [securalUrlImage, securalUrlCoverImage, event]);
+
+  
   const uploadEvent = async (e) => {
     e.preventDefault();
     try {
       console.log("upload function");
-      const formData = new FormData();
-      formData.append("coverImage", event.coverImage);
-      formData.append("image", event.image);
-      formData.append("event", JSON.stringify(event));
-
-      const response = await addEvent(formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
-      if (response.data.success) {
-        toast.success("event  successfully added ");
-        e.target.reset();
-      }
+      console.log(img, "img");
+      console.log(cImg, "cImg");
+      const formData1 = new FormData();
+      formData1.append("file", img);
+      formData1.append("upload_preset", "profileImage");
+      formData1.append("cloud_name", "dcsdqyoh1");
+  
+      const formData2 = new FormData();
+      formData2.append("file", cImg);
+      formData2.append("upload_preset", "profileImage");
+      formData2.append("cloud_name", "dcsdqyoh1");
+  
+      const responses = await Promise.all([
+        uploadEditedEventImage(formData1),
+        uploadEditedEventImage(formData2),
+      ]);
+      const secureUrls = responses.map((res) => res.data.secure_url);
+      console.log(secureUrls, 99);
+      setSecureUrlImage(secureUrls[0]);
+      setSecureUrlCoverImage(secureUrls[1]);
+      console.log(secureUrls[0],"one");
+      console.log(secureUrls[1],"two");
+  
+      console.log(securalUrlCoverImage, securalUrlImage, 9876);
+  //   try {
+  //      await addEvent(event, securalUrlImage, securalUrlCoverImage).then((res) => {
+  //     if (res.data.success) {
+  //       toast.success("event successfully added ");
+  //       e.target.reset();
+  //     }
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
+   
     } catch (error) {
       // Handle the error
     }
   };
+
+
+ 
+
+
+console.log(securalUrlCoverImage,"outside");
+console.log(securalUrlImage,"outside");
+
 
 
   const verifyEventName = (eventName) => {
@@ -148,7 +195,6 @@ function AddEvent() {
       setTicketPrice(false);
     }
   };
-  
 
   const verifyTicketQuantity = (ticketQuantity) => {
     if (ticketQuantity.length == 0) {
@@ -158,12 +204,12 @@ function AddEvent() {
     }
   };
 
-  event.street = event['address address-search'];
-  const today = new Date().toISOString().split('T')[0];
+  event.street = event["address address-search"];
+  const today = new Date().toISOString().split("T")[0];
   return (
     <div>
       <Navbar />
-      <form onSubmit={(e) => uploadEvent(e)}>
+      <form onSubmit={(e) => uploadEvent(e)} id="addevent">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 ">
           <div className="h-full">
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
@@ -207,7 +253,7 @@ function AddEvent() {
                 setEvent({ ...event, [e.target.name]: e.target.value })
               }
               name="description"
-              className="ml-5 sm:ml-20 mt p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
+              className="ml-5 sm:ml-20 mt p-2 rounded border  w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="Event description"
             />
 
@@ -220,7 +266,6 @@ function AddEvent() {
             <AddressAutofill accessToken="pk.eyJ1Ijoic2FteXVrdGgiLCJhIjoiY2xqM3VnamRrMDgzazNxbWpvcTJ4MndjZyJ9.vUafBLe566uHJi2j5257ZA">
               <input
                 type="text"
-              
                 onChange={(e) => {
                   setEvent({ ...event, [e.target.name]: e.target.value });
                 }}
@@ -238,7 +283,6 @@ function AddEvent() {
               autoComplete="address-level2"
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               onChange={(e) => {
-              
                 setEvent({ ...event, [e.target.name]: e.target.value });
               }}
             />
@@ -264,8 +308,6 @@ function AddEvent() {
                 setEvent({ ...event, [e.target.name]: e.target.value });
               }}
             />
-
-          
 
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">
               About Event
@@ -298,13 +340,8 @@ function AddEvent() {
             )}
             <input
               type="file"
-              onBlur={() => {
-                verifyCoverImage(event.coverImage);
-              }}
               name="coverImage"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.files[0] })
-              }
+              onChange={(e) => setCImng(e.target.files[0])}
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
               placeholder="Ticket price"
             />
@@ -347,7 +384,7 @@ function AddEvent() {
                   Start Date
                 </label>
                 <input
-                 min={today}
+                  min={today}
                   type="date"
                   onBlur={() => {
                     verifyStartDate(event.startDate);
@@ -376,7 +413,7 @@ function AddEvent() {
                   End Date
                 </label>
                 <input
-                 min={today}
+                  min={today}
                   type="date"
                   onBlur={() => {
                     verifyEndDate(event.endDate);
@@ -394,12 +431,9 @@ function AddEvent() {
             {startTime && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
-            <label
-                  htmlFor="startDate"
-                  className="block mt-4  ml-6 sm:ml-20"
-                >
-                  Start Time
-                </label>
+            <label htmlFor="startDate" className="block mt-4  ml-6 sm:ml-20">
+              Start Time
+            </label>
             <input
               type="time"
               onBlur={() => {
@@ -415,12 +449,9 @@ function AddEvent() {
             {endTime && (
               <p className="text-red-600 ml-5 sm:ml-20">*Field is required</p>
             )}
-            <label
-                  htmlFor="startDate"
-                  className="block mt-4  ml-6 sm:ml-20"
-                >
-                  End Time
-                </label>
+            <label htmlFor="startDate" className="block mt-4  ml-6 sm:ml-20">
+              End Time
+            </label>
             <input
               type="time"
               onBlur={() => {
@@ -483,13 +514,8 @@ function AddEvent() {
             )}
             <input
               type="file"
-              onBlur={() => {
-                verifyImage(event.image);
-              }}
               name="image"
-              onChange={(e) =>
-                setEvent({ ...event, [e.target.name]: e.target.files[0] })
-              }
+              onChange={(e) => setImg(e.target.files[0])}
               className="ml-5 sm:ml-20 mt-4 p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
             />
           </div>

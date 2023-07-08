@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
-import { profileUpdate } from "../../api/UserApi";
+import { profileUpdate, saveImage } from "../../api/UserApi";
 import img from "../../assets/images/avathar2.png";
 import { setUserDetails } from "../../redux/userSlice";
 import cover from "../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
@@ -13,6 +13,7 @@ import wall from "../../assets/images/chatbg.jpg"
 const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
 function UserProfile() {
+  const [secureUrl, setSecureUrl]=useState(null)
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user);
   const [uservalues, setUserValues] = useState({
@@ -28,37 +29,49 @@ function UserProfile() {
     try {
       console.log("hyhyh");
       const formData = new FormData();
-      formData.append("profileImage", pimage);
-      formData.append("id", JSON.stringify(userData.id));
+      formData.append("file", pimage);
+      formData.append("upload_preset","profileImage")
+      formData.append ("cloud_name","dcsdqyoh1")
+     
+    
+      // formData.append("id", JSON.stringify(userData.id));
 
-      const response = await userImageUpdate(formData, {
-        headers: {
-          "content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
-      console.log(response, 23);
-      if (response.data.user.image) {
-        console.log("hello");
-        toast.success("image updated successfully");
-        dispatch(
-          setUserDetails({
-            id: response.data.user?._id,
-            firstName: response.data.user?.firstName,
-            lastName: response.data.user?.lastName,
-            mobile: response.data.user?.mobile,
-            image: response.data.user?.image,
-            email: response.data.user?.email,
+       await userImageUpdate(formData).then(res=>{
+        console.log(res.data.secure_url,90);
+        setSecureUrl(res.data.secure_url)
+        try {
+           saveImage(secureUrl,userData.id).then(res=>{
+              console.log(res.data.user);
+              if (res.data.user.image) {
+                console.log("hello");
+                toast.success("image updated successfully");
+                dispatch(
+                  setUserDetails({
+                    id: res.data.user?._id,
+                    firstName: res.data.user?.firstName,
+                    lastName: res.data.user?.lastName,
+                    mobile: res.data.user?.mobile,
+                    image: res.data.user?.image,
+                    email: res.data.user?.email,
+                  })
+                );
+                setImage(null);
+                setUserValues((prevValues) => ({
+                  ...prevValues,
+                  image: res.data.user?.image,
+                }));       
+                console.log("dispatched");
+                console.log("New image value in Redux:", res.data.user?.image);
+              }
           })
-        );
-        setImage(null);
-        setUserValues((prevValues) => ({
-          ...prevValues,
-          image: response.data.user?.image,
-        }));       
-        console.log("dispatched");
-        console.log("New image value in Redux:", response.data.user?.image);
-      }
+        } catch (error) {
+          
+        }
+       })
+
+     
+
+     
     } catch (error) {
       console.log(error);
     }
@@ -170,7 +183,7 @@ function UserProfile() {
                             "https://lh3.googleusercontent.com"
                               ? uservalues.image
                               : uservalues.image
-                              ? `${PROFILE_URL}${uservalues.image}`
+                              ? `${uservalues.image}`
                               : img
                           }
                           class="shadow-xl h-auto align-middle border-none max-w-full"
@@ -203,7 +216,9 @@ function UserProfile() {
 
                   <input
                     type="file"
-                    onChange={(e) => setImage(e.target.files[0])}
+                    onChange={(e) => setTimeout(()=>{
+                      setImage(e.target.files[0])
+                    },1000)}
                     hidden
                     name="profilePic"
                     id="uploadImage"

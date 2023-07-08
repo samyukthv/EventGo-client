@@ -24,3 +24,6 @@ userApi.interceptors.request.use((req) => {
 });
 
 
+export const cloudApi = axios.create({
+    baseURL: `https://api.cloudinary.com/v1_1/dcsdqyoh1/image`,
+});

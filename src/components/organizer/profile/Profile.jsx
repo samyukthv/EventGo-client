@@ -8,6 +8,8 @@ import {
   organizerCoverImageUpload,
   organizerImageUpdate,
   addPosts,
+  saveImage,
+  saveCoverImage,
 } from "../../../api/OrganizerApi";
 import { addOrganizerPost } from "../../../yup";
 import { useFormik } from "formik";
@@ -22,6 +24,8 @@ const ORGANIZER_COVER_IMAGE_URL = import.meta.env
 function Profile() {
   const dispatch = useDispatch();
   const organizerData = useSelector((state) => state.organizer);
+  const [secureUrl, setSecureUrl]=useState(null)
+
   const [organizeValues, setOrganizerValues] = useState({
   
     firstName: organizerData?.firstName,
@@ -55,37 +59,41 @@ useEffect(()=>{
     try {
       console.log("hyhyh");
       const formData = new FormData();
-      formData.append("organizerProfileImage", pimage);
-      formData.append("id", JSON.stringify(organizerData.id));
-
-      const response = await organizerImageUpdate(formData, {
-        headers: {
-          "content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
-      console.log(response, 23);
-      if (response.data.organizer.image) {
-        console.log("hello");
-
-        dispatch(
-          setOrganizerDetails({
-            id: response.data.organizer?._id,
-            firstName: response.data.organizer?.firstName,
-            lastName: response.data.organizer?.lastName,
-            mobile: response.data.organizer?.mobile,
-            image: response.data.organizer?.image,
-            email: response.data.organizer?.email,
-          })
-        );
-        toast.success("image updated successfully");
-        setImage(null);
-        setOrganizerValues((prevValues) => ({
-          ...prevValues,
-          image: response.data.organizer?.image,
-        }));
-        console.log("dispatched");
-      }
+      formData.append("file", pimage);
+      formData.append("upload_preset","profileImage")
+      formData.append ("cloud_name","dcsdqyoh1")
+        await organizerImageUpdate(formData).then(res=>{
+          console.log(res.data.secure_url,99999);
+        setSecureUrl(res.data.secure_url)
+       try {
+        saveImage(secureUrl,organizerData.id).then(res=>{
+          console.log(res.data.organizer);
+          if (res.data.organizer.image) {
+            console.log("hello");
+            toast.success("image updated successfully");
+            dispatch(
+              setOrganizerDetails({
+                id: res.data.organizer?._id,
+                firstName: res.data.organizer?.firstName,
+                lastName: res.data.organizer?.lastName,
+                mobile: res.data.organizer?.mobile,
+                image: res.data.organizer?.image,
+                email: res.data.organizer?.email,
+              })
+            );
+            setImage(null);
+            setOrganizerValues((prevValues) => ({
+              ...prevValues,
+              image: res.data.organizer?.image,
+            }));       
+            console.log("dispatched");
+            console.log("New image value in Redux:", res.data.organizer?.image);
+          }
+      })
+       } catch (error) {
+        
+       }
+      })
     } catch (error) {
       console.log(error);
     }
@@ -151,43 +159,48 @@ useEffect(()=>{
     }
   };
   const [cImage, setCImage] = useState(null);
-
+  const[coverSecureUrl,setCoverSecureUrl]=useState(null)
   console.log(organizerData.id, 89989988);
   const uploadCoverImage = async () => {
     try {
       const formData = new FormData();
-      formData.append("organizerCoverImage", cImage);
-      formData.append("id", JSON.stringify(organizerData.id));
-      console.log(...formData);
-      const response = await organizerCoverImageUpload(formData, {
-        headers: {
-          "content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
-      if (response.data.success) {
-        toast.success("cover image updated successfully");
-        dispatch(
-          setOrganizerDetails({
-            id: response.data.organizer?._id,
-            firstName: response.data.organizer?.firstName,
-            lastName: response.data.organizer?.lastName,
-            mobile: response.data.organizer?.mobile,
-            image: response.data.organizer?.image,
-            email: response.data.organizer.email,
-            about: response.data.organizer?.about,
-            instagram: response.data.organizer?.instagram,
-            linkedin: response.data.organizer?.linkedin,
-            facebook: response.data.organizer?.facebook,
-            coverImage: response.data.organizer?.coverImage,
-          })
-        );
-        setCImage(null);
-        setOrganizerValues((prevValues) => ({
-          ...prevValues,
-          coverImage: response.data.organizer?.coverImage,
-        }));
+      formData.append("file", cImage);
+      formData.append("upload_preset","profileImage")
+      formData.append ("cloud_name","dcsdqyoh1")
+      await organizerCoverImageUpload(formData).then(res=>{
+        setCoverSecureUrl(res.data.secure_url)
+
+      try {
+        saveCoverImage(coverSecureUrl,organizerData.id).then(res=>{
+          if(res.data.organizer.coverImage){
+            toast.success("cover image updated successfully");
+            dispatch(
+              setOrganizerDetails({
+                id: res.data.organizer?._id,
+                firstName: res.data.organizer?.firstName,
+                lastName: res.data.organizer?.lastName,
+                mobile: res.data.organizer?.mobile,
+                image: res.data.organizer?.image,
+                email: res.data.organizer.email,
+                about: res.data.organizer?.about,
+                instagram: res.data.organizer?.instagram,
+                linkedin: res.data.organizer?.linkedin,
+                facebook: res.data.organizer?.facebook,
+                coverImage: res.data.organizer?.coverImage,
+              })
+            );
+            setCImage(null);
+            setOrganizerValues((prevValues) => ({
+              ...prevValues,
+              coverImage: res.data.organizer?.coverImage,
+            }));
+          }
+        })
+      } catch (error) {
+        
       }
+      }) 
+
     } catch (error) {
       console.log(error);
     }
@@ -228,7 +241,7 @@ useEffect(()=>{
     });
 
   const coverImageUrl = organizeValues.coverImage
-    ? `${ORGANIZER_COVER_IMAGE_URL}${organizeValues.coverImage}`
+    ? `${organizeValues.coverImage}`
     : defaultCoverImage;
   return (
     <main className="profile-page ">
@@ -253,13 +266,16 @@ useEffect(()=>{
             >
               update cover image
             </label>
+            
           )}
           <input
             type="file"
             hidden
             name="coverImage"
             id="uploadCoverImage"
-            onChange={(e) => setCImage(e.target.files[0])}
+            onChange={(e) => setTimeout(()=>{
+              setCImage(e.target.files[0])
+            },1000)}
           />
         </div>
         <div
@@ -282,7 +298,7 @@ useEffect(()=>{
                           "https://lh3.googleusercontent.com"
                             ? organizeValues.image
                             : organizeValues.image
-                            ? `${ORGANIZER_PROFILE_URL}${organizeValues.image}`
+                            ? `${organizeValues.image}`
                             : img
                         }
                         className="shadow-xl w-full  h-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-8 max-w-150-px rounded-full"
@@ -313,7 +329,9 @@ useEffect(()=>{
 
                         <input
                           type="file"
-                          onChange={(e) => setImage(e.target.files[0])}
+                           onChange={(e) => setTimeout(()=>{
+                      setImage(e.target.files[0])
+                    },1000)}
                           hidden
                           name="profilePic"
                           id="uploadImage"

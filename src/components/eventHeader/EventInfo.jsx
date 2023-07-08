@@ -322,7 +322,7 @@ if(userData.id===user){
                     "https://lh3.googleusercontent.com"
                       ? organizer.image
                       : organizer.image
-                      ? `${ORGANIZER_PROFILE_URL}${organizer.image}`
+                      ? `${organizer.image}`
                       : avatar
                   }
                   alt=""

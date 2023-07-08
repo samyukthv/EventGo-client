@@ -26,7 +26,7 @@ return (
     {events.map((event) => (
       <div key={event._id} className="bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col items-center justify-center h-full p-4">
-          <img className="mb-4" src={IMAGE_URL+event.image} alt="" />
+          <img className="mb-4" src={event.image} alt="" />
 
           <h5 className="font-bold pt-2 tracking-tight ml-2 text-gray-900 dark:text-white">
             {event.eventName}

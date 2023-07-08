@@ -95,7 +95,7 @@ if(res.data.organizer){
 
     // setting the cover image in the page 
     const coverImageUrl = organizer?.coverImage
-    ? `${ORGANIZER_COVER_IMAGE_URL}${organizer.coverImage}`
+    ? `${organizer.coverImage}`
     : defaultCoverImage;
   return (
     <div>
@@ -124,7 +124,7 @@ if(res.data.organizer){
                             "https://lh3.googleusercontent.com"
                               ? organizer.image
                               : organizer.image
-                              ? `${ORGANIZER_PROFILE_URL}${organizer.image}`
+                              ? `${organizer.image}`
                               : img
                           }
                           className="shadow-xl rounded-full w-36 h-36 align-middle border-none absolute -m-12 -mr-10 max-w-150-px"

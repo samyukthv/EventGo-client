@@ -167,7 +167,7 @@ function content() {
                 <div className="relative flex justify-center items-center">
                   <img
                     className="w-40 h-48 object-cover"
-                    src={IMAGE_URL + event.image}
+                    src={ event.image}
                     alt="Course Cover"
                   />
                 </div>

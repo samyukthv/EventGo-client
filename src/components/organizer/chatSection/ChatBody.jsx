@@ -84,7 +84,7 @@ useEffect(() => {
                   "https://lh3.googleusercontent.com"
                     ? organizer?.image
                     : organizer?.image
-                    ? `${ORGANIZER_PROFILE_URL}${organizer?.image}`
+                    ? `${organizer?.image}`
                     : img
                 }
                 alt="Avatar"
@@ -109,7 +109,7 @@ useEffect(() => {
                   "https://lh3.googleusercontent.com"
                     ? sender?.image
                     : sender?.image
-                    ? `${PROFILE_URL}${sender?.image}`
+                    ? `${sender?.image}`
                     : img
                 }
                 alt="Avatar"

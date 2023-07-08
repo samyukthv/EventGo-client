@@ -14,7 +14,6 @@ function OrganizerProfile() {
   const Tabs = () => {
     const params = useParams();
     const organizerId = params.id;
-    console.log(organizerId,"thtiehtiehteitneitnententeintentneinenter");
     const [openTab, setOpenTab] = useState(1);
   
     return (

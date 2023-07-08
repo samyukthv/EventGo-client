@@ -11,7 +11,7 @@ function RowCards({ props }) {
       {props?.map((data) => (
         <div key={data._id} className=" border border-gray-200 rounded-md  dark:border-gray-700 shadow-2xl transform hover:scale-105 transition duration-500">
           <div className="flex flex-col items-center justify-center h-full p-4">
-            <img className="mb-4" src={IMAGE_URL + data.image} alt="" />
+            <img className="mb-4" src={ data.image} alt="" />
             <h5 className="font-bold pt-2 tracking-tight ml-2 text-gray-900 dark:text-white">
               {data.eventName}
             </h5>

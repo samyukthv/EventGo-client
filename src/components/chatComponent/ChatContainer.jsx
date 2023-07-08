@@ -122,7 +122,7 @@ function ChatContainer({ sender, socket }) {
                   "https://lh3.googleusercontent.com"
                     ? organizerDetails?.image
                     : organizerDetails?.image
-                    ? `${ORGANIZER_PROFILE_URL}${organizerDetails?.image}`
+                    ? `${organizerDetails?.image}`
                     : img
                 }
                 alt="Avatar"
@@ -156,7 +156,7 @@ function ChatContainer({ sender, socket }) {
                   "https://lh3.googleusercontent.com"
                     ? userData?.image
                     : userData?.image
-                    ? `${PROFILE_URL}${userData?.image}`
+                    ? `${userData?.image}`
                     : img
                 }
                 alt="Avatar"
@@ -181,7 +181,7 @@ function ChatContainer({ sender, socket }) {
                   "https://lh3.googleusercontent.com"
                     ? organizerDetails?.image
                     : organizerDetails?.image
-                    ? `${ORGANIZER_PROFILE_URL}${organizerDetails?.image}`
+                    ? `${organizerDetails?.image}`
                     : img
                 }
                 alt="Avatar"

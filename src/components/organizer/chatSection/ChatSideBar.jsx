@@ -54,7 +54,7 @@ function ChatSideBar({ setSender, socket }) {
                     "https://lh3.googleusercontent.com"
                       ? result.image
                       : result.image
-                      ? `${PROFILE_URL}${result.image}`
+                      ? `${result.image}`
                       : img
                   }
                   alt=""
