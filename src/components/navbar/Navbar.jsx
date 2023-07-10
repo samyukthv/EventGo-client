@@ -52,6 +52,10 @@ function Navbar() {
   </div>
 </Link>  </div>
   <div className="flex-none text-black">
+  <ul className="menu menu-horizontal px-1">
+    <Link to="/">  <li><a>Home</a></li></Link> 
+  
+    </ul>
     <ul className="menu menu-horizontal px-1">
     <Link to="/happening-city">  <li><a>Happening city</a></li></Link> 
   

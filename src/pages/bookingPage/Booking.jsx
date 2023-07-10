@@ -115,15 +115,15 @@ function Booking() {
       <Navbar />
       <div
         className="bg-gradient-to-t from-white to-blue-200"
-        style={{
-          backgroundImage: `url(${bgimg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          position: "relative",
-          zIndex: 1,
-        }}
+        // style={{
+        //   backgroundImage: `url(${bgimg})`,
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center",
+        //   position: "relative",
+        //   zIndex: 1,
+        // }}
       >
-        <div
+        {/* <div
           style={{
             position: "absolute",
             top: 0,
@@ -133,7 +133,7 @@ function Booking() {
             backdropFilter: "blur(5px)", // Adjust the value (5px) to increase or decrease the blur effect
             zIndex: -1,
           }}
-        ></div>
+        ></div> */}
         <h1 className="text-center text-4xl font-chonburi pt-5">Book Now</h1>
         <div className="relative isolate overflow-hidden">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col-reverse lg:flex-row">
@@ -318,7 +318,7 @@ function Booking() {
             <div className="h-96 w-auto lg:w-auto rounded-md bg-black lg:ml-60">
               <img
                 className="h-full w-full  "
-                src={event ? `${VITE_IMAGE_URL}/${event.image}` : null}
+                src={event ? `${event.image}` : null}
                 alt=""
               />
             </div>

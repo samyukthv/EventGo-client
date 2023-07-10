@@ -106,9 +106,9 @@ export async function organizerEvents(organizerId) {
   }
 
 
-  export const addPosts =async(formData,config)=>{
+  export const addPosts =async(organizerId,details,image)=>{
     try {
-        const data=await organizerApi.post('/organizerAddPost',formData,config)
+        const data=await organizerApi.post('/organizerAddPost',{organizerId,details,image})
         return data
     } catch (error) {
         console.log("addpost error");

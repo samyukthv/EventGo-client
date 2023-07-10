@@ -27,7 +27,7 @@ return (
   <div className="grid grid-cols-1 sm:grid-cols-2 my-5 md:grid-cols-3 px-16 lg:grid-cols-4 gap-20 lg:px-10">
     {post && post.map((item, index) => (
       <div key={item._id} className="max-w-sm rounded overflow-hidden shadow-lg">
-        <img className="w-full" src={POST_IMAGE_URL+item.image} alt="Post" />
+        <img className="w-full" src={item.image} alt="Post" />
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{item.title}</div>
           <p className="text-gray-700 text-base">{item.description}</p>

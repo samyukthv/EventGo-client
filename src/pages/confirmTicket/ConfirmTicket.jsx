@@ -105,7 +105,7 @@ console.log(longitude);
                       <img
                         src={
                           eventDetails.event
-                            ? `${IMAGE_URL}/${eventDetails.event.image}`
+                            ? `${eventDetails.event.image}`
                             : null
                         }
                         alt=""

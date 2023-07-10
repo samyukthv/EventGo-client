@@ -43,7 +43,7 @@ useEffect(()=>{
       <div className="flex justify-center items-center w-auto h-[80vh]   ">
   <div className="flex flex-col md:flex-row mx-10   w-[180vh] h-[60vh]  rounded-xl shadow-2xl bg-gradient-to-t from-white to-blue-200">
     <div className="w-full md:w-auto  flex  inset-0 top-0 left-0">
-      <img src={eventDetails.event ? IMAGE_URL + eventDetails.event.image : null} alt="" className="h-full max-w-full object-contain rounded-l-lg  " />
+      <img src={eventDetails.event ?  eventDetails.event.image : null} alt="" className="h-full max-w-full object-contain rounded-l-lg  " />
     </div>
     <div className="w-full md:w-1/3 text-center flex flex-col mt-5 ">
       <div className="font-bold text-4xl cursor-pointer flex justify-center items-center mb-4">

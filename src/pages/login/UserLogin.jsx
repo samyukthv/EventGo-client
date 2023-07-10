@@ -99,9 +99,9 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
 
   return (
     <motion.div
-    initial={{width:0}}
-    animate={{width:'100%'}}
-    exit={{x:window.innerWidth,transition:{duration:0.2}}}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
         >
     <div>
       <div className="relative flex flex-row min-h-screen bg-no-repeat bg-cover justify-end overflow-hidden" style={{ backgroundImage: `url(${bgimg})` }}>
@@ -171,8 +171,8 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
           </p>
                 
           <p className="mt-8 text-xs font-light text-center text-gray-700">
-            Have an account?{" "}
-            <button className="font-medium text-purple-600 hover:underline">Login</button>
+       Dont have an account?{" "}
+          <Link to="/signup">  <button className="font-medium text-purple-600 hover:underline">Register</button></Link>
           </p>
         </div>
       </div>

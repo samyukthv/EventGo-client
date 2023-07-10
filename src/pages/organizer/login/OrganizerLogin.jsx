@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import signupimg from "../../../assets/images/Keep bang'n  on We Heart It.jpg";
+import bgimg  from '../../../assets/images/fg.jpg'
 import { GoogleLogin } from "@react-oauth/google";
 import { toast, Toaster } from "react-hot-toast";
 import { loginOrganizer } from "../../../api/OrganizerApi";
@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { setOrganizerDetails } from "../../../redux/organizerSlice";
+import {motion} from 'framer-motion'
 
 const initialValues = {
   email: "",
@@ -102,93 +103,85 @@ function OrganizerLogin() {
   };
 
   return (
-    <section className="p-20 h-screen bg-gradient-to-t from-white to-blue-200 flex flex-col pt-10 px-20 justify-between">
-      <div className="w-full  h-full flex items-center justify-center shadow-2xl ">
-        <div className="hidden md:block relative w-1/2 h-full flex-col">
-          <div className="absolute top-[15%] flex flex-col items-center">
-            <h1 className="text-4xl text-black font-bold my-3 text-center">
-              Sell Your Tickets
-            </h1>
-            <p className="text-xl text-white font-normal text-center">
-              Sign in and secure your spot at the hottest events with our
-              seamless ticket booking platform.
-            </p>
-            <p className="text-base text-center mt-28 text-white">
-              Already have an account? Please log in
-            </p>
-
-            <button className="text-black w-1/2 bg-gradient-to-t from-white to-blue-200 rounded-md p-3 mt-2 text-center flex items-center justify-center">
-              <Link to="/organizer/signup">Register</Link>
-            </button>
-            <div className="w-full sm:w-1 md:w-full mb-2 p-3 mt-2 text-center flex items-center justify-center">
-              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-            </div>
-          </div>
-          <img
-            src={signupimg}
-            alt="Login"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <div className="w-1/2 h-full bg-gradient-to-t from-white to-blue-200 flex flex-col  px-20 justify-between">
-          <div className="w-full flex flex-col">
-            <div className="w-full flex flex-col mb-2 mt-5 max-w-[450px]">
-              <h1 className="text-4xl text-black font-bold my-3 text-center">
-                Welcome organizer..!!
-              </h1>
-              <h3 className="text-3xl font-bold mb-2 text-center">Log in</h3>
-              <p className="text-base mb-2 mt-10 text-center">
-                Welcome to EventGo, Please log in to your account
-              </p>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="w-full flex flex-col pt-10">
-                <input
-                  type="email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                  placeholder="Email"
-                  name="email"
-                  className="w-full text-black py-1 my-2 border-b rounded-xl bg-transparent border-black outline-none focus:outline-none"
-                />
+    <motion.div
+    initial={{width:0}}
+    animate={{width:'100%'}}
+    exit={{x:window.innerWidth,transition:{duration:0.2}}}
+        >
+    <div>
+      <div className="relative flex flex-row min-h-screen bg-no-repeat bg-cover justify-end overflow-hidden" style={{ backgroundImage: `url(${bgimg})` }}>
+        <span className="text-3xl   mx-1 pt-2 text-purple-500"> <ion-icon name="finger-print-outline"></ion-icon></span>
+        <span className="bg-gradient-to-r font-monoton text-2xl cursor-pointer mt-2 from bg-purple-500 to-pink-600 text-transparent bg-clip-text">
+          EventGo
+        </span>
+        <div className="w-1/2 p-6 m-auto rounded-md shadow-2xl lg:max-w-xl border text-center border-purple-100 ">
+          <h1 className="text-3xl font-semibold text-center text-purple-700">Organizer Log in</h1>
+          <form onSubmit={handleSubmit} className="mt-6">
+            <div className="mb-2">
+             
+              <input
+             type="email"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.email}
+             placeholder="Email"
+             name="email"
+                className="w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
                 {errors.email && touched.email ? (
-                  <small className="form-error text-red-500">
-                    {errors.email}
-                  </small>
-                ) : null}
-
-                <input
-                  type="password"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                  placeholder="Password"
-                  name="password"
-                  className="w-full text-black py-1 rounded-xl my-2 border-b bg-transparent border-black outline-none focus:outline-none"
-                />
-                {errors.password && touched.password ? (
-                  <small className="form-error text-red-500">
-                    {errors.password}
-                  </small>
-                ) : null}
-              </div>
-
-              <div className="w-full flex flex-col pt-">
-                <button className="text-white w-full bg-violet-500 hover:bg-violet-700 rounded-md p-4 mt-5 text-center flex items-center justify-center">
-                  Log in
-                </button>
-              </div>
-            </form>
-            <p className="text-sm ml-auto font-light cursor-pointer mt-5 underline underline-offset-2">
-              Forgot Password ?
-            </p>
-          </div>
+            <small className="form-error text-red-500">
+              {errors.email}
+            </small>
+          ) : null}
+            </div>
+           
+            
+            
+            <div className="mb-2">
+             
+              <input
+                type="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                placeholder="Password"
+                name="password"
+                className="w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+                 {errors.password && touched.password ? (
+            <small className="form-error text-red-500">
+              {errors.password}
+            </small>
+          ) : null}
+            </div>
+           
+            <div className="mt-6">
+              <button
+              type="submit"
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                Log in
+              </button>
+            </div>
+            <div className="mt-3" id="recaptcha-container"></div>
+          </form>
+          <div className="sm:w-1 md:w-full  mb-2 p-3 mt-2 text-center flex items-center justify-center">
+                  <GoogleLogin
+                    onSuccess={responseMessage}
+                    onError={errorMessage}
+                  />
+                </div>
+               
+                
+          <p className="mt-8 text-xs font-light text-center text-gray-700">
+            Dont have an account?{" "}
+           <Link to="/organizer/signup"> <button className="font-medium text-purple-600 hover:underline">Register</button></Link>
+          </p>
         </div>
       </div>
       <Toaster />
-    </section>
+
+    </div>
+  </motion.div>
   );
 }
 

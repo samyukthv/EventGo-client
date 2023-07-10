@@ -10,6 +10,7 @@ import {
   addPosts,
   saveImage,
   saveCoverImage,
+  uploadEditedEventImage,
 } from "../../../api/OrganizerApi";
 import { addOrganizerPost } from "../../../yup";
 import { useFormik } from "formik";
@@ -211,7 +212,7 @@ useEffect(()=>{
     description: "",
   };
   const [postImage, setPostImage] = useState("");
-
+  const[postsecuralUrl,setPostSecureUrl]=useState(null)
   const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
     useFormik({
       initialValues: initialValues,
@@ -221,29 +222,38 @@ useEffect(()=>{
         try {
           console.log(postImage);
           const formData = new FormData();
-          formData.append("postImage", postImage);
-          formData.append("id", JSON.stringify(organizerData.id));
-          formData.append("value", JSON.stringify(values));
-          console.log("inininnnininnnnini");
-          const response = await addPosts(formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-          });
-          console.log(response.data, 222);
-          if (response.data.success) {
-            toast.success("post added successfully");
-            resetForm();
-          }
+          formData.append("file", postImage);
+          formData.append("upload_preset", "profileImage");
+          formData.append("cloud_name", "dcsdqyoh1");
+          console.log("hhyhy");
+         await uploadEditedEventImage(formData).then(res=>{
+            console.log("inside");
+            console.log(res.data.secure_url);
+            setPostSecureUrl(res.data.secure_url)
+
+          })
+
+          // const response = await addPosts(formData)
+          
+   
         } catch (error) {}
       },
     });
 
+
+useEffect(()=>{
+if(postsecuralUrl){
+  addPosts(organizerData.id,values,postsecuralUrl).then(res=>{
+
+  })
+}
+},[postsecuralUrl])
+
+
   const coverImageUrl = organizeValues.coverImage
     ? `${organizeValues.coverImage}`
     : defaultCoverImage;
-  return (
+     return (
     <main className="profile-page ">
       <section className="relative block h-500-px">
         <div

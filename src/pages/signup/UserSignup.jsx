@@ -13,7 +13,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { setUserDetails } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import bgimg  from '../../assets/images/1f9bcc8e0cd6f1525f1c6a40ed6fbd88.jpg'
+import bgimg  from '../../assets/images/fg.jpg'
 
 const initialValues = {
   firstName: "",
@@ -361,7 +361,7 @@ function UserSignup() {
                 </div>
           <p className="mt-8 text-xs font-light text-center text-gray-700">
             Have an account?{" "}
-            <button className="font-medium text-purple-600 hover:underline">Login</button>
+          <Link to='/login'>  <button className="font-medium text-purple-600 hover:underline">Login</button></Link>
           </p>
         </div>
       </div>
