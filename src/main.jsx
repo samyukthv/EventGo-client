@@ -7,6 +7,7 @@ import {Provider} from "react-redux"
 import {store,persistor} from "./redux/store"
 import {PersistGate} from "redux-persist/integration/react"
 import { ThemeProvider } from '@material-tailwind/react';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ThemeProvider>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </GoogleOAuthProvider>
   </PersistGate>
   </Provider>
+  <Toaster/>
   </ThemeProvider>
   ,
 )

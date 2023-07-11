@@ -382,7 +382,7 @@ if(userData.id===user){
               latitude: coordinates[0],
               zoom: 10,
             }}
-            mapStyle="mapbox://styles/mapbox/streets-v12"
+            mapStyle="mapbox://styles/mapbox/streets-v8"
           >
             <Marker
               longitude={coordinates[1]}

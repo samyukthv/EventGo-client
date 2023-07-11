@@ -14,7 +14,7 @@ function HappeningCity() {
     >
       <Navbar/>
       <BannerTwo/>
-    <Content/>
+      <Content/>
       <Footer/>
 
     </motion.div>

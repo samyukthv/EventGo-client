@@ -186,7 +186,7 @@ function UserProfile() {
                               ? `${uservalues.image}`
                               : img
                           }
-                          class="shadow-xl h-auto align-middle border-none max-w-full"
+                          class="shadow-xl  align-middle border-none max-w-full  h-full"
                         />
                       </div>
                     </div>

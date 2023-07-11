@@ -11,7 +11,9 @@ export const organizerApi=axios.create({
     baseURL:`http://localhost:3000/organizer`
 })
 
-
+export const adminApi= axios.create({
+    baseURL:`http://localhost:3000/admin`
+})
 
 
 

@@ -311,7 +311,7 @@ if(postsecuralUrl){
                             ? `${organizeValues.image}`
                             : img
                         }
-                        className="shadow-xl w-full  h-36 align-middle border-none absolute -m-16 -ml-20 lg:-ml-8 max-w-150-px rounded-full"
+                        className="shadow-xl w-full  h-36 align-middle border-none absolute -m-16 -ml-24 lg:-ml-8 max-w-150-px rounded-full"
                       />
                     </div>
 
