@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import avathar from "../../../assets/images/avathar2.png";
 import { Link } from "react-router-dom";
-import { allOrganizers } from "../../../api/adminApi";
+import { allOrganizers, blockOrganizer, unBlockOrganizer } from "../../../api/adminApi";
+import { toast } from "react-hot-toast";
 
 function OrganizerList() {
   const [organizers, setOrganizers] = useState([]);
+  const [isBlocked,setIsBlocked]=useState(false)
+
 
   useEffect(() => {
     allOrganizers()
@@ -14,7 +17,31 @@ function OrganizerList() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isBlocked]);
+
+
+  const organizerBlock= async(organizerId)=>{
+    blockOrganizer(organizerId).then(res=>{
+      if(res.data.blocked){
+        toast.error("user blocked successfully")
+        setIsBlocked(true);
+      }
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  const organizerUnblock= async(organizerId)=>{
+    unBlockOrganizer(organizerId).then(res=>{
+      if(res.data.unblock){
+        toast.success("user unblocked successfully")
+        setIsBlocked(false);
+       
+      }
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
   return (
     <div>
       <div className="h-screen bg-white relative flex overflow-hidden">
@@ -157,7 +184,7 @@ function OrganizerList() {
                           <img
                             className="h-full w-full rounded-full object-cover object-center"
                             src={
-                              details?.image?.slice(0, 33) ===
+                              details?.image?.slice(0, 33) ===  
                               "https://lh3.googleusercontent.com"
                                 ? details?.image
                                 : details?.image
@@ -184,12 +211,20 @@ function OrganizerList() {
                         Success
                       </button>{" "}
                       <td className="px-6 py-4">
-                        <button
-                          type="button"
-                          className=" mt-1 inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                        >
-                          Success
-                        </button>
+                      {details.isBlocked?<button
+                       onClick={()=>organizerUnblock(details._id)}
+                        type="button"
+                        className=" mt-1 inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                      >
+                        Unblock
+                      </button>:
+                      <button
+                      onClick={()=>organizerBlock(details._id)}
+                      type="button"
+                      class="inline-block rounded bg-danger px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                      Block
+                    </button>
+                      }
                       </td>
                     </tr>
                   ))}

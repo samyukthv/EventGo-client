@@ -51,6 +51,8 @@ function OrganizerLogin() {
           localStorage.setItem("organizertoken", response.data.token);
           toast.success(response.data.message);
           navigate("/organizer/home");
+        }else if(response.data.blocked){
+          toast.error("Sorry, this account is blocked")
         } else {
           toast.error(response.data.message);
         }
@@ -88,11 +90,11 @@ function OrganizerLogin() {
         })
       );
       console.log("after");
-      localStorage.setItem("organizertoken", googleReg.data.token);
-
-      
+      localStorage.setItem("organizertoken", googleReg.data.token)
         navigate("/organizer/home");
       
+    }else if(googleReg.data.blocked){
+      toast.error("Sorry, this account is blocked")
     } else {
       toast.error(googleReg.data.message);
     }

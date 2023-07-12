@@ -14,7 +14,8 @@ import bgimg  from '../../assets/images/fg.jpg'
 function ChooseAccount() {
 
   return (
-    <div className="w-full min-h-screen flex justify-center" style={{ backgroundImage: `url(${bgimg})` }}>
+    <div className="w-full min-h-screen flex justify-center" style={{ backgroundImage: `url(${bgimg})`,backgroundSize: "cover",
+    backgroundPosition: "center", }}>
       <div className="flex-1">
         <Link to="/">
           <div className="font-monoton  text-2xl cursor-pointer flex items-center ">

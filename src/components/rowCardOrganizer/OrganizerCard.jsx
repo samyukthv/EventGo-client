@@ -57,80 +57,85 @@ useEffect(()=>{
     // </div>
 
 
-    
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-16 lg:grid-cols-4 gap-36 lg:px-16 pb-20   " >
-  {organizer.map((data) => (
-
-    <Card className="w-80 " key={data._id}>
-      <Link to="">
-      <CardHeader floated={false} className="h-48 w-48 ml-16 shadow-xl">
-        <img
-          src={
-            data.image.slice(0, 33) === "https://lh3.googleusercontent.com"
-              ? data.image
-              : data.image
-              ? `${data.image}`
-              : avatar
-          }
-          alt="profile-picture"
-          style={{ objectFit: "cover", width: "100%", height: "100%"}}
-        />
-      </CardHeader>
-      
-      </Link>
-      <CardBody className="text-center">
-        <Typography variant="h4" color="blue-gray" className="mb-2 mt-5">
-          {data.firstName}
-        </Typography>
-        <Typography color="blue" className="font-medium" textGradient>
-          {data.email}
-        </Typography>
-      </CardBody>
-      <CardFooter className="flex justify-center gap-7 mb-5 pt-2">
-      { data.linkedin &&  <Tooltip content="follow">
-       <Typography
-            as="a"
-            href={data.linkedin}
-            variant="lead"
-            color="blue"
-            target="_blank"
-            rel="noopener noreferrer"
-            textGradient
-          >
-            <i className="text-black fab fa-linkedin" />
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 px-16 lg:grid-cols-4 gap-36 lg:px-16 pb-20 justify-center items-center">
+    {organizer.map((data) => (
+      <Card className="" key={data._id}>
+        <Link to="">
+          <CardHeader floated={false} className="h-48 w-48 ml-6 shadow-xl">
+            <Link to={`/organizer-profile/${data._id}`}>
+              <img
+                src={
+                  data.image.slice(0, 33) ===
+                  "https://lh3.googleusercontent.com"
+                    ? data.image
+                    : data.image
+                    ? `${data.image}`
+                    : avatar
+                }
+                alt="profile-picture"
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              />
+            </Link>
+          </CardHeader>
+        </Link>
+        <CardBody className="text-center">
+          <Typography variant="h4" color="blue-gray" className="mb-2 mt-5">
+            {data.firstName}
           </Typography>
-        </Tooltip>}
-        { data.facebook && <Tooltip content="Follow">
-          <Typography
-            as="a"
-            href="#twitter"
-            variant="lead"
-            color="light-blue"
-            target="_blank"
-            rel="noopener noreferrer"
-            textGradient
-          >
-            <i className="text-black fab fa-facebook" />
+          <Typography color="blue" className="font-medium" textGradient>
+            {data.email}
           </Typography>
-        </Tooltip>}
-       {data.instagram && <Tooltip content="Follow">
-          <Typography
-            as="a"
-            href={data.instagram}
-            variant="lead"
-            target="_blank"
-            rel="noopener noreferrer"
-            color="purple"
-            textGradient
-          >
-            <i className="text-black fab fa-instagram" />
-          </Typography>
-        </Tooltip>}
-      </CardFooter>
-    </Card>
-  
-  ))}
-</div>
+        </CardBody>
+        <CardFooter className="flex justify-center gap-7 mb-5 pt-2">
+          {data.linkedin && (
+            <Tooltip content="follow">
+              <Typography
+                as="a"
+                href={data.linkedin}
+                variant="lead"
+                color="blue"
+                target="_blank"
+                rel="noopener noreferrer"
+                textGradient
+              >
+                <i className="text-black fab fa-linkedin" />
+              </Typography>
+            </Tooltip>
+          )}
+          {data.facebook && (
+            <Tooltip content="Follow">
+              <Typography
+                as="a"
+                href="#twitter"
+                variant="lead"
+                color="light-blue"
+                target="_blank"
+                rel="noopener noreferrer"
+                textGradient
+              >
+                <i className="text-black fab fa-facebook" />
+              </Typography>
+            </Tooltip>
+          )}
+          {data.instagram && (
+            <Tooltip content="Follow">
+              <Typography
+                as="a"
+                href={data.instagram}
+                variant="lead"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="purple"
+                textGradient
+              >
+                <i className="text-black fab fa-instagram" />
+              </Typography>
+            </Tooltip>
+          )}
+        </CardFooter>
+      </Card>
+    ))}
+  </div>
 
 
 

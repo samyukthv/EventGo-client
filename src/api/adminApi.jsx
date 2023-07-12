@@ -94,3 +94,19 @@ export const unBlockUser= async(userId)=>{
         
     }
 }
+export const blockOrganizer= async(organizerId)=>{
+    try {
+        const data= await adminApi.patch("/organizerBlock",{organizerId})
+        return data
+    } catch (error) {
+        
+    }
+}
+export const unBlockOrganizer= async(organizerId)=>{
+    try {
+        const data= await adminApi.patch("/organizerUnblock",{organizerId})
+        return data
+    } catch (error) {
+        
+    }
+}

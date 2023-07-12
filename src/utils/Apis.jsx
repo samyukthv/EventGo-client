@@ -1,83 +1,76 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-// const navigate = useNavigate();
 
+// Create a separate navigate function to use for redirection
+const navigateTo = (path) => {
+  const navigate = useNavigate();
+  navigate(path);
+};
 
-export const userApi=axios.create({
-    baseURL:`http://localhost:3000`
-})
-
-
-export const organizerApi=axios.create({
-    baseURL:`http://localhost:3000/organizer`
-})
-
-export const adminApi= axios.create({
-    baseURL:`http://localhost:3000/admin`
-})
-
-
-
-
-
-
-
+// user
+export const userApi = axios.create({
+  baseURL: "http://localhost:3000",
+});
 
 userApi.interceptors.request.use((req) => {
-    if (localStorage.getItem("token")) {
-        console.log(" interseptor keeps the token in the header");
-        req.headers.Authorization = "Bearer " + localStorage.getItem("token");
-    }
-    return req; 
-}
-);
-
-
-// userApi.interceptors.response.use(
-//     (response) => {
-//       return response;
-//     },
-//     (error) => {
-//       console.error("Response error:", error);
-//       if (error.response.status === 401) {
-//         navigate("/")  
-//         // console.log("Removing token and navigating to home page");
-//         // localStorage.removeItem("token");
-//         // Replace 'navigate("/")' with the appropriate navigation code for your application
-           
-
-// console.log("below");
-//       }
-      
-//     }
-//   );
-  
+  if (localStorage.getItem("token")) {
+    console.log("interceptor keeps the token in the header");
+    req.headers.Authorization = "Bearer " + localStorage.getItem("token");
+  }
+  return req;
+});
 
 userApi.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      
-      if (error) {
-  
-          console.log("error occured");
-        // Token expired
-        // Display message to user
-        toast.error("unauthenticated user")
-        setTimeout(()=>{
-            
-            window.location.href = '/';
-        },1000)
-        // Redirect to login page
-        localStorage.removeItem("token");
-      }
-      return Promise.reject(error);
-    }
-  );
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.log("error occurred");
 
+      toast.error("Unauthenticated user");
+      localStorage.removeItem("token");
+      window.location.href = "/";
+      
+    }
+    return Promise.reject(error);
+  }
+);
+
+// organizer
+export const organizerApi = axios.create({
+  baseURL: "http://localhost:3000/organizer",
+});
+
+organizerApi.interceptors.request.use((req) => {
+  if (localStorage.getItem("organizertoken")) {
+    console.log("interceptor keeps the token in the header organizer");
+    req.headers.Authorization = "Bearer " + localStorage.getItem("organizertoken");
+  }
+  return req;
+});
+
+organizerApi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.log("error occurred");
+
+      toast.error("Unauthenticated organizer");
+      localStorage.removeItem("organizertoken");
+      window.location.href = "/organizer/";;
+    }
+    return Promise.reject(error);
+  }
+);
+
+export const adminApi = axios.create({
+  baseURL: "http://localhost:3000/admin",
+});
 
 export const cloudApi = axios.create({
-    baseURL: `https://api.cloudinary.com/v1_1/dcsdqyoh1/image`,
+  baseURL: "https://api.cloudinary.com/v1_1/dcsdqyoh1/image",
 });

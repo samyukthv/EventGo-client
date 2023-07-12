@@ -3,7 +3,6 @@ import { organizerEvents } from '../../../api/OrganizerApi';
 
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
 
 function OrganizerPosts() {
@@ -14,10 +13,13 @@ const[events,setEvents]=useState([])
 
 useEffect(() => {
   console.log(organizerId, 43);
-  organizerEvents(organizerId).then((response)=>{
-    console.log(response.data);
-    setEvents(response.data.events);
-  })
+  if(!organizerId==""){
+console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    organizerEvents(organizerId).then((response)=>{
+      console.log(response.data);
+      setEvents(response.data.events);
+    })
+  }
 
 },[]);
 

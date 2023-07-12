@@ -65,38 +65,45 @@ useEffect(()=>{
       formData.append ("cloud_name","dcsdqyoh1")
         await organizerImageUpdate(formData).then(res=>{
         setSecureUrl(res.data.secure_url)
-       try {
-        saveImage(secureUrl,organizerData.id).then(res=>{
-          console.log(res.data.organizer);
-          if (res.data.organizer.image) {
-            toast.success("image updated successfully");
-            dispatch(
-              setOrganizerDetails({
-                id: res.data.organizer?._id,
-                firstName: res.data.organizer?.firstName,
-                lastName: res.data.organizer?.lastName,
-                mobile: res.data.organizer?.mobile,
-                image: res.data.organizer?.image,
-                email: res.data.organizer?.email,
-              })
-            );
-            setImage(null);
-            setOrganizerValues((prevValues) => ({
-              ...prevValues,
-              image: res.data.organizer?.image,
-            }));       
-            console.log("dispatched");
-            console.log("New image value in Redux:", res.data.organizer?.image);
-          }
-      })
-       } catch (error) {
-        
-       }
+    
       })
     } catch (error) {
       console.log(error);
     }
   };
+
+
+  useEffect(()=>{
+if(secureUrl){
+  try {
+    saveImage(secureUrl,organizerData.id).then(res=>{
+      console.log(res.data.organizer);
+      if (res.data.organizer.image) {
+        toast.success("image updated successfully");
+        dispatch(
+          setOrganizerDetails({
+            id: res.data.organizer?._id,
+            firstName: res.data.organizer?.firstName,
+            lastName: res.data.organizer?.lastName,
+            mobile: res.data.organizer?.mobile,
+            image: res.data.organizer?.image,
+            email: res.data.organizer?.email,
+          })
+        );
+        setImage(null);
+        setOrganizerValues((prevValues) => ({
+          ...prevValues,
+          image: res.data.organizer?.image,
+        }));       
+        console.log("dispatched");
+        console.log("New image value in Redux:", res.data.organizer?.image);
+      }
+  })
+   } catch (error) {
+    
+   }
+}
+  },[secureUrl])
 
   const [organizerUpdated, setOrganizerUpdated] = useState(false);
   const updateButton = () => {
@@ -169,41 +176,48 @@ useEffect(()=>{
       await organizerCoverImageUpload(formData).then(res=>{
         setCoverSecureUrl(res.data.secure_url)
 
-      try {
-        saveCoverImage(coverSecureUrl,organizerData.id).then(res=>{
-          if(res.data.organizer.coverImage){
-            toast.success("cover image updated successfully");
-            dispatch(
-              setOrganizerDetails({
-                id: res.data.organizer?._id,
-                firstName: res.data.organizer?.firstName,
-                lastName: res.data.organizer?.lastName,
-                mobile: res.data.organizer?.mobile,
-                image: res.data.organizer?.image,
-                email: res.data.organizer.email,
-                about: res.data.organizer?.about,
-                instagram: res.data.organizer?.instagram,
-                linkedin: res.data.organizer?.linkedin,
-                facebook: res.data.organizer?.facebook,
-                coverImage: res.data.organizer?.coverImage,
-              })
-            );
-            setCImage(null);
-            setOrganizerValues((prevValues) => ({
-              ...prevValues,
-              coverImage: res.data.organizer?.coverImage,
-            }));
-          }
-        })
-      } catch (error) {
-        
-      }
+       
       }) 
 
     } catch (error) {
       console.log(error);
     }
   };
+
+
+  useEffect(()=>{
+if(coverSecureUrl){
+  try {
+    saveCoverImage(coverSecureUrl,organizerData.id).then(res=>{
+      if(res.data.organizer.coverImage){
+        toast.success("cover image updated successfully");
+        dispatch(
+          setOrganizerDetails({
+            id: res.data.organizer?._id,
+            firstName: res.data.organizer?.firstName,
+            lastName: res.data.organizer?.lastName,
+            mobile: res.data.organizer?.mobile,
+            image: res.data.organizer?.image,
+            email: res.data.organizer.email,
+            about: res.data.organizer?.about,
+            instagram: res.data.organizer?.instagram,
+            linkedin: res.data.organizer?.linkedin,
+            facebook: res.data.organizer?.facebook,
+            coverImage: res.data.organizer?.coverImage,
+          })
+        );
+        setCImage(null);
+        setOrganizerValues((prevValues) => ({
+          ...prevValues,
+          coverImage: res.data.organizer?.coverImage,
+        }));
+      }
+    })
+  } catch (error) {
+    
+  }
+}
+  },[coverSecureUrl])
 
   const initialValues = {
     title: "",
@@ -241,8 +255,12 @@ useEffect(()=>{
 
 useEffect(()=>{
 if(postsecuralUrl){
+  console.log("useeffect to add post");
   addPosts(organizerData.id,values,postsecuralUrl).then(res=>{
-
+    if(res.data.success){
+      window.my_modal_5.close()
+      toast.success("post added successfully")
+    }
   })
 }
 },[postsecuralUrl])
@@ -338,8 +356,8 @@ if(postsecuralUrl){
                         <input
                           type="file"
                            onChange={(e) => setTimeout(()=>{
-                      setImage(e.target.files[0])
-                    },1000)}
+                          setImage(e.target.files[0])
+                          }, 1000)}
                           hidden
                           name="profilePic"
                           id="uploadImage"
@@ -397,7 +415,7 @@ if(postsecuralUrl){
                       type="text"
                       name="title"
                       className=" p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-                      placeholder="Event description"
+                      placeholder="post title"
                     />
 
                     <h1 className=" font-bold text-lg mt-5 ">
@@ -419,7 +437,7 @@ if(postsecuralUrl){
                       type="text"
                       name="description"
                       className=" p-2 rounded border w-80 sm:w-96 border-gray-300 focus:border-primary focus:ring-0"
-                      placeholder="Event description"
+                      placeholder="post description"
                     />
 
                     <h1 className=" font-bold text-lg mt-5">Image</h1>
