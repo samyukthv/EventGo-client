@@ -48,6 +48,8 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
           )
           navigate("/");
     
+        }else if(response.data.blocked){
+          toast.error("Sorry, this account is blocked")
         } else {
           toast.error(response.data.message)
         }
@@ -67,7 +69,6 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
     });
     if (googleReg.data.login) {
       toast.success(googleReg.data.message);
-      console.log("////////////////////////////////////////////////////////////");
     
       localStorage.setItem("token", googleReg.data.token)
      
@@ -86,7 +87,11 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
         navigate("/");
       
 
-    } else {
+    }else if(googleReg.data.blocked){
+      toast.error("Sorry, this account is blocked")
+    }
+    
+    else {
       toast.error(googleReg.data.message)
     }
   };

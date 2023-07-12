@@ -9,6 +9,7 @@ import Footer from "../../components/footer/Footer";
 import SubBanner from "../../components/banner/SubBanner";
 import bgimg from "../../assets/images/blur.jpg";
 import { useSelector } from "react-redux";
+import PostCards from "../../components/postCards/PostCards";
 
 function Home() {
   const [events, setEvents] = useState([]);
@@ -20,16 +21,19 @@ function Home() {
       setEvents(response.data.events);
     });
   }, []);
-console.log(userData.id);
+
+  
   useEffect(()=>{
-    personalChoice(userData.id).then(res=>{
-      setPersonal(res.data.personal);
-    }).catch(err=>{
+    if(!userData.id ==""){
       
-    })
+      personalChoice(userData.id).then(res=>{
+        setPersonal(res.data.personal);
+      }).catch(err=>{
+        
+      })
+    }
   },[])
 
-  console.log(personal, 122);
   return (
     <motion.div
       className=""
@@ -65,7 +69,8 @@ console.log(userData.id);
         <h1 className="font-bold text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">
           Your Personalised Events <span className="text-xs ">latest events from the organizers you follow</span>
         </h1>
-        <RowCards props={personal} />
+        {userData.id !== "" && <RowCards props={personal} />}
+
         <div className="bg-gradient-to-t from-white to-blue-200 m-10 my-10 py-5">
           <div className="container mx-auto">
             <h1 className="text-center font-serif text-3xl mt-10">Welcome to the best ticket booking platform!</h1>
@@ -74,10 +79,13 @@ console.log(userData.id);
             <p className="text-center font-serif mx-4 mt-5">We prioritize convenience and reliability, offering secure online transactions and seamless ticket delivery options. Your satisfaction is our utmost priority, and our dedicated customer support team is always ready to assist you with any inquiries or concerns. Experience the joy of attending live events, creating lasting memories, and connecting with like-minded individuals. Join us on this exciting journey of exploration and entertainment. Book your tickets now and let the magic of live events unfold!</p>
           </div>
         </div>
-        <h1 className="font-serif text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">Latest Events</h1>
+        <h1 className="font-bold text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">Latest Events</h1>
         <RowCards props={events} />
+
+        <h1 className="font-bold text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left"> Organizer Posts</h1>
+        <PostCards/>
         <div className="text-center ">
-          <h1 className="font-serif text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">Organizers You Should Follow</h1>
+          <h1 className="font-bold text-3xl my-10 ml-2 sm:ml-28 text-center sm:text-left">Follow to know their latest events</h1>
           <OrganizerCard />
         </div>
         <Footer />

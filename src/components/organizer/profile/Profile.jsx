@@ -64,13 +64,11 @@ useEffect(()=>{
       formData.append("upload_preset","profileImage")
       formData.append ("cloud_name","dcsdqyoh1")
         await organizerImageUpdate(formData).then(res=>{
-          console.log(res.data.secure_url,99999);
         setSecureUrl(res.data.secure_url)
        try {
         saveImage(secureUrl,organizerData.id).then(res=>{
           console.log(res.data.organizer);
           if (res.data.organizer.image) {
-            console.log("hello");
             toast.success("image updated successfully");
             dispatch(
               setOrganizerDetails({

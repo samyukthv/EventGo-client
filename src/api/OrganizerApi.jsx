@@ -220,3 +220,13 @@ export const uploadEditedEventImage= async(formData)=>{
 //         console.log("add event error is api");
 //     }
 // }
+
+export const postDelete = async(postId,organizerId)=>{
+    try {
+        
+        const data = await organizerApi.delete("/postDelete",{params:{postId,organizerId}})
+        return data
+    } catch (error) {
+        
+    }
+}

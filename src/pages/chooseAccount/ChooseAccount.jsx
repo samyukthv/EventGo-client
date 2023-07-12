@@ -8,14 +8,29 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import bgimg  from '../../assets/images/fg.jpg'
+
 
 function ChooseAccount() {
 
   return (
-    <div className="w-full min-h-screen flex justify-center">
-      
-  <div className="m-4 md:m-20 sm:h-[50vh] md:h-[77vh] bg-slate-200 w-full rounded-lg drop-shadow-md flex justify-evenly items-center  sm:mr-2">
-
+    <div className="w-full min-h-screen flex justify-center" style={{ backgroundImage: `url(${bgimg})` }}>
+      <div className="flex-1">
+        <Link to="/">
+          <div className="font-monoton  text-2xl cursor-pointer flex items-center ">
+            <span className="text-3xl  mr-1 pt-2  text-purple-500 ">
+              {" "}
+              <ion-icon name="finger-print-outline"></ion-icon>
+            </span>
+            <span className="bg-gradient-to-r  from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
+              EventGo
+            </span>
+          </div>
+        </Link>{" "}
+      </div>
+    
+  <div className="m-4 md:m-20 sm:h-[50vh] md:h-[77vh] bg-slate-200 w-full rounded-lg drop-shadow-md flex  justify-evenly items-center  sm:mr-2">
+ 
     <Link to="/login">
     <Card className="w-96 h-[60vh] my-4">
     <CardHeader floated={false} className="h-80">

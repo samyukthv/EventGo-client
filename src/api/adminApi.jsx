@@ -76,3 +76,21 @@ export async function editedBannerImage(bannerImage){
         
     }
 }
+
+
+export const blockUser= async(userId)=>{
+    try {
+        const data= await adminApi.patch("/userBlock",{userId})
+        return data
+    } catch (error) {
+        
+    }
+}
+export const unBlockUser= async(userId)=>{
+    try {
+        const data= await adminApi.patch("/userUnblock",{userId})
+        return data
+    } catch (error) {
+        
+    }
+}

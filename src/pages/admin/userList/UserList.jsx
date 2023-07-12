@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import avathar from "../../../assets/images/avathar2.png";
 import { Link } from "react-router-dom";
-import { allUsers } from "../../../api/adminApi";
+import { allUsers, blockUser, unBlockUser } from "../../../api/adminApi";
+import {toast} from "react-hot-toast"
 
 function UserList() {
   const [users, setUsers] = useState([]);
-
+  const [isBlocked ,setIsBlocked]=useState(false)
   useEffect(() => {
     allUsers()
       .then((res) => {
@@ -14,7 +15,32 @@ function UserList() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isBlocked]);
+
+
+  const userBlock= async(userId)=>{
+    blockUser(userId).then(res=>{
+        if(res.data.blocked){
+          toast.error("user blocked successfully")
+          setIsBlocked(true);
+        }
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+
+  const userUnblock= async(userId)=>{
+    unBlockUser(userId).then(res=>{
+      if(res.data.unblock){
+        toast.success("user unblocked successfully")
+        setIsBlocked(false);
+       
+      }
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
 
   console.log(users);
   return (
@@ -69,8 +95,8 @@ function UserList() {
         </Link>
         <Link to="/admin/event-list">
           <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <i className="fa-solid fa-calendar-days"></i>         
-           </div>
+            <i className="fa-solid fa-calendar-days"></i>
+          </div>
         </Link>
       </aside>
 
@@ -113,69 +139,98 @@ function UserList() {
         </header>
 
         <main className="max-w-full h-full flex relative justify-evenly items-center overflow-y-hidden">
-        <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-  <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
-    <thead className="bg-gray-50">
-      <tr>
-        <th scope="col" className="px-6 py-4 font-medium text-gray-900 text-center">S.No</th>
-        <th scope="col" className="px-6 py-4 font-medium text-gray-900 text-center">Name</th>
-        <th scope="col" className="px-6 py-4 font-medium text-gray-900 text-center">email</th>
-        <th scope="col" className="px-6 py-4 font-medium text-gray-900 text-center">Bookings</th>
-        <th scope="col" className="px-6 py-4 font-medium text-gray-900 text-center">Block</th>
-      </tr>
-    </thead>
-    <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-       {
-users.map((details,index)=>(
-
-      <tr className="hover:bg-gray-50">
-        <th className="text-center"
-        >{index+1}</th>
-        <th className="flex gap-3  px-6 py-4 font-normal text-gray-900">
-          <div className="relative h-10 w-10">
-            <img
-              className="h-full w-full rounded-full object-cover object-center"
-              src={
-                details?.image?.slice(0, 33) ===
-                "https://lh3.googleusercontent.com"
-                  ? details?.image
-                  : details?.image
-                  ? `${details?.image}`
-                  : avathar
-              }
-              alt=""
-            />
-           
+          <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+            <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 font-medium text-gray-900 text-center"
+                  >
+                    S.No
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 font-medium text-gray-900 text-center"
+                  >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 font-medium text-gray-900 text-center"
+                  >
+                    email
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 font-medium text-gray-900 text-center"
+                  >
+                    Bookings
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 font-medium text-gray-900 text-center"
+                  >
+                    Block
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+                {users.map((details, index) => (
+                  <tr className="hover:bg-gray-50">
+                    <th className="text-center">{index + 1}</th>
+                    <th className="flex gap-3  px-6 py-4 font-normal text-gray-900">
+                      <div className="relative h-10 w-10">
+                        <img
+                          className="h-full w-full rounded-full object-cover object-center"
+                          src={
+                            details?.image?.slice(0, 33) ===
+                            "https://lh3.googleusercontent.com"
+                              ? details?.image
+                              : details?.image
+                              ? `${details?.image}`
+                              : avathar
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <div className="text-sm">
+                        <div className="font-medium text-gray-700">
+                          {details.firstName + " " + details.lastName}
+                        </div>
+                        <div className="text-gray-400">
+                          {"+91 " + details.mobile}
+                        </div>
+                      </div>
+                    </th>
+                    <td className="px-6 py-4">{details.email}</td>
+                    <button
+                      type="button"
+                      className=" mb-7 inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                    >
+                      Success
+                    </button>
+                    <td className="px-6 py-4">
+                      {details.isBlocked?<button
+                       onClick={()=>userUnblock(details._id)}
+                        type="button"
+                        className=" mt-1 inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                      >
+                        Unblock
+                      </button>:
+                      <button
+                      onClick={()=>userBlock(details._id)}
+                      type="button"
+                      class="inline-block rounded bg-danger px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                      Block
+                    </button>
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="text-sm">
-            <div className="font-medium text-gray-700">{details.firstName +" "+ details.lastName}</div>
-            <div className="text-gray-400">{"+91 "+details.mobile}</div>
-          </div>
-        </th>
-        <td className="px-6 py-4">
-         {details.email}
-        </td>
-        <button
-  type="button"
-  className=" mb-7 inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
-  Success
-</button>        <td className="px-6 py-4">
-<button
-  type="button"
-  className=" mt-1 inline-block rounded bg-success px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
-  Success
-</button>
-        </td>
-      
-      </tr>
-))
-       } 
-      
-      
-      
-    </tbody>
-  </table>
-</div>
         </main>
       </div>
     </div>

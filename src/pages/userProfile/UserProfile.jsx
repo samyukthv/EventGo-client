@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
-import { profileUpdate, saveImage } from "../../api/UserApi";
+import { getUserProfileDetails, profileUpdate, saveImage } from "../../api/UserApi";
 import img from "../../assets/images/avathar2.png";
 import { setUserDetails } from "../../redux/userSlice";
 import cover from "../../assets/images/rachel-coyne-U7HLzMO4SIY-unsplash.jpg";
@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import { userImageUpdate } from "../../api/UserApi";
 import wall from "../../assets/images/chatbg.jpg"
 
-const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
 function UserProfile() {
   const [secureUrl, setSecureUrl]=useState(null)
@@ -23,6 +22,19 @@ function UserProfile() {
     mobile: userData?.mobile,
     image: userData?.image,
   });
+const[user,setUser]=useState(null)
+
+
+useEffect(()=>{
+getUserProfileDetails(userData.id).then(res=>{
+  if(res.data.user){
+   setUser(res.data.user)
+  }
+
+}).catch(err=>{
+  console.log(err);
+})
+},[])
 
   const [pimage, setImage] = useState(null);
   const uploadImage = async () => {
