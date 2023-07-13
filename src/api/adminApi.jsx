@@ -110,3 +110,43 @@ export const unBlockOrganizer= async(organizerId)=>{
         
     }
 }
+
+
+export const allUserEvents= async(userId)=>{
+    try {
+        const data= await adminApi.get("/allUserEvents",{params:{userId}})
+        return data
+
+    } catch (error) {
+        
+    }
+}
+
+
+export const adminEventDetails= async(eventId)=>{
+    try {
+        const data= await adminApi.get("/adminEventDetails",{params:{eventId}})
+        return data
+    } catch (error) {
+        
+    }
+}
+
+
+export const adminOrganizerEvents= async(eventId)=>{
+    try {
+        const data= await adminApi.get("/adminOrganizerEvents",{params:{eventId}})
+        return data
+    } catch (error) {
+        
+    }
+}
+
+export const cardDetails= async()=>{
+    try {
+        const data= await adminApi.get("/cardDetails")
+        return data
+    } catch (error) {
+        
+    }
+}

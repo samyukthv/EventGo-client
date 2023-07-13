@@ -108,6 +108,12 @@ function Navbar() {
                 </Link>
               </li>
               <li>
+                <Link to="/my-events">
+                  {" "}
+                  <a className="justify-between">My events</a>
+                </Link>
+              </li>
+              <li>
                 <a onClick={logout}>Logout</a>
               </li>
             </ul>

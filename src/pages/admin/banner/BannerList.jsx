@@ -117,11 +117,7 @@ console.log(banner);
           </div>
         </Link>
 
-        <Link to="/admin/event-list">
-          <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-            <i className="fa-solid fa-calendar-days"></i>
-          </div>
-        </Link>
+     
       </aside>
 
       <div className="flex flex-col justify-between flex-grow">

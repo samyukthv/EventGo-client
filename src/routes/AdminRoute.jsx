@@ -9,6 +9,9 @@ import OrganizerList from "../pages/admin/organizerList/OrganizerList";
 import BannerList from "../pages/admin/banner/BannerList";
 import EventList from "../pages/admin/eventList/EventList";
 import EditBanner from "../pages/admin/banner/EditBanner";
+import AllBookings from "../pages/admin/userList/AllBookings";
+import EventDetails from "../pages/admin/details/EventDetails";
+import OrganizerEvents from "../pages/admin/organizerList/OrganizerEvents";
 
 function AdminRoute() {
   return (
@@ -66,6 +69,30 @@ function AdminRoute() {
         element={
           <AdminProtectedRoutes>
             <EditBanner />
+          </AdminProtectedRoutes>
+        }
+      />
+      <Route
+        path="/all-bookings/:id"
+        element={
+          <AdminProtectedRoutes>
+            <AllBookings />
+          </AdminProtectedRoutes>
+        }
+      />
+      <Route
+        path="/eventDetails/:id"
+        element={
+          <AdminProtectedRoutes>
+            <EventDetails/>
+          </AdminProtectedRoutes>
+        }
+      />
+      <Route
+        path="/orgaizer-events/:id"
+        element={
+          <AdminProtectedRoutes>
+            <OrganizerEvents/>
           </AdminProtectedRoutes>
         }
       />

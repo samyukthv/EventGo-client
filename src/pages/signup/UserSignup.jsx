@@ -43,13 +43,10 @@ function UserSignup() {
 
       onSubmit: async (values, action) => {
         const response = await registerUser(values);
-        console.log("onsubmit response");
         console.log(response.data.message);
         if (response.data.ready) {
-          console.log("hyyyyy");
           onSignup();
         } else if (response.data.message) {
-          console.log("response errordfghjk ");
           toast.error(response.data.message);
         }
       },

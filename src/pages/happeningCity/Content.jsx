@@ -39,12 +39,12 @@ function content() {
   // const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000; 
   return (
     <div
-      style={{
-        backgroundImage: `url(${bgimg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        zIndex: 1,
-      }}
+      // style={{
+      //   backgroundImage: `url(${bgimg})`,
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      //   zIndex: 1,
+      // }}
     >
       <div
         style={{

@@ -65,7 +65,7 @@ useEffect(()=>{
             <Link to={`/organizer-profile/${data._id}`}>
               <img
                 src={
-                  data.image.slice(0, 33) ===
+                  data?.image?.slice(0, 33) ===
                   "https://lh3.googleusercontent.com"
                     ? data.image
                     : data.image

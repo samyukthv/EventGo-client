@@ -242,7 +242,7 @@ export const organizerPosts= async(organizerId)=>{
           const data = await userApi.post("/addMessage", { from, to, msg });
           return data;
         } catch (error) {
-          // Handle the error
+         
         }
       };
 
@@ -296,6 +296,15 @@ export const organizerPosts= async(organizerId)=>{
       export const getUserProfileDetails= async(userId)=>{
         try {
             const data= await userApi.get("/getUserProfileDetails",{params:{userId}})
+            return data
+        } catch (error) {
+            
+        }
+      }
+
+      export const myEvents= async(userId)=>{
+        try {
+            const data= await userApi.get("/myEvents",{params:{userId}})
             return data
         } catch (error) {
             
