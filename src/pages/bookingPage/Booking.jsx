@@ -38,13 +38,10 @@ function Booking() {
       eventDetails(eventId)
         .then((res) => {
           setEvent(res.data.eventDetails);
-          console.log("hy");
-          console.log(res, 3223);
-
+       
           setBill(res.data.eventDetails.ticketPrice);
         })
         .catch((error) => {
-          console.log("hello");
           console.log(error, 34);
         });
     };

@@ -3,15 +3,12 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 // Create a separate navigate function to use for redirection
-const navigateTo = (path) => {
-  const navigate = useNavigate();
-  navigate(path);
-};
+
 
 // user
 export const userApi = axios.create({
-  baseURL: "http://localhost:3000",
-});
+  baseURL: "https://eventgo-server.onrender.com",
+});https://eventgo-server.onrender.com
 
 userApi.interceptors.request.use((req) => {
   if (localStorage.getItem("token")) {
@@ -49,7 +46,7 @@ setTimeout(()=>{
 
 // organizer
 export const organizerApi = axios.create({
-  baseURL: "http://localhost:3000/organizer",
+  baseURL: "https://eventgo-server.onrender.com/organizer",
 });
 
 organizerApi.interceptors.request.use((req) => {
@@ -71,15 +68,17 @@ organizerApi.interceptors.response.use(
 
       toast.error("Unauthenticated organizer");
       localStorage.removeItem("organizertoken");
-      window.location.href = "/organizer/";
-      // navigateTo("/organizer/")
+      setTimeout(()=>{
+        window.location.href = "/organizer/";
+      
+      },1000)      // navigateTo("/organizer/")
     }
     return Promise.reject(error);
   }
 );
 
 export const adminApi = axios.create({
-  baseURL: "http://localhost:3000/admin",
+  baseURL: "https://eventgo-server.onrender.com/admin",
 });
 
 export const cloudApi = axios.create({
