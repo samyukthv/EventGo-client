@@ -7,10 +7,17 @@ import { useParams } from "react-router-dom";
 import OrganizerPro from "./OrganizerPro";
 import OrganizerPostsUserSide from "../../components/organizerPostUserSide.jsx/OrganizerPostsUserSide";
 import OrganizerEvents from "../../components/organizerEvents/OrganizerEvents";
+import Spinner from "../../components/spinner/Spinner";
 
 function OrganizerProfile() {
+  const [showSpinner, setShowSpinner] = useState(true);
 
-
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSpinner(false);
+    }, 1000);
+  }, []);
+  
   const Tabs = () => {
     const params = useParams();
     const organizerId = params.id;
@@ -18,6 +25,7 @@ function OrganizerProfile() {
   
     return (
       <div className="flex flex-wrap">
+      
         <div className="w-full">
           <ul className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row  " role="tablist">
             <li className="-mb-px mr-2 last:mr-0 flex-auto justify-center  text-center">
@@ -68,13 +76,13 @@ function OrganizerProfile() {
     );
   };
   return (
-    <div>
-      <Navbar />
+ <>
+    {showSpinner ? <Spinner/> :<div>
+    <Navbar />
       <OrganizerPro />
       <Tabs />
-
-     
-    </div>
+      </div>}
+    </>
   );
 }
 

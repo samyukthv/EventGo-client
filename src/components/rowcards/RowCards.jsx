@@ -1,12 +1,10 @@
 import React from "react";
 import{Link} from "react-router-dom"
-const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
 function RowCards({ props }) {
-  console.log(props, 56789);
 
   return (
-    <div className="overflow-x-auto overflow-y-hidden">
+    <div className="">
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20 px-16 lg:px-10">
       {props?.map((data) => (
         <div key={data._id} className=" border border-gray-200 rounded-md  dark:border-gray-700 shadow-2xl transform hover:scale-105 transition duration-500">

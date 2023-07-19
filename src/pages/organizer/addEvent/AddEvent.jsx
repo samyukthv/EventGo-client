@@ -47,22 +47,7 @@ function AddEvent() {
   const [securalUrlCoverImage, setSecureUrlCoverImage] = useState(null);
 
 
-  useEffect(() =>   {
-    if (securalUrlImage && securalUrlCoverImage && event) {
-      addEvent(event, securalUrlImage, securalUrlCoverImage)
-        .then((res) => {
-          if (res.data.success) {
-            toast.success("event successfully added ");
-            e.target.reset(); // Reset form or perform other actions
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [securalUrlImage, securalUrlCoverImage, event]);
 
-  
   const uploadEvent = async (e) => {
     e.preventDefault();
     try {
@@ -203,6 +188,27 @@ console.log(securalUrlImage,"outside");
       setTicketQuantity(false);
     }
   };
+
+
+
+  useEffect(() =>   {
+    if (securalUrlImage && securalUrlCoverImage && event) {
+      addEvent(event, securalUrlImage, securalUrlCoverImage)
+        .then((res) => {
+          if (res.data.success) {
+            toast.success("event successfully added ");
+            // e.target.reset(); // Reset form or perform other actions
+             document.getElementById('addevent').reset();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [securalUrlImage, securalUrlCoverImage, event]);
+
+  
+
 
   event.street = event["address address-search"];
   const today = new Date().toISOString().split("T")[0];

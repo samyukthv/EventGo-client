@@ -21,7 +21,7 @@ function Footer() {
                 Call us
               </span>
 
-              <a className="block text-2xl font-medium text-white hover:opacity-75 sm:text-3xl">
+              <a className="block text-xl font-medium text-white hover:opacity-75 sm:text-xl">
                 +91 9746847247
               </a>
             </p>

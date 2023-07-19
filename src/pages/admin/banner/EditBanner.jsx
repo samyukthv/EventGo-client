@@ -66,6 +66,16 @@ function EditBanner() {
     }
   }, [secureUrl])
 
+
+
+  const logout = async (req, res) => {
+    try {
+      localStorage.removeItem("admintoken");
+      nagivate("/admin/");
+    } catch (error) {}
+  };
+
+
   return (
     <div className="h-screen bg-white relative flex overflow-hidden">
       <aside className="h-full w-16 flex flex-col space-y-10 items-center justify-center relative bg-gray-800 text-white">
@@ -148,14 +158,10 @@ function EditBanner() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-black"
             >
+              
               <li>
-                <Link to="/profile">
-                  {" "}
-                  <a className="justify-between">Profile</a>
-                </Link>
-              </li>
-              <li>
-                <a>Logout</a>
+              <a
+                onClick={logout}>Logout</a>
               </li>
             </ul>
           </div>

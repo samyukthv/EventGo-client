@@ -19,11 +19,14 @@ import ConfirmTicket from '../pages/confirmTicket/ConfirmTicket'
 import LoginTest from '../pages/loginTest/LoginTest'
 import Chat from '../pages/chat/Chat'
 import MyEvents from '../pages/myEvents/MyEvents'
+import PageNotFound from '../pages/error/404/PageNotFound'
+import ErrorPage from '../pages/error/500/ErrorPage'
 
 function UserRoute() {
   return (
-    <>
-    <Routes>
+   
+    <div >
+    <Routes >
         <Route exact path='/login' element={<UserPublicRoutes><UserLogin/></UserPublicRoutes>}  />
         <Route exact path='/logintest' element={<UserPublicRoutes><LoginTest/></UserPublicRoutes>}  />
         <Route exact path='/signup' element={<UserPublicRoutes><UserSignup/></UserPublicRoutes>}/>
@@ -37,15 +40,17 @@ function UserRoute() {
         <Route exact path='/booking/:id' element={<UserProtectedRoutes><Booking/></UserProtectedRoutes>}/>
         <Route exact path ='/organizer-profile/:id' element={<OrganizerProfile/>}/>
         <Route exact path='/booking-confirmed'element={<UserProtectedRoutes><ConfirmTicket/></UserProtectedRoutes>}/>
-        <Route exact path='my-events' element={<UserProtectedRoutes><MyEvents/></UserProtectedRoutes>}/>
+        <Route exact path='/my-events' element={<UserProtectedRoutes><MyEvents/></UserProtectedRoutes>}/>
 
 
         <Route exact path='/chat/:id' element={<UserProtectedRoutes><Chat/></UserProtectedRoutes>}/>
        
         <Route exact path='/' element={<Home/>}/>
+         <Route path="*" element={<PageNotFound />} /> 
+         <Route exact path="/error-page" element={<ErrorPage />} /> 
     </Routes>
     
-    </>
+    </div>
       
     
   )

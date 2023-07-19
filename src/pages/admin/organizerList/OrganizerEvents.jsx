@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams,Link } from 'react-router-dom'
 import { adminOrganizerEvents } from '../../../api/adminApi'
+import avathar from "../../../assets/images/avathar2.png";
 
 
 function OrganizerEvents() {
@@ -16,6 +17,15 @@ if(res.data.events){
    console.log(err);
 })
 },[])
+
+
+const logout = async (req, res) => {
+  try {
+    localStorage.removeItem("admintoken");
+    nagivate("/admin/");
+  } catch (error) {}
+};
+
 
   return (
     <div>
@@ -78,21 +88,35 @@ if(res.data.events){
 
  <div class="w-full h-full flex flex-col justify-between">
    {/* <!-- Header --> */}
-   <header class="h-16 w-full flex items-center relative justify-end px-5 space-x-10 bg-gray-800">
-     {/* <!-- Informação --> */}
-     <div class="flex flex-shrink-0 items-center space-x-4 text-white">
-       
-       {/* <!-- Texto --> */}
-       <div class="flex flex-col items-end ">
-         {/* <!-- Nome --> */}
-         <div class="text-md font-medium ">Unknow Unknow</div>
-         {/* <!-- Título --> */}
-         <div class="text-sm font-regular">Student</div>
-       </div>
-       
-       {/* <!-- Foto --> */}
-       <div class="h-10 w-10 rounded-full cursor-pointer bg-gray-200 border-2 border-blue-400"></div>
-     </div>
+        <header class="h-16 w-full flex  relative justify-between px-5 space-x-10 bg-gray-800">
+    <div className="font-monoton  text-2xl cursor-pointer flex items-center ">
+            <span className="text-3xl  mr-1 pt-2  text-purple-500 ">
+              {" "}
+              <ion-icon name="finger-print-outline"></ion-icon>
+            </span>
+            <span className="bg-gradient-to-r  from bg-purple-500 to-pink-600 text-transparent bg-clip-text ">
+              EventGo
+            </span>
+          </div>
+          <h1 className="font-bold text-3xl text-white mt-3 ">
+            ADMIN DASHBOARD
+          </h1>
+   <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full mt-2">
+                  <img src={avathar} />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-black"
+              >
+        
+                <li>
+                <a
+                onClick={logout}>Logout</a>                </li>
+              </ul>
+            </div>
    </header>
 
    {/* <!-- Main --> */}
@@ -101,7 +125,7 @@ if(res.data.events){
      <div class="h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
 
      <div className="overflow-x-auto overflow-y-hidden">
-        <h1 className='text-center font-bold text-2xl'>All bookings</h1>
+        <h1 className='text-center font-bold text-2xl'>Organizer Events</h1>
    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20 px-16 lg:px-10 mt-10 pb-10">
 
      {events?.map((data) => (

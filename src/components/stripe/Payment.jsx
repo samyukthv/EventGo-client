@@ -29,6 +29,7 @@ console.log(eventData,3002);
 //  console.log(eventData,89);
 
   useEffect(() => {
+    console.log("second userffecttttttttttttttttttttttttttt");
     fetch(`${USER_API}/create-payment-intent`, {
       method: "POST",
       headers: {
@@ -41,6 +42,8 @@ console.log(eventData,3002);
       setClientSecret(clientSecret);
     });
   }, []);
+
+
   return (
     <div className=" flex flex-col justify-center items-center ">
     <img className=" w-60 h-24 mb-5" src={stripe} alt="" />

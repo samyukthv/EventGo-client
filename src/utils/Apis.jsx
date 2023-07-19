@@ -15,21 +15,33 @@ export const userApi = axios.create({
 
 userApi.interceptors.request.use((req) => {
   if (localStorage.getItem("token")) {
-    console.log("interceptor keeps the token in the header");
     req.headers.Authorization = "Bearer " + localStorage.getItem("token");
   }
   return req;
 });
+
 
 userApi.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      toast.error("Unauthenticated user");
-      localStorage.removeItem("token");
-      window.location.href = "/";
+    if (error.response) {
+      if (error.response.status === 401) {
+        toast.error('Unauthenticated user');
+        localStorage.removeItem('token');
+
+setTimeout(()=>{
+  window.location.href = "/";
+
+},1000)
+
+
+} else if (error.response.status === 500) {
+
+
+        window.location.href = "/error-page";
+      }
     }
     return Promise.reject(error);
   }
@@ -60,6 +72,7 @@ organizerApi.interceptors.response.use(
       toast.error("Unauthenticated organizer");
       localStorage.removeItem("organizertoken");
       window.location.href = "/organizer/";
+      // navigateTo("/organizer/")
     }
     return Promise.reject(error);
   }

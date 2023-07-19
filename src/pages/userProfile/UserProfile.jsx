@@ -131,7 +131,6 @@ getUserProfileDetails(userData.id).then(res=>{
   };
 
   const updateProfile = async () => {
-    console.log(uservalues);
     const response = await profileUpdate(uservalues);
     if (response.data.updated) {
       dispatch(
@@ -149,10 +148,9 @@ getUserProfileDetails(userData.id).then(res=>{
     }
   };
 
-  console.log(uservalues.image, 33);
 
   return (
-    <motion.div
+    <motion.div 
       initial={{ width: 0 }}
       animate={{ width: "100%" }}
       exit={{ x: window.innerWidth, transition: { duration: 0.2 } }}

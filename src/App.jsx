@@ -1,21 +1,17 @@
-import {BrowserRouter} from "react-router-dom"
-
-import AnimatedRoutes from "./animatedRoutes/AnimatedRoutes"
-import { toast, Toaster } from "react-hot-toast";
-
-
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import AnimatedRoutes from './animatedRoutes/AnimatedRoutes';
+import { toast, Toaster } from 'react-hot-toast';
 
 function App() {
-
-
   return (
-   <>
-   <BrowserRouter>
-  <AnimatedRoutes/>
-  <Toaster/>
-   </BrowserRouter>
-   </>
-  )
+<div className=''>
+      <BrowserRouter>
+        <AnimatedRoutes />
+        <Toaster />
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;

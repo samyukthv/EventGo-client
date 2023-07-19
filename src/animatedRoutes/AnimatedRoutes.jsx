@@ -9,14 +9,19 @@ import {AnimatePresence} from 'framer-motion'
 function AnimatedRoutes() {
     const location = useLocation()
   return (
-    <AnimatePresence>
 
+<div className=''>
+
+    <AnimatePresence>
     <Routes location={location} key={location.pathname}>
     <Route path="/*" element={<UserRoute/>} /> 
     <Route path="/admin/*" element={<AdminRoute/>} />
     <Route path="/organizer/*" element={<OrganizerRoutes/>}/>
-   </Routes>
+    </Routes>
     </AnimatePresence>
+
+</div>
+
   )
 }
 

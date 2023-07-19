@@ -12,6 +12,7 @@ import EditBanner from "../pages/admin/banner/EditBanner";
 import AllBookings from "../pages/admin/userList/AllBookings";
 import EventDetails from "../pages/admin/details/EventDetails";
 import OrganizerEvents from "../pages/admin/organizerList/OrganizerEvents";
+import PageNotFound from "../pages/admin/error/PageNotFound";
 
 function AdminRoute() {
   return (
@@ -96,6 +97,9 @@ function AdminRoute() {
           </AdminProtectedRoutes>
         }
       />
+         <Route path="*" element={<PageNotFound />} /> 
+
+
     </Routes>
   );
 }

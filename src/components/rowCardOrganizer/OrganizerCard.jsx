@@ -61,7 +61,7 @@ useEffect(()=>{
     {organizer.map((data) => (
       <Card className="" key={data._id}>
         <Link to="">
-          <CardHeader floated={false} className="h-48 w-48 ml-6 shadow-xl">
+          <CardHeader floated={false} className="sm:h-20 sm:w-20 lg:h-48 lg:w-48 ml-6 shadow-xl">
             <Link to={`/organizer-profile/${data._id}`}>
               <img
                 src={

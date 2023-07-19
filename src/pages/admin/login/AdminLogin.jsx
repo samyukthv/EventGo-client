@@ -21,14 +21,11 @@ useFormik({
     validationSchema: loginSchema,
 
     onSubmit: async (values) => {
-      console.log("onsubmit");
-      console.log(values);
+   
       await loginAdmin(values).then(res=>{
-        console.log(res);
       if(res?.response?.status==400){
         toast.error(res.response.data.message)
       }else{
-        console.log("hiiiiiii");
         localStorage.setItem("admintoken", res.data.token);
          toast.success("login successful")
          navigate("/admin/home")

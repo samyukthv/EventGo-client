@@ -10,6 +10,7 @@ import { unsetBookingDetails } from "../../redux/EventSlice";
 import { getBillingDetails } from "../../api/UserApi";
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 import domToImage from 'dom-to-image';
+import bgimg from "../../assets/images/chatbg.jpg";
 
 
 function ConfirmTicket() {
@@ -79,7 +80,13 @@ console.log(longitude);
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center justify-center pb-10 pt-10 bg-center bg-cover ">
+      <div className="flex flex-col items-center justify-center pb-10 pt-10 bg-center bg-cover "
+       style={{
+        backgroundImage: `url(${bgimg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+       }}
+      >
         <div className="actual-bill  max-w-md w-full h-full mx-auto z-10  bg-blue-900 rounded-3xl  ">
           <div className="flex flex-col ">
             <div className="bg-white relative drop-shadow-2xl  rounded-3xl p-4 m-4">

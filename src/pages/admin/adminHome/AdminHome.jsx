@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import avathar from "../../../assets/images/avathar2.png";
 import img from "../../../assets/images/chatbg.jpg";
 import { cardDetails } from "../../../api/adminApi";
 import Chart from "react-apexcharts";
 
 function AdminHome() {
+
+const nagivate= useNavigate()
+
+
   const [chart, setChart] = useState({
     options: {
       chart: {
@@ -119,6 +123,18 @@ function AdminHome() {
       });
   }, []);
 
+
+
+
+  const logout = async (req, res) => {
+    try {
+      console.log("qwertyu");
+      localStorage.removeItem("admintoken");
+      nagivate("/admin/");
+    } catch (error) {}
+  };
+
+
   return (
     <div className="h-screen bg-white relative flex overflow-hidden">
       <aside className="h-full w-16 flex flex-col space-y-10 items-center justify-center relative bg-gray-800 text-white">
@@ -187,7 +203,7 @@ function AdminHome() {
             ADMIN DASHBOARD
           </h1>
 
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end  text-white">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full mt-2">
                 <img src={avathar} />
@@ -197,14 +213,11 @@ function AdminHome() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-black"
             >
+              
+          
               <li>
-                <Link to="/profile">
-                  {" "}
-                  <a className="justify-between">Profile</a>
-                </Link>
-              </li>
-              <li>
-                <a>Logout</a>
+                <a
+                onClick={logout}>Logout</a>
               </li>
             </ul>
           </div>
@@ -297,7 +310,7 @@ function AdminHome() {
             />
           </div>
           <div className="w-full md:w-1/3 mx-5 md:mx-10 shadow-2xl rounded-md mb-5">
-                        <h1 className="font-bold text-3xl text-center mb-3">Total revenue earned per month</h1>
+                        <h1 className="font-bold text-3xl text-center mb-3">Total bookings per month</h1>
 
             <Chart
               options={bookingChart.options}

@@ -40,8 +40,8 @@ function MyEvents() {
         <RowCards props={futureEvents} />
       ) : (
         <div
-          className="w-full sm:w-auto h-72 bg-black mx-10 flex justify-center items-center font-bold text-3xl"
-          style={{
+        className="w-full sm:w-full h-72 bg-black mx-10 flex justify-center items-center font-bold text-3xl"
+        style={{
             backgroundImage: `url(${img})`,
             backgroundSize: "cover",
             backgroundPosition: "center",

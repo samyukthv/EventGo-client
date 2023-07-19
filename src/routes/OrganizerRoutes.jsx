@@ -9,6 +9,7 @@ import AddEvent from "../pages/organizer/addEvent/AddEvent";
 import OrganizerEventDetails from "../pages/organizer/event-details/OrganizerEventDetails";
 import Chat from "../pages/organizer/chat/Chat";
 import EditEvent from "../pages/organizer/event-details/EditEvent";
+import PageNotFound from "../pages/organizer/error/PageNotFound";
 
 function OrganizerRoutes() {
   return (
@@ -67,6 +68,9 @@ function OrganizerRoutes() {
           </OrganizerProtectedRoutes>
         }
       />
+
+  <Route path="*" element={<PageNotFound />} /> 
+
 
     </Routes>
   );

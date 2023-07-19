@@ -13,7 +13,7 @@ export default {
     screens: {
       'sm': '640px',
       'md': '768px',
-      'lg': '1400px',
+      'lg': '1520px',
       
     },
     backgroundImage1:{

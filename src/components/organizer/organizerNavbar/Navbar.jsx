@@ -11,7 +11,6 @@ const organizer=useSelector((state)=>state.organizer)
 
 const logout=async(req,res)=>{
   try {
-   console.log("12345678");
     localStorage.removeItem('organizertoken')
     dispatch(organizerLogout());
     navigate('/organizer/')

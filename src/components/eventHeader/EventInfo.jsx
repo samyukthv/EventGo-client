@@ -9,7 +9,7 @@ const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
 import "mapbox-gl/dist/mapbox-gl.css";
 import { toast, Toaster } from "react-hot-toast";
 import Countdown from "react-countdown";
-import bgimg from "../../assets/images/hi.jpg";
+import bgimg from "../../assets/images/chatbg.jpg";
 import { useSelector } from "react-redux";
 import { FaStar } from "react-icons/fa";
 
@@ -352,14 +352,7 @@ if(userData.id===user){
                   </button>
                 </Link>
               </div>
-              <div>
-                <button
-                  type="button"
-                  className="block rounded bg-primary-700 px-6 pb-2 pt-2.5 mx-5 mt-4 sm:mt-0 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                >
-                  Follow Profile
-                </button>
-              </div>
+          
             </div>
           </li>
         </ul>
@@ -455,11 +448,12 @@ if(userData.id===user){
         <div className="flex justify-between items-center">
           <div className="mt-4 flex items-center space-x-4 py-6">
             <div className="">
-              <img
+              {/* <img
                 className="w-12 h-12 rounded-full"
-                src="https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1036&q=80"
+                src={review.reviewerName.firstName}
                 alt=""
-              />
+              /> */}
+              <img src={reveiw.reviewerName.image} alt="profile pic"/>
             </div>
             <div className="text-sm font-semibold">{review.reviewerName.firstName}<span className="font-normal">{formatDate(review.date)}</span></div>
           </div>

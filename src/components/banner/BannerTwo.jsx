@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import image from "../../assets/images/anthony-delanoix-hzgs56Ze49s-unsplash.jpg"
 import { bannerOne } from '../../api/adminApi'
+import LazyLoad from 'react-lazy-load';
 
 function Banner() {
     const [banner,setBanner]=useState(null)
@@ -14,7 +15,9 @@ function Banner() {
      })
     },[]) 
   return (
-    <div className="w-full h-[70vh]">
+    <LazyLoad  offset={200}>
+
+    <div className="w-full h-[70vh] sm:w-full">
             <img src={banner?banner[1].image:null} alt="" className='w-full h-[70vh] object-cover' />
             <div className='max-w-[1140px] m-auto'>
                 <div className="absolute top-[40%] w-full md:-[50%] max-w-[600px] h-full flex flex-col text-white p-4">
@@ -26,6 +29,8 @@ function Banner() {
                 </div>
             </div>
         </div>
+
+    </LazyLoad>
   )
 }
 

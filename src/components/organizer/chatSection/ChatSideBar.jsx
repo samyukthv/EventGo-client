@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import img from "../../../assets/images/avathar2.png";
 import { getAllContacts } from "../../../api/OrganizerApi";
-const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
 
 function ChatSideBar({ setSender, socket }) {
   const organizer = useSelector((state) => state.organizer);
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
 
+  
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact);
+    setSender({
+      id: contact._id,
+      firstName: contact.firstName,
+      image: contact.image,
+    });
+  };
+  
   useEffect(() => {
     getAllContacts(organizer.id)
       .then((res) => {
@@ -18,16 +27,6 @@ function ChatSideBar({ setSender, socket }) {
         console.log(err);
       });
   }, []);
-
-  const handleContactClick = (contact) => {
-    setSelectedContact(contact);
-    setSender({
-      id: contact._id,
-      firstName: contact.firstName,
-      image: contact.image,
-    });
-  };
-
   return (
     <div>
       <div className="flex flex-col mt-8">

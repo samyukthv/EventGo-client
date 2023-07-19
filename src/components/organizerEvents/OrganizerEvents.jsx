@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import { organizerEvent } from '../../api/UserApi';
-const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
+import img from "../../assets/images/fg.jpg";
 
 
 function OrganizerEvents() {
@@ -19,11 +19,29 @@ function OrganizerEvents() {
         })
      },[])
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 my-5 md:grid-cols-3 px-16 lg:grid-cols-4 gap-20 lg:px-10">
+    <>
+    
+    {events?.length===0?
+    
+    
+    
+    <div
+    className="w-full sm:w-full h-72 bg-black mx-10 flex justify-center items-center font-bold text-3xl"
+    style={{
+      backgroundImage: `url(${img})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+  >
+    <h1>Sorry, This organizer dosen't have any events😢</h1>
+  </div>
+    
+    
+    :<div className="grid grid-cols-1 sm:grid-cols-2 my-5 md:grid-cols-3 px-16 lg:grid-cols-4 gap-20 lg:px-10">
     {events?.map((event) => (
       <div key={event._id} className="bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col items-center justify-center h-full p-4">
-          <img className="mb-4" src={IMAGE_URL+event.image} alt="" />
+          <img className="mb-4" src={event.image} alt="" />
 
           <h5 className="font-bold pt-2 tracking-tight ml-2 text-gray-900 dark:text-white">
             {event.eventName}
@@ -43,7 +61,8 @@ function OrganizerEvents() {
         </div>
       </div>
     ))}
-  </div>
+  </div>}
+    </>
   )
 }
 
