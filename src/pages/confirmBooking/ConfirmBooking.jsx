@@ -26,7 +26,6 @@ useEffect(()=>{
   dispatch(unsetBookingDetails())
   getBillingDetails().then((res)=>{
     setDetails(res.data.latestBooking)
-  console.log(res,112);
 })
   },[])
   

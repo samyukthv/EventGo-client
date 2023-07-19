@@ -2,10 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import avatar from "../../assets/images/avathar2.png";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import { Link, useParams } from "react-router-dom";
-import { allReview, eventDetails, submitReview } from "../../api/UserApi";
-const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
-const COVER_IMAGE_URL = import.meta.env.VITE_COVER_IMAGE_URL;
-const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
+import { allReview, eventDetails, eventDetails2, submitReview } from "../../api/UserApi";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 import { toast, Toaster } from "react-hot-toast";
 import Countdown from "react-countdown";
@@ -33,7 +31,7 @@ function EventInfo() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await eventDetails(eventId);
+        const res = await eventDetails2(eventId);
         if (res.status === 200) {
           setLocation(res.data.placeName);
           setEvent(res.data?.eventDetails);
@@ -112,7 +110,6 @@ function EventInfo() {
 
 
 
-  console.log(event, 1234567890);
 
   // RATING FOR THE EVENT
 
