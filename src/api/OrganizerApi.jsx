@@ -228,5 +228,7 @@ export const postDelete = async(postId,organizerId)=>{
         return data
     } catch (error) {
         
+
+        
     }
 }
