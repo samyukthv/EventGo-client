@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { allEvents } from "../../api/UserApi";
 import { Link, useNavigate } from "react-router-dom";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
 function content() {
   const navigate = useNavigate();
@@ -9,9 +9,6 @@ function content() {
   const [events, setEvents] = useState(null);
   const [city, setCity] = useState(null);
 
-
-
-  
   useEffect(() => {
     allEvents()
       .then((res) => {
@@ -23,7 +20,6 @@ function content() {
       });
   }, []);
 
-
   const formatDate = (dateString) => {
     const options = { weekday: "long", month: "long", year: "numeric" };
     const date = new Date(dateString);
@@ -32,137 +28,128 @@ function content() {
   const [search, setSearch] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
 
-
-
-
   // const addedDate = new Date(event.addedOn);
   // const currentDate = new Date();
   // const timeDifference = currentDate.getTime() - addedDate.getTime();
-  // const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000; 
-
+  // const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
 
   ///PAGINAION
-  const[pageNumber,setPageNumber]=useState(0)
+  const [pageNumber, setPageNumber] = useState(0);
 
-  const eventPerPage=8
-  const PagesVisited=pageNumber * eventPerPage;
+  const eventPerPage = 8;
+  const PagesVisited = pageNumber * eventPerPage;
   const displayEvents = events
-  ?.filter((event) => {
-    const locationMatches = event.location.some(
-      (loc) =>
-        loc.street.toLowerCase().includes(search.toLowerCase()) ||
-        loc.city.toLowerCase().includes(search.toLowerCase()) ||
-        loc.state.toLowerCase().includes(search.toLowerCase()) ||
-        loc.country.toLowerCase().includes(search.toLowerCase())
-    );
-
-    const selectedLocationMatches =
-      selectedLocation &&
-      event.location.some(
-        (loc) => loc.city.toLowerCase() === selectedLocation.toLowerCase()
+    ?.filter((event) => {
+      const locationMatches = event.location.some(
+        (loc) =>
+          loc.street.toLowerCase().includes(search.toLowerCase()) ||
+          loc.city.toLowerCase().includes(search.toLowerCase()) ||
+          loc.state.toLowerCase().includes(search.toLowerCase()) ||
+          loc.country.toLowerCase().includes(search.toLowerCase())
       );
 
-    return (
-      locationMatches && (selectedLocation ? selectedLocationMatches : true)
-    );
-  })
-  .slice(PagesVisited, PagesVisited + eventPerPage)
-  .map((event) => (
-    <div key={event._id}>
-      <div
-                  key={event._id}
-                  className="  px-6 pt-6 pb-2 rounded-2xl shadow-lg transform hover:scale-105 transition duration-500 border-8 relative"
+      const selectedLocationMatches =
+        selectedLocation &&
+        event.location.some(
+          (loc) => loc.city.toLowerCase() === selectedLocation.toLowerCase()
+        );
+
+      return (
+        locationMatches && (selectedLocation ? selectedLocationMatches : true)
+      );
+    })
+    .slice(PagesVisited, PagesVisited + eventPerPage)
+    .map((event) => (
+      <div key={event._id}>
+        <div
+          key={event._id}
+          className="  px-6 pt-6 pb-2 rounded-2xl shadow-lg transform hover:scale-105 transition duration-500 border-8 relative"
+        >
+          {new Date(event.addedOn) >= new Date() - 10 * 24 * 60 * 60 * 1000 && (
+            <div className="absolute top-0 left-0">
+              <p className="bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
+                latest
+              </p>
+            </div>
+          )}
+          <div className="relative flex justify-center items-center">
+            <img
+              className="w-40 h-48 object-cover"
+              src={event.image}
+              alt="Course Cover"
+            />
+          </div>
+          <h1 className="mt-4 text-gray-800 text-2xl text-center uppercase font-bold cursor-pointer">
+            {event.eventName}
+          </h1>
+          <div className="my-4 flex flex-col items-center">
+            <div className="flex space-x-1 items-center">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-indigo-600 mb-1.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  {new Date(event.addedOn).toLocaleDateString() ===
-                    new Date().toLocaleDateString() && (
-                    <div className="absolute top-0 left-0">
-                      <p className="bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
-                        latest
-                      </p>
-                    </div>
-                  )}
+                  {/* SVG path code */}
+                </svg>
+              </span>
+              <p className="text-center">{event.description}</p>
+            </div>
+            <div className="flex space-x-1 items-center">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-indigo-600 mb-1.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {/* SVG path code */}
+                </svg>
+              </span>
+              <p>{event.location[0].city}</p>
+            </div>
+            <div className="flex space-x-1 items-center">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-indigo-600 mb-1.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {/* SVG path code */}
+                </svg>
+              </span>
+              <p>{formatDate(event.startDate)}</p>
+            </div>
 
-                  <div className="relative flex justify-center items-center">
-                    <img
-                      className="w-40 h-48 object-cover"
-                      src={event.image}
-                      alt="Course Cover"
-                    />
-                  </div>
-                  <h1 className="mt-4 text-gray-800 text-2xl text-center uppercase font-bold cursor-pointer">
-                    {event.eventName}
-                  </h1>
-                  <div className="my-4 flex flex-col items-center">
-                    <div className="flex space-x-1 items-center">
-                      <span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6 text-indigo-600 mb-1.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          {/* SVG path code */}
-                        </svg>
-                      </span>
-                      <p className="text-center">{event.description}</p>
-                    </div>
-                    <div className="flex space-x-1 items-center">
-                      <span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6 text-indigo-600 mb-1.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          {/* SVG path code */}
-                        </svg>
-                      </span>
-                      <p>{event.location[0].city}</p>
-                    </div>
-                    <div className="flex space-x-1 items-center">
-                      <span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6 text-indigo-600 mb-1.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          {/* SVG path code */}
-                        </svg>
-                      </span>
-                      <p>{formatDate(event.startDate)}</p>
-                    </div>
+            <button
+              onClick={() => navigate(`/event-details/${event._id}`)}
+              className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    ));
 
-                    <button
-                      onClick={() => navigate(`/event-details/${event._id}`)}
-                      className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg"
-                    >
-                      View Details
-                    </button>
-                  </div>
-                </div>
-    </div>
-  ));
-
-
-  const pageCount= Math.ceil(events?.length/eventPerPage)
-   const changePage= ({selected})=>{
+  const pageCount = Math.ceil(events?.length / eventPerPage);
+  const changePage = ({ selected }) => {
     setPageNumber(selected);
-
-   }
-
+  };
 
   return (
     <div
-      // style={{
-      //   backgroundImage: `url(${bgimg})`,
-      //   backgroundSize: "cover",
-      //   backgroundPosition: "center",
-      //   zIndex: 1,
-      // }}
+    // style={{
+    //   backgroundImage: `url(${bgimg})`,
+    //   backgroundSize: "cover",
+    //   backgroundPosition: "center",
+    //   zIndex: 1,
+    // }}
     >
       <div
         style={{
@@ -272,29 +259,31 @@ function content() {
 
       <div className="min-h-screen flex justify-center items-center py-20">
         <div className="md:px-4 md:grid md:grid-cols-4 lg:grid-cols-4 gap-5 space-y-4 md:space-y-0">
-        {displayEvents}
-
+          {displayEvents}
         </div>
-
       </div>
       <div className="flex flex-row justify-center items-center mb-10">
-
-      <ReactPaginate
-  previousLabel={"Previous"}
-  nextLabel={"Next"}
-  pageCount={pageCount}
-  onPageChange={changePage}
-  containerClassName={"flex flex-row justify-center items-center paginationContainer"}
-  previousLinkClassName={"px-4 py-2 border rounded-md mr-2 text-indigo-600 hover:bg-indigo-100"}
-  nextLinkClassName={"px-4 py-2 border rounded-md ml-2 text-indigo-600 hover:bg-indigo-100"}
-  disabledClassName={"opacity-50 cursor-not-allowed"}
-  activeClassName={"bg-indigo-100 text-black"}
-  pageLinkClassName={"px-3 py-2 border rounded-md text-indigo-500 hover:bg-indigo-100 text-lg"}
-/>
-
-
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={
+            "flex flex-row justify-center items-center paginationContainer"
+          }
+          previousLinkClassName={
+            "px-4 py-2 border rounded-md mr-2 text-indigo-600 hover:bg-indigo-100"
+          }
+          nextLinkClassName={
+            "px-4 py-2 border rounded-md ml-2 text-indigo-600 hover:bg-indigo-100"
+          }
+          disabledClassName={"opacity-50 cursor-not-allowed"}
+          activeClassName={"bg-indigo-100 text-black"}
+          pageLinkClassName={
+            "px-3 py-2 border rounded-md text-indigo-500 hover:bg-indigo-100 text-lg"
+          }
+        />
       </div>
-  
     </div>
   );
 }

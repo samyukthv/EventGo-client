@@ -20,11 +20,13 @@ function OrganizerPro() {
   const params = useParams();
   const organizerId = params.id;
   const [organizer, setOrganizer] = useState(null);
+  const [eventCount,setEventCount]=useState(null)
   useEffect(() => {
 
     organizerDetails(organizerId).then((response) => {
-      console.log(response.data.organizerDetails);
       setOrganizer(response.data.organizerDetails);
+      setEventCount(response.data.eventCount)
+
     });
   }, []);
 
@@ -44,7 +46,7 @@ function OrganizerPro() {
 
   //useEffect to check if the user is already following the organizer
   useEffect(() => {
-    if (!userdata.id === "") {
+    if (!userdata.id == "") {
       isFollowingOrganizer(userId, organizerId)
         .then((res) => {
           if (res.data.organizer) {
@@ -58,6 +60,8 @@ function OrganizerPro() {
         });
     }
   }, []);
+
+
 
   // function to follow the organizer
   const follow = async () => {
@@ -167,7 +171,7 @@ function OrganizerPro() {
                     </div>
                     <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        10
+                        {eventCount}
                       </span>
                       <span className="text-sm text-blueGray-400">Events</span>
                     </div>

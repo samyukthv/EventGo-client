@@ -8,32 +8,23 @@ import {
 import Navbar from "../../../components/organizer/organizerNavbar/Navbar";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import Chart from "react-apexcharts";
-import bgimg from "../../../assets/images/1f9bcc8e0cd6f1525f1c6a40ed6fbd88.jpg";
 import avathar from "../../../assets/images/avathar2.png";
-const PROFILE_URL = import.meta.env.VITE_PROFILE_URL;
-import { AddressAutofill } from "@mapbox/search-js-react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
-const COVER_IMAGE_URL = import.meta.env.VITE_COVER_IMAGE_URL;
 
 function OrganizerEventDetails() {
   const Mapref = useRef();
-
   const params = useParams();
   const eventId = params.id;
   const [event, setEvent] = useState(null);
   const [location, setLocation] = useState("");
   const [coordinates, setCoordinates] = useState(null);
 
-  // useEffect(()=>{
-  //   chartdetails(eventId).then(res=>{
-  //    setChartCount(res.data.count)
-  //    setChartDate(res.data.date)
-  //   }).catch(err=>{
-  // console.log(err);
-  //   })
-  // },[])
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [customer, setCustomer] = useState(null);
 
   useEffect(() => {

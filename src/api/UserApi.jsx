@@ -113,7 +113,7 @@ export async function setNewPassword(id,values){
 
     export async function eventDetails(id){
         try {
-            const data= await userApi.get(`/eventDetails2/${id}`)
+            const data= await userApi.get(`/eventDetails/${id}`)
             console.log("hy 1");
             return data
         } catch (error) {
@@ -123,7 +123,7 @@ export async function setNewPassword(id,values){
     }
     export async function eventDetails2(id){
         try {
-            const data= await userApi.get(`/eventDetails/${id}`)
+            const data= await userApi.get(`/eventDetails2/${id}`)
             console.log("hy 1");
             return data
         } catch (error) {

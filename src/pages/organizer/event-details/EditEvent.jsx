@@ -3,18 +3,20 @@ import Navbar from "../../../components/organizer/organizerNavbar/Navbar";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { AddressAutofill } from "@mapbox/search-js-react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import {  confirmEventEdit, eventDetails, uploadEditedEventImage } from "../../../api/OrganizerApi";
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 const COVER_IMAGE_URL = import.meta.env.VITE_COVER_IMAGE_URL;
 
 function EditEvent() {
+  const navigate= useNavigate()
   const params = useParams();
   const eventId = params.id;
   const [event, setEvent] = useState(null);
 
   const [image, setImage] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
+  const [imagesEdited, setImagesEdited] = useState(false);
   useEffect(() => {
     eventDetails(eventId).then((res) => {
       setEvent(res.data.details);
@@ -70,6 +72,9 @@ function EditEvent() {
       formData2.append("upload_preset", "profileImage");
       formData2.append("cloud_name", "dcsdqyoh1");
   
+
+  toast.loading("Event is being edited..Please wait")
+
       const responses = await Promise.all([
         uploadEditedEventImage(formData1),
         uploadEditedEventImage(formData2),
@@ -79,16 +84,32 @@ function EditEvent() {
     
     setImage(secureUrls[0])
     setCoverImage(secureUrls[1])
-    await confirmEventEdit(event,image,coverImage).then(res=>{
-      if(res.data.success){
-        toast.success("event edited successfully")
-      }
-    })
-
+    setImagesEdited(true)
+    toast.dismiss()
+    // await confirmEventEdit(event,image,coverImage).then(res=>{
+    //   if(res.data.success){
+    //     toast.success("event edited successfully")
+    //   }
+    // })
+     
     } catch (error) {
     }
   };
 
+
+  useEffect(()=>{
+if(imagesEdited===true){
+  console.log(event,image,coverImage,"full details");
+  confirmEventEdit(event,image,coverImage).then(res=>{
+    if(res.data.success){
+      toast.success("event edited successfully")
+      navigate(`/organizer/eventDetails/${eventId}`)
+    }
+  })
+  setImagesEdited(false)
+}
+
+  },[imagesEdited])
 
 console.log(image,"image");
 console.log(coverImage,"coverImage");

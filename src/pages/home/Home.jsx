@@ -79,8 +79,10 @@ function Home() {
         <Banner />
         <SubBanner />
         <h1 className="font-bold text-3xl mb-10 ml-2 sm:ml-28 text-center sm:text-left">
-          Your Personalised Events <span className="text-xs ">latest events from the organizers you follow</span>
+          Your Personalised Events <span className="text-xs ">latest events from the organizers you follow will appear here</span>
         </h1>
+        {/* {personal.length===0? <div className="container mx-auto"> currently no followers </div>:null} */}
+
         {userData.id !== "" && <RowCards props={personal} />}
 
         <div className="bg-gradient-to-t from-white to-blue-200 m-10 my-10 py-10"

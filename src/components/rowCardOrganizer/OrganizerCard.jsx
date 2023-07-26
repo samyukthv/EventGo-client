@@ -80,7 +80,7 @@ useEffect(()=>{
         </Link>
         <CardBody className="text-center">
           <Typography variant="h4" color="blue-gray" className="mb-2 mt-5">
-            {data.firstName}
+          {data.firstName.charAt(0).toUpperCase() + data.firstName.slice(1)}
           </Typography>
           <Typography color="blue" className="font-medium" textGradient>
             {data.email}

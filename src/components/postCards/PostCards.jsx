@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getPosts } from '../../api/UserApi'
 import { Link } from 'react-router-dom'
+import avatar from "../../assets/images/avathar2.png";
+
 
 function PostCards() {
 const[posts,setPosts]=useState(null)
@@ -16,11 +18,11 @@ useEffect(()=>{
 
 return (
     <div className="mx-5 my-5">
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-2 ">
     {posts?.map((details) => (
       <div
         key={details._id}
-        className="bg-white shadow-2xl rounded-lg mb-6 tracking-wide"
+        className="bg-white shadow-2xl rounded-lg mb-6 tracking-wide  transform hover:scale-106 transition duration-500"
       >
         <div className="md:flex-shrink-0">
           <img
@@ -41,7 +43,14 @@ return (
             <div className="user-logo">
               <img
                 className="w-12 h-12 object-cover rounded-full mx-4 shadow"
-                src={details.organizer.image}
+                src={
+                    details?.organizer?.image?.slice(0, 33) ===
+                    "https://lh3.googleusercontent.com"
+                      ? details.organizer.image
+                      : details.organizer.image
+                      ? `${details.organizer.image}`
+                      : avatar
+                  }
                 alt="avatar"
               />
             </div>

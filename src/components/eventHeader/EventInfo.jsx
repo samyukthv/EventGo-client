@@ -3,6 +3,8 @@ import avatar from "../../assets/images/avathar2.png";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import { Link, useParams } from "react-router-dom";
 import { allReview, eventDetails, eventDetails2, submitReview } from "../../api/UserApi";
+import LazyLoad from 'react-lazy-load';
+
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import { toast, Toaster } from "react-hot-toast";
@@ -197,8 +199,10 @@ if(userData.id===user){
           zIndex: -1,
         }}
       ></div>
+<LazyLoad  offset={200}>
 
-      <div
+
+      <div  offset={800}
         className="relative isolate overflow-hidden mb-5 mx-5 bg-gradient-to-t from-white to-blue-100 bg-gray-900 px-6 pt-16 shadow-xl rounded-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
         style={{
           backgroundImage: event
@@ -283,9 +287,11 @@ if(userData.id===user){
               </Link>
             )}
 
-            <small className=" leading-8 text-red-600">
+            {event.ticketQuantity<=50?<small className=" leading-8 text-red-600">
               *{event.ticketQuantity} tickets left
-            </small>
+            </small>:<small className=" leading-8 text-green-600">
+              *{event.ticketQuantity} tickets left
+            </small>}
           </div>
         </div>
         <div className="text-red-500 text-lg border-2 font-bold font-chonburi text-center mt-10 px-5 h-16 inline-block ml-5 mb-5 sm:ml-0 sm:mb-0">
@@ -307,6 +313,7 @@ if(userData.id===user){
         </div>
       </div>
       
+</LazyLoad>
 
       
       <div className="m-5 sm:m-20 w-auto sm:w-1/2 bg-white shadow-xl backdrop-filter bg-opacity-5">
@@ -317,7 +324,7 @@ if(userData.id===user){
                 <img
                   className="h-20 w-20 ml-5 flex-none rounded-full bg-gray-50"
                   src={
-                    organizer.image.slice(0, 33) ===
+                    organizer?.image?.slice(0, 33) ===
                     "https://lh3.googleusercontent.com"
                       ? organizer.image
                       : organizer.image

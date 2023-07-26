@@ -43,7 +43,7 @@ function EditBanner() {
         EditEvent(banner, banner.image).then(res => {
           if (res.data.success) {
             toast.success("banner edited succfully")
-            navigate("/admin/banner-list")
+            navigate("/admin/banner-setup")
           }
         })
       }
@@ -169,7 +169,7 @@ function EditBanner() {
 
         <main class="max-w-full h-auto flex justify-center  relative overflow-y-hidden">
           <form className=" p-8 rounded-lg mb-20 shadow-2xl " onSubmit={(e) => handleSubmit(e)}>
-            <h3 className="font-bold text-4xl text-center">Add Post</h3>
+            <h3 className="font-bold text-4xl text-center">Edit Banner</h3>
             <h1 className=" font-bold text-lg mt-5">Post Title</h1>
             <p className=" text-sm ">A title the event</p>
 

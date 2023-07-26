@@ -8,6 +8,17 @@ function ChatSideBar({ setSender, socket }) {
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
 
+  useEffect(() => {
+    console.log("get all contacts");
+    getAllContacts(organizer.id)
+      .then((res) => {
+        setContacts(res.data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
@@ -18,15 +29,9 @@ function ChatSideBar({ setSender, socket }) {
     });
   };
   
-  useEffect(() => {
-    getAllContacts(organizer.id)
-      .then((res) => {
-        setContacts(res.data.users);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
+
+  console.log(contacts,56789);
   return (
     <div>
       <div className="flex flex-col mt-8">

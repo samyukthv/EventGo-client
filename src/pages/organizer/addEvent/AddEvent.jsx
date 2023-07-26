@@ -46,11 +46,29 @@ function AddEvent() {
   const [securalUrlImage, setSecureUrlImage] = useState(null);
   const [securalUrlCoverImage, setSecureUrlCoverImage] = useState(null);
 
+  useEffect(() =>   {
+    if (securalUrlImage && securalUrlCoverImage && event) {
+      addEvent(event, securalUrlImage, securalUrlCoverImage)
+        .then((res) => {
+          if (res.data.success) {
+            toast.success("event successfully added ");
+            // e.target.reset(); // Reset form or perform other actions
+             document.getElementById('addevent').reset();
+             setSecureUrlCoverImage(null)
+             setSecureUrlImage(null)
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [securalUrlImage, securalUrlCoverImage, event]);
 
 
   const uploadEvent = async (e) => {
     e.preventDefault();
     try {
+
       console.log("upload function");
       console.log(img, "img");
       console.log(cImg, "cImg");
@@ -63,7 +81,9 @@ function AddEvent() {
       formData2.append("file", cImg);
       formData2.append("upload_preset", "profileImage");
       formData2.append("cloud_name", "dcsdqyoh1");
-  
+    
+toast.loading("Event is being added..Please wait")
+
       const responses = await Promise.all([
         uploadEditedEventImage(formData1),
         uploadEditedEventImage(formData2),
@@ -76,29 +96,18 @@ function AddEvent() {
       console.log(secureUrls[1],"two");
   
       console.log(securalUrlCoverImage, securalUrlImage, 9876);
-  //   try {
-  //      await addEvent(event, securalUrlImage, securalUrlCoverImage).then((res) => {
-  //     if (res.data.success) {
-  //       toast.success("event successfully added ");
-  //       e.target.reset();
-  //     }
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
-   
+
+
+
+toast.dismiss()
+
     } catch (error) {
-      // Handle the error
+console.log(error);
     }
   };
 
 
  
-
-
-console.log(securalUrlCoverImage,"outside");
-console.log(securalUrlImage,"outside");
-
 
 
   const verifyEventName = (eventName) => {
@@ -191,21 +200,6 @@ console.log(securalUrlImage,"outside");
 
 
 
-  useEffect(() =>   {
-    if (securalUrlImage && securalUrlCoverImage && event) {
-      addEvent(event, securalUrlImage, securalUrlCoverImage)
-        .then((res) => {
-          if (res.data.success) {
-            toast.success("event successfully added ");
-            // e.target.reset(); // Reset form or perform other actions
-             document.getElementById('addevent').reset();
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [securalUrlImage, securalUrlCoverImage, event]);
 
   
 
@@ -216,6 +210,7 @@ console.log(securalUrlImage,"outside");
     <div>
       <Navbar />
       <form onSubmit={(e) => uploadEvent(e)} id="addevent">
+     
         <div className="grid sm:grid-cols-1 md:grid-cols-2 ">
           <div className="h-full">
             <h1 className="font-bold text-4xl mt-14 ml-5 sm:ml-20">

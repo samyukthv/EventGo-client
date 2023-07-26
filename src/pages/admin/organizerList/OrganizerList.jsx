@@ -93,11 +93,7 @@ function OrganizerList() {
               <i className="fa-solid fa-image"></i>
             </div>
           </Link>
-          <Link to="/admin/banner-setup">
-            <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-              <i class="fa-solid fa-calendar-days"></i>
-            </div>
-          </Link>
+         
         </aside>
 
         <div class="w-full h-full flex flex-col justify-between">

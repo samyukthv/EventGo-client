@@ -42,18 +42,11 @@ const logout=async(req,res)=>{
         <li className="p-3">
           <Link to="/organizer/add-event">Add Events</Link>
         </li>
-        <li className="p-3">
-          <a href="#jhghj">My Event</a>
-        </li>
-        <li className="p-3">
-          <a href="#jj">About</a>
-        </li>
+       
       </ul>
     </div>
     <div className="flex ml-auto">
-      <span className="text-2xl mr-6 pt-3">
-        <ion-icon name="notifications-outline"></ion-icon>
-      </span>
+      
       <button  onClick={logout}
         type="button"
         className="inline-block rounded-full border-2 border-blue-600 px-6 text-xs font-medium uppercase leading-normal text-black transition duration-150 ease-in-out hover:border-blue-500 hover:bg-blue-900 hover:bg-opacity-10 hover:text-black focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"

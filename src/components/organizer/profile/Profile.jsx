@@ -18,9 +18,7 @@ import defaultCoverImage from "../../../assets/images/rachel-coyne-U7HLzMO4SIY-u
 import { organizerDetails } from "../../../api/UserApi";
 import { Link } from "react-router-dom";
 
-const ORGANIZER_PROFILE_URL = import.meta.env.VITE_ORGANIZER_PROFILE_URL;
-const ORGANIZER_COVER_IMAGE_URL = import.meta.env
-.VITE_ORGANIZER_COVER_IMAGE_URL;
+
 
 function Profile() {
   const dispatch = useDispatch();
@@ -141,8 +139,6 @@ if(secureUrl){
   };
 
   const updateProfile = async () => {
-    console.log("ethiii");
-    console.log(organizeValues);
     const response = await profileUpdate(organizeValues);
     if (response.data.updated) {
       dispatch(
@@ -232,7 +228,7 @@ if(coverSecureUrl){
 
       onSubmit: async (values) => {
         try {
-          console.log(postImage);
+          toast.loading("Post is being added.. Please wait.")
           const formData = new FormData();
           formData.append("file", postImage);
           formData.append("upload_preset", "profileImage");
@@ -244,7 +240,7 @@ if(coverSecureUrl){
             setPostSecureUrl(res.data.secure_url)
 
           })
-
+toast.dismiss()
           // const response = await addPosts(formData)
           
    
