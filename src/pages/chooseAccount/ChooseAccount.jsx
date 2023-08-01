@@ -1,6 +1,6 @@
 import React from "react";
 import usericon from "../../assets/images/avathar2.png";
-import organizer from "../../assets/images/hope-house-press-leather-diary-studio-PJzc7LOt2Ig-unsplash.jpg";
+import organizer from "../../assets/images/Time_Management_Concept_Vector_Hd_Images__Time_Management_Concept_With_Calendar_Date_And_Clock_Icon__With__Eps10__Businessman_PNG_Image_For_Free_Download-transformed.png";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
@@ -39,7 +39,7 @@ function ChooseAccount() {
       </CardHeader>
       <CardBody className="text-center">
         <Typography variant="h4" color="blue-gray" className="mb-2">
-         Login to book your ticket
+         Login to grab your ticket
         </Typography>
         
       </CardBody>

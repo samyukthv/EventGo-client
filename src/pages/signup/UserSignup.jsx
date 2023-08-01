@@ -14,6 +14,8 @@ import { setUserDetails } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import bgimg  from '../../assets/images/fg.jpg'
+import { BsFillEyeFill,BsFillEyeSlashFill } from "react-icons/bs";
+
 
 const initialValues = {
   firstName: "",
@@ -31,6 +33,11 @@ function UserSignup() {
   const [showOtp, setShowOtp] = useState(false);
   const [user, setUser] = useState(null);
   const [verify, setVerify] = useState(null);
+
+
+  const[showPassword,setShowPassword]=useState(false)
+  const[showPassword1,setShowPassword1]=useState(false)
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -307,10 +314,10 @@ function UserSignup() {
                       </small>
                     ) : null}
             </div>
-            <div className="mb-2">
+            <div className="relative mb-2">
              
               <input
-                type="password"
+                type={showPassword1?"text":"password"}
                 placeholder="password"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -318,23 +325,27 @@ function UserSignup() {
                 value={values.password}
                 className="w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
+                           {showPassword1?<BsFillEyeSlashFill onClick={()=>setShowPassword1(false)}  className='absolute top-5 right-3  h-5 w-5' />: <BsFillEyeFill onClick={()=>setShowPassword1(true)} className='absolute top-5 right-3  h-5 w-5'/>}
+
                {errors.password && touched.password ? (
                       <small className="form-error text-red-500">
                         {errors.password}
                       </small>
                     ) : null}
             </div>
-            <div className="mb-2">
+            <div className="relative mb-2">
               
               <input
-              type="password"
-              placeholder=" confirm password"
+                type={showPassword?"text":"password"}
+                placeholder=" confirm password"
               onChange={handleChange}
               onBlur={handleBlur}
               name="confirmPassword"
               value={values.confirmPassword}
                 className="w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
+              {showPassword?<BsFillEyeSlashFill onClick={()=>setShowPassword(false)}  className='absolute top-5 right-3  h-5 w-5' />: <BsFillEyeFill onClick={()=>setShowPassword(true)} className='absolute top-5 right-3  h-5 w-5'/>}
+
                {errors.confirmPassword && touched.confirmPassword ? (
                       <small className="form-error text-red-500">
                         {errors.confirmPassword}

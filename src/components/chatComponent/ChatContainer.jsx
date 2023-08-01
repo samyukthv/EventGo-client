@@ -201,6 +201,7 @@ function ChatContainer({ sender, socket }) {
               </div>
             </div>
 
+
             <form onSubmit={sendMessage}>
               <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
                 <div className="flex-grow ml-4">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link,useNavigate} from'react-router-dom'
 import signupimg from "../../assets/images/Keep bang'n  on We Heart It.jpg";
 import { GoogleLogin } from "@react-oauth/google";
@@ -10,7 +10,8 @@ import { loginSchema } from "../../yup";
 import {useDispatch} from 'react-redux'
 import {setUserDetails} from "../../redux/userSlice"
 import {motion} from 'framer-motion'
- import bgimg  from '../../assets/images/fg.jpg'
+import bgimg  from '../../assets/images/fg.jpg'
+import { BsFillEyeFill,BsFillEyeSlashFill } from "react-icons/bs";
 
 const initialValues={
   email:"",
@@ -20,6 +21,8 @@ const initialValues={
 function UserLogin() {
 const navigate=useNavigate()
 const dispatch=useDispatch()
+
+const[showPassword,setShowPassword]=useState(false)
 
 //USE FORMIK AND ITS VALIDATION
 
@@ -101,7 +104,7 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
     console.log(error);
   };
 
-
+console.log(showPassword,"this is show password");
   return (
     <motion.div
     initial={{ opacity: 0 }}
@@ -137,17 +140,19 @@ const {values,errors,touched,handleBlur,handleSubmit,handleChange}= useFormik({
            
             
             
-            <div className="mb-2">
+            <div className="relative mb-2">
              
               <input
-                type="password"
+                type={showPassword?"text":"password"}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
                 placeholder="Password"
                 name="password"
-                className="w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className=" w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
+             {showPassword?<BsFillEyeSlashFill onClick={()=>setShowPassword(false)}  className='absolute top-5 right-3  h-5 w-5' />: <BsFillEyeFill onClick={()=>setShowPassword(true)} className='absolute top-5 right-3  h-5 w-5'/>}
+
                  {errors.password && touched.password ? (
             <small className="form-error text-red-500">
               {errors.password}
