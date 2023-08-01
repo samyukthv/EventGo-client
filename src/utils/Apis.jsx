@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 // user
 export const userApi = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://eventgo-server.onrender.com",
 });
 
 userApi.interceptors.request.use((req) => {
@@ -46,7 +46,7 @@ setTimeout(()=>{
 
 // organizer
 export const organizerApi = axios.create({
-  baseURL: "http://localhost:3000/organizer",
+  baseURL: "https://eventgo-server.onrender.com/organizer",
 });
 
 organizerApi.interceptors.request.use((req) => {
@@ -78,7 +78,7 @@ organizerApi.interceptors.response.use(
 );
 
 export const adminApi = axios.create({
-  baseURL: "http://localhost:3000/admin",
+  baseURL: "https://eventgo-server.onrender.com/admin",
 });
 
 export const cloudApi = axios.create({
