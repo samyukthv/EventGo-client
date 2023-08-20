@@ -65,7 +65,7 @@ function content() {
           key={event._id}
           className="  px-6 pt-6 pb-2 rounded-2xl shadow-lg transform hover:scale-105 transition duration-500 border-8 relative"
         >
-          {new Date(event.addedOn) >= new Date() - 10 * 24 * 60 * 60 * 1000 && (
+          {new Date(event.addedOn) >= new Date() - 20 * 24 * 60 * 60 * 1000 && (
             <div className="absolute top-0 left-0">
               <p className="bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
                 latest

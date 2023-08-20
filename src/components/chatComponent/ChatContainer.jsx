@@ -38,6 +38,7 @@ function ChatContainer({ sender, socket }) {
       from: userData.id,
       msg: msg,   
     });
+    
     addMessage(userData.id, sender, msg)
       .then((res) => {
         setMsgSent((prevState) => !prevState);
